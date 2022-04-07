@@ -32,7 +32,7 @@ struct AddNewSensorView: View {
             AddNewSensorAnimation()
             
             //Use bleManager.peripherals for real devices.
-            List(bluetoothExample) { peripheral in
+            List(bleManager.peripherals) { peripheral in
                 NavigationLink(destination: SaveSensorView(bleManager: bleManager, id: peripheral.uid, name: peripheral.name, shouldPopToRootView: self.$rootIsActive)) {
                     HStack {
                         Text(peripheral.name)
