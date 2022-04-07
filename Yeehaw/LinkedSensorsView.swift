@@ -68,8 +68,10 @@ struct LinkedSensorsView: View {
 
 struct LinkedSensorsView_Previews: PreviewProvider {
     static var previews: some View {
+        NavigationView {
         LinkedSensorsView(bleManager: BLEManager(), rootIsActive: .constant(true))
             .preferredColorScheme(.dark)
+        }
     }
 }
 

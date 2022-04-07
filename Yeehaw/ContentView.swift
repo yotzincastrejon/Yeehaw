@@ -19,7 +19,7 @@ struct ContentView: View {
             NavigationView {
                 VStack {
     
-                    Home()
+                    FullScreenMap()
                         .ignoresSafeArea(.all)
                     ScrollView {
                         HStack {

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		FA22278327FF5D230024067C /* DefaultSensors.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA22278227FF5D230024067C /* DefaultSensors.swift */; };
+		FA22278627FF90C80024067C /* RSSISignalStrength.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA22278527FF90C80024067C /* RSSISignalStrength.swift */; };
 		FA22D8C12602586900D3849C /* YeehawApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA22D8C02602586900D3849C /* YeehawApp.swift */; };
 		FA22D8C32602586900D3849C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA22D8C22602586900D3849C /* ContentView.swift */; };
 		FA22D8C52602586A00D3849C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FA22D8C42602586A00D3849C /* Assets.xcassets */; };
@@ -31,7 +32,7 @@
 		FAAF11C4261691B4003FA489 /* SaveSensorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAAF11C3261691B4003FA489 /* SaveSensorView.swift */; };
 		FAB0131D261A75170048BC0C /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAB0131C261A75170048BC0C /* HealthKit.framework */; };
 		FAB4962F2602C3B600EC6917 /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB4962E2602C3B600EC6917 /* MapViewModel.swift */; };
-		FAB496322602C49000EC6917 /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB496312602C49000EC6917 /* Home.swift */; };
+		FAB496322602C49000EC6917 /* FullScreenMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB496312602C49000EC6917 /* FullScreenMap.swift */; };
 		FAD19E312603CA01001C5620 /* WorkoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD19E302603CA01001C5620 /* WorkoutView.swift */; };
 		FAD60D2626128A2600C1C8DE /* Futura.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FAD60D2526128A2600C1C8DE /* Futura.ttf */; };
 		FAD60D29261294A900C1C8DE /* RBNo2.1a-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = FAD60D28261294A900C1C8DE /* RBNo2.1a-Medium.otf */; };
@@ -40,6 +41,7 @@
 
 /* Begin PBXFileReference section */
 		FA22278227FF5D230024067C /* DefaultSensors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultSensors.swift; sourceTree = "<group>"; };
+		FA22278527FF90C80024067C /* RSSISignalStrength.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSSISignalStrength.swift; sourceTree = "<group>"; };
 		FA22D8BD2602586900D3849C /* Yeehaw.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Yeehaw.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA22D8C02602586900D3849C /* YeehawApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YeehawApp.swift; sourceTree = "<group>"; };
 		FA22D8C22602586900D3849C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -66,7 +68,7 @@
 		FAB0131A261A75160048BC0C /* Yeehaw.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Yeehaw.entitlements; sourceTree = "<group>"; };
 		FAB0131C261A75170048BC0C /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
 		FAB4962E2602C3B600EC6917 /* MapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
-		FAB496312602C49000EC6917 /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
+		FAB496312602C49000EC6917 /* FullScreenMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullScreenMap.swift; sourceTree = "<group>"; };
 		FAD19E302603CA01001C5620 /* WorkoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutView.swift; sourceTree = "<group>"; };
 		FAD60D2526128A2600C1C8DE /* Futura.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Futura.ttf; path = ../../../../../../../Downloads/futura/Futura.ttf; sourceTree = "<group>"; };
 		FAD60D28261294A900C1C8DE /* RBNo2.1a-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "RBNo2.1a-Medium.otf"; path = "../../../../../../../Downloads/Wahoo Fitness Corporate-selected-assets/RBNo2.1a-Medium.otf"; sourceTree = "<group>"; };
@@ -85,6 +87,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		FA22278427FF83570024067C /* MapKit */ = {
+			isa = PBXGroup;
+			children = (
+				FAB496312602C49000EC6917 /* FullScreenMap.swift */,
+				FA22D8DE26027CE500D3849C /* MapView.swift */,
+				FAB4962E2602C3B600EC6917 /* MapViewModel.swift */,
+				FA771076261E7C690028EAF3 /* LocationHelper.swift */,
+			);
+			path = MapKit;
+			sourceTree = "<group>";
+		};
 		FA22D8B42602586900D3849C = {
 			isa = PBXGroup;
 			children = (
@@ -107,28 +120,26 @@
 			isa = PBXGroup;
 			children = (
 				FAB0131A261A75160048BC0C /* Yeehaw.entitlements */,
+				FA22D8C02602586900D3849C /* YeehawApp.swift */,
 				FA3AFE9D2613B02900B2755E /* BLE */,
 				FAD60D24261285D200C1C8DE /* Fonts */,
 				FAD19E2E2603C6ED001C5620 /* Buttons */,
-				FA22D8C02602586900D3849C /* YeehawApp.swift */,
+				FA735C182620FC130057A951 /* MainView.swift */,
 				FA22D8C22602586900D3849C /* ContentView.swift */,
 				FA22278227FF5D230024067C /* DefaultSensors.swift */,
 				FA3AFE9726137ED700B2755E /* LinkedSensorsView.swift */,
-				FA771076261E7C690028EAF3 /* LocationHelper.swift */,
-				FA771079261E7D080028EAF3 /* HealthKitManager.swift */,
 				FA3AFEA12613CA5F00B2755E /* AddNewSensorView.swift */,
+				FA22278527FF90C80024067C /* RSSISignalStrength.swift */,
 				FAAF11C3261691B4003FA489 /* SaveSensorView.swift */,
 				FAAF11C02616781D003FA489 /* AddNewSensorAnimation.swift */,
 				FA3AFE9A2613AE0300B2755E /* NewSensorListView.swift */,
 				FAD19E302603CA01001C5620 /* WorkoutView.swift */,
-				FA735C182620FC130057A951 /* MainView.swift */,
 				FA735C212620FEA10057A951 /* Settings.swift */,
 				FA735C1E2620FE3C0057A951 /* Profile.swift */,
 				FA735C1B2620FDD20057A951 /* History.swift */,
-				FAB496312602C49000EC6917 /* Home.swift */,
-				FA22D8DE26027CE500D3849C /* MapView.swift */,
 				FA771080261EB12F0028EAF3 /* LittleBox.swift */,
-				FAB4962E2602C3B600EC6917 /* MapViewModel.swift */,
+				FA771079261E7D080028EAF3 /* HealthKitManager.swift */,
+				FA22278427FF83570024067C /* MapKit */,
 				FA22D8C42602586A00D3849C /* Assets.xcassets */,
 				FA22D8C92602586A00D3849C /* Info.plist */,
 				FA22D8C62602586A00D3849C /* Preview Content */,
@@ -260,6 +271,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FA22D8C32602586900D3849C /* ContentView.swift in Sources */,
+				FA22278627FF90C80024067C /* RSSISignalStrength.swift in Sources */,
 				FA3AFE9826137ED700B2755E /* LinkedSensorsView.swift in Sources */,
 				FA771081261EB12F0028EAF3 /* LittleBox.swift in Sources */,
 				FA22D8C12602586900D3849C /* YeehawApp.swift in Sources */,
@@ -281,7 +293,7 @@
 				FA22D8DC260276D200D3849C /* BluetoothSensorView.swift in Sources */,
 				FA735C1F2620FE3C0057A951 /* Profile.swift in Sources */,
 				FAB4962F2602C3B600EC6917 /* MapViewModel.swift in Sources */,
-				FAB496322602C49000EC6917 /* Home.swift in Sources */,
+				FAB496322602C49000EC6917 /* FullScreenMap.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

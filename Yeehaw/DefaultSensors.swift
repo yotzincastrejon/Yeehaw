@@ -60,10 +60,10 @@ struct DefaultSensors: View {
                         .padding(.leading,10)
                         .foregroundColor(bleManager.speedSensorIsConnected ? .black : .white)
                     VStack(alignment: .leading) {
-                        Text(bleManager.saved[1].name)
-                            .font(.subheadline)
-                            .fontWeight(.light)
-                            .foregroundColor(bleManager.speedSensorIsConnected ? .black : .white)
+//                        Text(bleManager.saved[1].name)
+//                            .font(.subheadline)
+//                            .fontWeight(.light)
+//                            .foregroundColor(bleManager.speedSensorIsConnected ? .black : .white)
                         if bleManager.speedSensorIsConnected {
                             Text("Connected")
                                 .font(.subheadline)
@@ -90,11 +90,11 @@ struct DefaultSensors: View {
         .onAppear {
             readInformation()
             
-            DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
-                print("begin scanning")
-                bleManager.startScanning()
-                
-            }
+//            DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+//                print("begin scanning")
+//                bleManager.startScanning()
+//                
+//            }
         }
         .padding(.horizontal, 25)
     }

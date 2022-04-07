@@ -8,7 +8,7 @@
 import SwiftUI
 import CoreLocation
 
-struct Home: View {
+struct FullScreenMap: View {
     
     @StateObject var mapData = MapViewModel()
     // Location Manager....
@@ -34,6 +34,6 @@ struct Home: View {
 
 struct Home_Previews: PreviewProvider {
     static var previews: some View {
-        Home()
+        FullScreenMap()
     }
 }

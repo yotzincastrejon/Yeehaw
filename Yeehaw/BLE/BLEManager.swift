@@ -50,6 +50,7 @@ class BLEManager: NSObject, ObservableObject, CBCentralManagerDelegate, CBPeriph
     var crankupdated = 0
     var distanceTraveled = 0.0
     var devicesConnected = 0
+    var passes = 0
 //    var distanceinRaw = 0
     override init() {
         super.init()
@@ -79,11 +80,13 @@ class BLEManager: NSObject, ObservableObject, CBCentralManagerDelegate, CBPeriph
     
     func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral,
                         advertisementData: [String : Any], rssi RSSI: NSNumber) {
+        passes += 1
+        print("Passes: \(passes)")
         print("Raw Peripheral: \(peripheral)")
         devicePeripheral = peripheral
         devicePeripheral.delegate = self
         //part of original code
-        centralManager.stopScan()
+//        centralManager.stopScan()
         if devicesConnected == 2 {
             centralManager.stopScan()
         }
@@ -148,12 +151,12 @@ class BLEManager: NSObject, ObservableObject, CBCentralManagerDelegate, CBPeriph
         
         
         // if you found your speed sensor great! But check just incase you found speed sensor first before heart rate. If heart rate wasn't found try to scan for it again.
-        if peripheral.identifier == saved[1].id {
-            speedSensorIsConnected = true
-            if !heartRateIsConnected {
-                centralManager.scanForPeripherals(withServices: [heartRateServiceCBUUID])
-            }
-        }
+//        if peripheral.identifier == saved[1].id {
+//            speedSensorIsConnected = true
+//            if !heartRateIsConnected {
+//                centralManager.scanForPeripherals(withServices: [heartRateServiceCBUUID])
+//            }
+//        }
     }
     
     // MARK: - Peripheral Manager
