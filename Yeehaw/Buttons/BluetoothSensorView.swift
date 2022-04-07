@@ -24,10 +24,12 @@ struct BluetoothSensorView: View {
                     .font(.subheadline)
                     .fontWeight(.semibold)
                     .opacity(isAnimating ? 0 : 1)
-                    .animation(Animation.linear(duration: 1.25).repeatForever(autoreverses: false))
+                    .animation(.linear(duration: 1.25).repeatForever(autoreverses: true), value: isAnimating)
             }
             .onAppear {
+                if !isConnected {
                 isAnimating = true
+                }
             }
             Spacer()
         }
@@ -42,7 +44,7 @@ struct BluetoothSensorView: View {
 struct BluetoothSensorView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            BluetoothSensorView(icon: "speedometer", title: "DuoTrap S", isConnected: true)
+            BluetoothSensorView(icon: "speedometer", title: "DuoTrap S", isConnected: false)
 //            BluetoothSensorView(icon: "speedometer", title: "DuoTrap S", isConnected: true)
 //                .preferredColorScheme(.dark)
         }
