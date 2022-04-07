@@ -13,8 +13,8 @@ final class HealthKitManager: ObservableObject {
     
     let healthStore = HKHealthStore()
     let workoutConfiguration = HKWorkoutConfiguration()
-    var primaryBuilder: HKWorkoutBuilder?
-    var workoutBuilder: HKWorkoutRouteBuilder?
+    var workoutBuilder: HKWorkoutBuilder?
+    var routeBuilder: HKWorkoutRouteBuilder?
     var valid = false
     var startDate: Date?
     var workoutStartDate: Date?
@@ -55,16 +55,16 @@ final class HealthKitManager: ObservableObject {
     }
     
     func startSession(date: Date) -> Void {
-        workoutBuilder = HKWorkoutRouteBuilder(healthStore: healthStore, device: .local())
+        routeBuilder = HKWorkoutRouteBuilder(healthStore: healthStore, device: .local())
         workoutStartDate = Date()
-        self.primaryBuilder = HKWorkoutBuilder(
+        self.workoutBuilder = HKWorkoutBuilder(
             healthStore: healthStore,
             configuration: workoutConfiguration,
             device: .local()
         )
         
         self.startDate = date
-        primaryBuilder!.beginCollection(withStart: self.startDate!) { (success, error) in
+        workoutBuilder!.beginCollection(withStart: self.startDate!) { (success, error) in
             guard success else {
                 print("Failed to beginCollection")
                 return
@@ -73,7 +73,7 @@ final class HealthKitManager: ObservableObject {
     }
     
     func appendWorkoutData(_ location: CLLocation) {
-        workoutBuilder?.insertRouteData([location]) { success, error in
+        routeBuilder?.insertRouteData([location]) { success, error in
             if let error = error {
                 print(error.localizedDescription)
             } else {
@@ -96,7 +96,7 @@ final class HealthKitManager: ObservableObject {
             end: time
         )
         
-        self.primaryBuilder!.add([sample]) { (success, error) in
+        self.workoutBuilder!.add([sample]) { (success, error) in
             guard success else {
                 print("failed to get add")
                 return
@@ -114,7 +114,7 @@ final class HealthKitManager: ObservableObject {
             end: time
         )
         
-        self.primaryBuilder!.add([sample]) { (success, error) in
+        self.workoutBuilder!.add([sample]) { (success, error) in
             guard success else {
                 print("failed to get add")
                 return
@@ -126,7 +126,7 @@ final class HealthKitManager: ObservableObject {
     
     func finishSession() {
         
-        primaryBuilder!.endCollection(withEnd: Date()) { (success, error) in
+        workoutBuilder!.endCollection(withEnd: Date()) { (success, error) in
             guard success else {
                 print("failed to endCollection")
                 return
@@ -134,7 +134,7 @@ final class HealthKitManager: ObservableObject {
         }
         
         
-        primaryBuilder!.finishWorkout { (workout, error) in
+        workoutBuilder!.finishWorkout { (workout, error) in
             guard workout != nil else {
                 print("failed to finishWorkout")
                 return
@@ -142,7 +142,7 @@ final class HealthKitManager: ObservableObject {
             self.finishedWorkout = workout
             //use that finishedowrkout as your HKWorkout object to use finishroute.
             
-            guard let builder = self.workoutBuilder, let startDate = self.workoutStartDate
+            guard let builder = self.routeBuilder, let startDate = self.workoutStartDate
             else { return }
             
             let workout = HKWorkout(activityType: .cycling, start: startDate, end: Date())
@@ -156,6 +156,7 @@ final class HealthKitManager: ObservableObject {
                 }
             }
         }
+        
     }
     
     

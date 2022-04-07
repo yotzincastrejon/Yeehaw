@@ -20,7 +20,7 @@ let bodySensorLocationCharacteristicCBUUID = CBUUID(string: "2A38")
 class BLEManager: NSObject, ObservableObject, CBCentralManagerDelegate, CBPeripheralDelegate {
     
     var centralManager: CBCentralManager!
-    var heartRatePeripheral: CBPeripheral!
+    var devicePeripheral: CBPeripheral!
     let arrayService = [heartRateServiceCBUUID, speedCadenceServiceCBUUID]
     let idArray = ["45CC5C66-FD7D-C7C9-5650-BF4727BDA7CD", "A7DBA197-EF45-A8E5-17FB-DF8505493179"]
     @Published var bodySensorLocationLabel = ""
@@ -79,9 +79,9 @@ class BLEManager: NSObject, ObservableObject, CBCentralManagerDelegate, CBPeriph
     
     func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral,
                         advertisementData: [String : Any], rssi RSSI: NSNumber) {
-        print(peripheral)
-        heartRatePeripheral = peripheral
-        heartRatePeripheral.delegate = self
+        print("Raw Peripheral: \(peripheral)")
+        devicePeripheral = peripheral
+        devicePeripheral.delegate = self
         //part of original code
         centralManager.stopScan()
         if devicesConnected == 2 {
@@ -95,8 +95,8 @@ class BLEManager: NSObject, ObservableObject, CBCentralManagerDelegate, CBPeriph
             peripheralName = "Unknown"
         }
         
-        let newPeripheral = Peripheral(id: peripherals.count, name: peripheralName, rssi: RSSI.intValue, uid: peripheral.identifier)
-        print(newPeripheral)
+        let newPeripheral = Peripheral(name: peripheralName, rssi: RSSI.intValue, uid: peripheral.identifier)
+        print("new Peripheral: \(newPeripheral)")
         
         peripherals.append(newPeripheral)
         
@@ -109,18 +109,24 @@ class BLEManager: NSObject, ObservableObject, CBCentralManagerDelegate, CBPeriph
         // part of original code
         //        centralManager.scanForPeripherals(withServices: [heartRateServiceCBUUID,speedCadenceServiceCBUUID])
         
+        if !saved.isEmpty {
         //heart rate array place
         if peripheral.identifier == saved[0].id {
-            centralManager.connect(heartRatePeripheral)
+            centralManager.connect(devicePeripheral)
             heartRateIsConnected = true
             devicesConnected = devicesConnected + 1
         }
+        }
+        
+        if saved.count > 1 {
         //speed sensor default place
         if peripheral.identifier == saved[1].id {
-            centralManager.connect(heartRatePeripheral)
+            centralManager.connect(devicePeripheral)
             speedSensorIsConnected = true
             devicesConnected = devicesConnected + 1
         }
+        }
+        
         
         //        centralManager.connect(heartRatePeripheral)
     }
@@ -130,7 +136,7 @@ class BLEManager: NSObject, ObservableObject, CBCentralManagerDelegate, CBPeriph
     func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
         print("Connected!")
         //Once connected there needs to be a function here that will show that the peripheral is connected
-        heartRatePeripheral.discoverServices([heartRateServiceCBUUID, speedCadenceServiceCBUUID])
+        devicePeripheral.discoverServices([heartRateServiceCBUUID, speedCadenceServiceCBUUID])
         
         //if you connected to heart rate, then scan for speed cadence
         if peripheral.identifier == saved[0].id {
@@ -234,7 +240,7 @@ class BLEManager: NSObject, ObservableObject, CBCentralManagerDelegate, CBPeriph
     
     private func speedRate(characteristic: CBCharacteristic) {
         let value = characteristic.value
-        var result = CSCData(data: value!)
+        let result = CSCData(data: value!)
         
         
 //                print("crank revolutions:\(result?.crankRevolutions)")
@@ -410,7 +416,7 @@ struct RevolutionData {
 
 // MARK: - Peripheral and Saved Structs
 struct Peripheral: Identifiable {
-    let id: Int
+    let id = UUID()
     let name: String
     let rssi: Int
     let uid: UUID
