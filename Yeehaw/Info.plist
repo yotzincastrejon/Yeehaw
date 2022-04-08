@@ -2,33 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>NSHealthClinicalHealthRecordsShareUsageDescription</key>
-	<string>To show workout data</string>
-	<key>NSHealthShareUsageDescription</key>
-	<string>To show workout data</string>
-	<key>NSHealthUpdateUsageDescription</key>
-	<string>To show workout data</string>
-	<key>UIBackgroundModes</key>
-	<array>
-		<string>location</string>
-		<string>bluetooth-central</string>
-	</array>
-	<key>NSBluetoothAlwaysUsageDescription</key>
-	<string>To talk to your Bluetooth sensors!</string>
-	<key>NSBluetoothPeripheralUsageDescription</key>
-	<string>To record workout data</string>
-	<key>UIAppFonts</key>
-	<array>
-		<string>Futura.ttc</string>
-		<string>RBNo2.1a-Medium.otf</string>
-		<string>RBNo2.1a-Bold.otf</string>
-	</array>
-	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>To keep track of your workout</string>
-	<key>NSLocationAlwaysUsageDescription</key>
-	<string>To keep track of your workout</string>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>To keep track of your workout</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>
@@ -47,6 +20,28 @@
 	<string>1</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSBluetoothAlwaysUsageDescription</key>
+	<string>To talk to your Bluetooth sensors!</string>
+	<key>NSBluetoothPeripheralUsageDescription</key>
+	<string>To record workout data</string>
+	<key>NSHealthClinicalHealthRecordsShareUsageDescription</key>
+	<string>To show workout data</string>
+	<key>NSHealthShareUsageDescription</key>
+	<string>To show workout data</string>
+	<key>NSHealthUpdateUsageDescription</key>
+	<string>To show workout data</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>To keep track of your workout</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>To keep track of your workout</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>To keep track of your workout</string>
+	<key>UIAppFonts</key>
+	<array>
+		<string>Futura.ttc</string>
+		<string>RBNo2.1a-Medium.otf</string>
+		<string>RBNo2.1a-Bold.otf</string>
+	</array>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
@@ -54,6 +49,12 @@
 	</dict>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>bluetooth-central</string>
+		<string>location</string>
+		<string>remote-notification</string>
+	</array>
 	<key>UILaunchScreen</key>
 	<dict/>
 	<key>UIRequiredDeviceCapabilities</key>

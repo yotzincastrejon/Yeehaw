@@ -14,6 +14,25 @@ struct PersistenceController {
     
     let container: NSPersistentCloudKitContainer
     
+    static var preview: PersistenceController = {
+        let arrayOfNames = ["Duo Trap", "Tacx Neo 2T", "Wahoo Kickr", "Tickr"]
+        let result = PersistenceController(inMemory: true)
+        let viewContext = result.container.viewContext
+        for _ in 0..<6 {
+            let newItem = SavedDevice(context: viewContext)
+            newItem.deviceName = arrayOfNames.randomElement()
+            newItem.deviceID = UUID().uuidString
+            newItem.timestamp = Date()
+        }
+        do {
+            try viewContext.save()
+        } catch {
+            let nsError = error as NSError
+            fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+        }
+        return result
+    }()
+    
     init(inMemory: Bool = false) {
         container = NSPersistentCloudKitContainer(name: "SavedDevices")
         if inMemory {
