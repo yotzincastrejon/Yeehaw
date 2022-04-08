@@ -112,23 +112,23 @@ class BLEManager: NSObject, ObservableObject, CBCentralManagerDelegate, CBPeriph
         // part of original code
         //        centralManager.scanForPeripherals(withServices: [heartRateServiceCBUUID,speedCadenceServiceCBUUID])
         
-        if !saved.isEmpty {
-        //heart rate array place
-        if peripheral.identifier == saved[0].id {
-            centralManager.connect(devicePeripheral)
-            heartRateIsConnected = true
-            devicesConnected = devicesConnected + 1
-        }
-        }
-        
-        if saved.count > 1 {
-        //speed sensor default place
-        if peripheral.identifier == saved[1].id {
-            centralManager.connect(devicePeripheral)
-            speedSensorIsConnected = true
-            devicesConnected = devicesConnected + 1
-        }
-        }
+//        if !saved.isEmpty {
+//        //heart rate array place
+//        if peripheral.identifier == saved[0].id {
+//            centralManager.connect(devicePeripheral)
+//            heartRateIsConnected = true
+//            devicesConnected = devicesConnected + 1
+//        }
+//        }
+//        
+//        if saved.count > 1 {
+//        //speed sensor default place
+//        if peripheral.identifier == saved[1].id {
+//            centralManager.connect(devicePeripheral)
+//            speedSensorIsConnected = true
+//            devicesConnected = devicesConnected + 1
+//        }
+//        }
         
         
         //        centralManager.connect(heartRatePeripheral)
@@ -142,12 +142,12 @@ class BLEManager: NSObject, ObservableObject, CBCentralManagerDelegate, CBPeriph
         devicePeripheral.discoverServices([heartRateServiceCBUUID, speedCadenceServiceCBUUID])
         
         //if you connected to heart rate, then scan for speed cadence
-        if peripheral.identifier == saved[0].id {
-            heartRateIsConnected = true
-            if !speedSensorIsConnected {
-                centralManager.scanForPeripherals(withServices: [speedCadenceServiceCBUUID])
-            }
-        }
+//        if peripheral.identifier == saved[0].id {
+//            heartRateIsConnected = true
+//            if !speedSensorIsConnected {
+//                centralManager.scanForPeripherals(withServices: [speedCadenceServiceCBUUID])
+//            }
+//        }
         
         
         // if you found your speed sensor great! But check just incase you found speed sensor first before heart rate. If heart rate wasn't found try to scan for it again.
