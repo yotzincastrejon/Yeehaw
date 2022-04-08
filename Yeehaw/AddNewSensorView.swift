@@ -31,6 +31,7 @@ struct AddNewSensorView: View {
             Color(#colorLiteral(red: 0.1254901961, green: 0.1254901961, blue: 0.1254901961, alpha: 1))
             AddNewSensorAnimation()
             
+            //FIXME: We're going to use core data to look at the devices in quesiton and filter those we've already connected to. 
             //Use bleManager.peripherals for real devices.
             List(bleManager.peripherals) { peripheral in
                 NavigationLink(destination: SaveSensorView(bleManager: bleManager, id: peripheral.uid, name: peripheral.name, shouldPopToRootView: self.$rootIsActive)) {

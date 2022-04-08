@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct LinkedSensorsView: View {
+    @Environment(\.managedObjectContext) private var viewContext
+    @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \SavedDevice.timestamp, ascending: false)], animation: .default)
+    private var sensors: FetchedResults<SavedDevice>
     @ObservedObject var bleManager: BLEManager
     @Binding var rootIsActive: Bool
     init(bleManager: BLEManager, rootIsActive: Binding<Bool>) {
@@ -23,7 +26,7 @@ struct LinkedSensorsView: View {
     var body: some View {
         
         VStack {
-            ScrollView {
+            
                 VStack {
                     
                                 
@@ -51,12 +54,17 @@ struct LinkedSensorsView: View {
                     .padding(.top,10)
                     
                     List {
-                        Text("Hi")
+                        ForEach(sensors) { sensor in
+                            Text("\(sensor.deviceName ?? "No Name")")
+                        }
                     }.background(Color("DarkElevated"))
+                    
+                    
+                    
                 }
                 .padding(.top)
                 
-            }
+            
         }
         .navigationBarTitle("Linked Sensors".uppercased())
         .navigationBarTitleDisplayMode(.inline)
@@ -70,6 +78,7 @@ struct LinkedSensorsView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
         LinkedSensorsView(bleManager: BLEManager(), rootIsActive: .constant(true))
+                .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
             .preferredColorScheme(.dark)
         }
     }

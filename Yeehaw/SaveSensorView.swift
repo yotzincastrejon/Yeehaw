@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct SaveSensorView: View {
+    @Environment(\.managedObjectContext) private var viewContext
     @ObservedObject var bleManager: BLEManager
     @State var id: UUID
     @State var name: String
@@ -28,31 +29,35 @@ struct SaveSensorView: View {
             .padding()
             .background(Color("DarkElevated"))
             Divider()
+            
+            //FIXME: We need to add the sensor to core data instead of user defaults.
             Button(action: {
-                    print("Save Sensor Tapped")
-                if bleManager.saved.isEmpty {
-                    bleManager.saved.append(Saved(id: id, name: name))
-                } else {
-                    //write a for loop that will go through the entire array to find out whether or not the current peripheral.uid matches any existing one. If it doesn't already exists, you can add it to the saved array.
-                    for i in 0...bleManager.saved.count - 1 {
-                        //We check if the current device's UUID matches any of our array saved UUID
-                        if compare(lhs: id, rhs: bleManager.saved[i].id) {
-                            print("yes it exists don't add to list")
-                            //Since we found it, we won't add it to our saved list.
-                            break
-                        } else {
-                            //We check if we have traversed the entire array
-                            if i == bleManager.saved.count - 1 {
-                            print("No it doesn't exist yet")
-                                //The device didn't exist yet so we add it!
-                                bleManager.saved.append(Saved(id: id, name: name))
-                            }
-                        }
-                    }
-                }
-                print("LOOK AT WHAT YOU SAVED!!!! WAY TO GO BUBS!")
-                print(bleManager.saved)
-                saveInformation()
+                    
+//                if bleManager.saved.isEmpty {
+//                    bleManager.saved.append(Saved(id: id, name: name))
+//                } else {
+//                    //write a for loop that will go through the entire array to find out whether or not the current peripheral.uid matches any existing one. If it doesn't already exists, you can add it to the saved array.
+//                    for i in 0...bleManager.saved.count - 1 {
+//                        //We check if the current device's UUID matches any of our array saved UUID
+//                        if compare(lhs: id, rhs: bleManager.saved[i].id) {
+//                            print("yes it exists don't add to list")
+//                            //Since we found it, we won't add it to our saved list.
+//                            break
+//                        } else {
+//                            //We check if we have traversed the entire array
+//                            if i == bleManager.saved.count - 1 {
+//                            print("No it doesn't exist yet")
+//                                //The device didn't exist yet so we add it!
+//                                bleManager.saved.append(Saved(id: id, name: name))
+//                            }
+//                        }
+//                    }
+//                }
+//                print("LOOK AT WHAT YOU SAVED!!!! WAY TO GO BUBS!")
+//                print(bleManager.saved)
+//                saveInformation()
+                addSensorToCoreData()
+                print("\(name) Added to Core Data")
                 self.shouldPopToRootView = false
                 
             }) {
@@ -83,6 +88,21 @@ struct SaveSensorView: View {
             UserDefaults.standard.set(data, forKey: "savedArray")
         } catch  {
             print(error)
+        }
+    }
+    
+    private func addSensorToCoreData() {
+        withAnimation {
+        let newItem = SavedDevice(context: viewContext)
+            newItem.deviceName = name
+            newItem.deviceID = id.uuidString
+            newItem.timestamp = Date()
+            do {
+                try viewContext.save()
+            } catch {
+                let nsError = error as NSError
+                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+            }
         }
     }
     
