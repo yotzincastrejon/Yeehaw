@@ -37,6 +37,9 @@
 		FAD60D2626128A2600C1C8DE /* Futura.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FAD60D2526128A2600C1C8DE /* Futura.ttf */; };
 		FAD60D29261294A900C1C8DE /* RBNo2.1a-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = FAD60D28261294A900C1C8DE /* RBNo2.1a-Medium.otf */; };
 		FAD60D2C261295C800C1C8DE /* RBNo2.1a-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = FAD60D2B261295C800C1C8DE /* RBNo2.1a-Bold.otf */; };
+		FAD998A32800DC5200CC1AB5 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAD998A22800DC5200CC1AB5 /* CloudKit.framework */; };
+		FAD998A62800DCAD00CC1AB5 /* SavedDevices.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = FAD998A42800DCAD00CC1AB5 /* SavedDevices.xcdatamodeld */; };
+		FAD998A82800E07400CC1AB5 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD998A72800E07400CC1AB5 /* Persistence.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -73,6 +76,9 @@
 		FAD60D2526128A2600C1C8DE /* Futura.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Futura.ttf; path = ../../../../../../../Downloads/futura/Futura.ttf; sourceTree = "<group>"; };
 		FAD60D28261294A900C1C8DE /* RBNo2.1a-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "RBNo2.1a-Medium.otf"; path = "../../../../../../../Downloads/Wahoo Fitness Corporate-selected-assets/RBNo2.1a-Medium.otf"; sourceTree = "<group>"; };
 		FAD60D2B261295C800C1C8DE /* RBNo2.1a-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "RBNo2.1a-Bold.otf"; path = "../../../../../../../Downloads/Wahoo Fitness Corporate-selected-assets/RBNo2.1a-Bold.otf"; sourceTree = "<group>"; };
+		FAD998A22800DC5200CC1AB5 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
+		FAD998A52800DCAD00CC1AB5 /* SavedDevices.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = SavedDevices.xcdatamodel; sourceTree = "<group>"; };
+		FAD998A72800E07400CC1AB5 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,6 +87,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FAB0131D261A75170048BC0C /* HealthKit.framework in Frameworks */,
+				FAD998A32800DC5200CC1AB5 /* CloudKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -138,11 +145,13 @@
 				FA735C1E2620FE3C0057A951 /* Profile.swift */,
 				FA735C1B2620FDD20057A951 /* History.swift */,
 				FA771080261EB12F0028EAF3 /* LittleBox.swift */,
+				FAD998A72800E07400CC1AB5 /* Persistence.swift */,
 				FA771079261E7D080028EAF3 /* HealthKitManager.swift */,
 				FA22278427FF83570024067C /* MapKit */,
 				FA22D8C42602586A00D3849C /* Assets.xcassets */,
 				FA22D8C92602586A00D3849C /* Info.plist */,
 				FA22D8C62602586A00D3849C /* Preview Content */,
+				FAD998A42800DCAD00CC1AB5 /* SavedDevices.xcdatamodeld */,
 			);
 			path = Yeehaw;
 			sourceTree = "<group>";
@@ -174,6 +183,7 @@
 		FAB0131B261A75170048BC0C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				FAD998A22800DC5200CC1AB5 /* CloudKit.framework */,
 				FAB0131C261A75170048BC0C /* HealthKit.framework */,
 			);
 			name = Frameworks;
@@ -277,6 +287,7 @@
 				FA22D8C12602586900D3849C /* YeehawApp.swift in Sources */,
 				FA3AFE9B2613AE0300B2755E /* NewSensorListView.swift in Sources */,
 				FA3AFE9F2613B03B00B2755E /* BLEManager.swift in Sources */,
+				FAD998A82800E07400CC1AB5 /* Persistence.swift in Sources */,
 				FAAF11C4261691B4003FA489 /* SaveSensorView.swift in Sources */,
 				FA735C222620FEA10057A951 /* Settings.swift in Sources */,
 				FA22278327FF5D230024067C /* DefaultSensors.swift in Sources */,
@@ -292,6 +303,7 @@
 				FA22D8D126025AEA00D3849C /* StartWorkoutButton.swift in Sources */,
 				FA22D8DC260276D200D3849C /* BluetoothSensorView.swift in Sources */,
 				FA735C1F2620FE3C0057A951 /* Profile.swift in Sources */,
+				FAD998A62800DCAD00CC1AB5 /* SavedDevices.xcdatamodeld in Sources */,
 				FAB4962F2602C3B600EC6917 /* MapViewModel.swift in Sources */,
 				FAB496322602C49000EC6917 /* FullScreenMap.swift in Sources */,
 			);
@@ -484,6 +496,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		FAD998A42800DCAD00CC1AB5 /* SavedDevices.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				FAD998A52800DCAD00CC1AB5 /* SavedDevices.xcdatamodel */,
+			);
+			currentVersion = FAD998A52800DCAD00CC1AB5 /* SavedDevices.xcdatamodel */;
+			path = SavedDevices.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = FA22D8B52602586900D3849C /* Project object */;
 }
