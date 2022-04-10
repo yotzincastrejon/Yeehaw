@@ -55,9 +55,21 @@ struct LinkedSensorsView: View {
                     
                     List {
                         ForEach(sensors) { sensor in
-                            Text("\(sensor.deviceName ?? "No Name")")
+                            HStack {
+                                Text("\(sensor.deviceName ?? "No Name")")
+                                Spacer()
+                                Text("Not Connected")
+                                    .foregroundColor(.secondary)
+                                Button(action: {
+                                    // Do Something
+                                }) {
+                                Image(systemName: "info.circle")
+                                }
+                            }
                         }
+                        .buttonStyle(BorderlessButtonStyle())
                     }.background(Color("DarkElevated"))
+                        .listStyle(InsetGroupedListStyle())
                     
                     
                     
