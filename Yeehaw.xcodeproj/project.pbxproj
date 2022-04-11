@@ -20,6 +20,7 @@
 		FA3AFE9B2613AE0300B2755E /* NewSensorListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3AFE9A2613AE0300B2755E /* NewSensorListView.swift */; };
 		FA3AFE9F2613B03B00B2755E /* BLEManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3AFE9E2613B03B00B2755E /* BLEManager.swift */; };
 		FA3AFEA22613CA5F00B2755E /* AddNewSensorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3AFEA12613CA5F00B2755E /* AddNewSensorView.swift */; };
+		FA5B89A428049D9200229829 /* SensorSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA5B89A328049D9200229829 /* SensorSettings.swift */; };
 		FA6F989D261BAF9E00A1B905 /* StopWatchManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA6F989C261BAF9E00A1B905 /* StopWatchManager.swift */; };
 		FA735C192620FC130057A951 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA735C182620FC130057A951 /* MainView.swift */; };
 		FA735C1C2620FDD20057A951 /* History.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA735C1B2620FDD20057A951 /* History.swift */; };
@@ -58,6 +59,7 @@
 		FA3AFE9A2613AE0300B2755E /* NewSensorListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewSensorListView.swift; sourceTree = "<group>"; };
 		FA3AFE9E2613B03B00B2755E /* BLEManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BLEManager.swift; sourceTree = "<group>"; };
 		FA3AFEA12613CA5F00B2755E /* AddNewSensorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewSensorView.swift; sourceTree = "<group>"; };
+		FA5B89A328049D9200229829 /* SensorSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensorSettings.swift; sourceTree = "<group>"; };
 		FA6F989C261BAF9E00A1B905 /* StopWatchManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StopWatchManager.swift; sourceTree = "<group>"; };
 		FA735C182620FC130057A951 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		FA735C1B2620FDD20057A951 /* History.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = History.swift; sourceTree = "<group>"; };
@@ -134,11 +136,7 @@
 				FA735C182620FC130057A951 /* MainView.swift */,
 				FA22D8C22602586900D3849C /* ContentView.swift */,
 				FA22278227FF5D230024067C /* DefaultSensors.swift */,
-				FA3AFE9726137ED700B2755E /* LinkedSensorsView.swift */,
-				FA3AFEA12613CA5F00B2755E /* AddNewSensorView.swift */,
-				FA22278527FF90C80024067C /* RSSISignalStrength.swift */,
-				FAAF11C3261691B4003FA489 /* SaveSensorView.swift */,
-				FAAF11C02616781D003FA489 /* AddNewSensorAnimation.swift */,
+				FA5B89A228049B8100229829 /* Sensors */,
 				FA3AFE9A2613AE0300B2755E /* NewSensorListView.swift */,
 				FAD19E302603CA01001C5620 /* WorkoutView.swift */,
 				FA735C212620FEA10057A951 /* Settings.swift */,
@@ -170,6 +168,19 @@
 				FA3AFE9E2613B03B00B2755E /* BLEManager.swift */,
 			);
 			path = BLE;
+			sourceTree = "<group>";
+		};
+		FA5B89A228049B8100229829 /* Sensors */ = {
+			isa = PBXGroup;
+			children = (
+				FA3AFE9726137ED700B2755E /* LinkedSensorsView.swift */,
+				FA3AFEA12613CA5F00B2755E /* AddNewSensorView.swift */,
+				FA22278527FF90C80024067C /* RSSISignalStrength.swift */,
+				FAAF11C3261691B4003FA489 /* SaveSensorView.swift */,
+				FAAF11C02616781D003FA489 /* AddNewSensorAnimation.swift */,
+				FA5B89A328049D9200229829 /* SensorSettings.swift */,
+			);
+			path = Sensors;
 			sourceTree = "<group>";
 		};
 		FA6F989B261BAF8400A1B905 /* Stopwatch */ = {
@@ -298,6 +309,7 @@
 				FAAF11C12616781D003FA489 /* AddNewSensorAnimation.swift in Sources */,
 				FA6F989D261BAF9E00A1B905 /* StopWatchManager.swift in Sources */,
 				FA735C192620FC130057A951 /* MainView.swift in Sources */,
+				FA5B89A428049D9200229829 /* SensorSettings.swift in Sources */,
 				FAD19E312603CA01001C5620 /* WorkoutView.swift in Sources */,
 				FA22D8DF26027CE500D3849C /* MapView.swift in Sources */,
 				FA22D8D126025AEA00D3849C /* StartWorkoutButton.swift in Sources */,
@@ -439,7 +451,7 @@
 				DEVELOPMENT_TEAM = YVJLT6Y577;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Yeehaw/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -462,7 +474,7 @@
 				DEVELOPMENT_TEAM = YVJLT6Y577;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Yeehaw/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
