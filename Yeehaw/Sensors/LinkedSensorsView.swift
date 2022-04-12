@@ -32,33 +32,6 @@ struct LinkedSensorsView: View {
         VStack {
             
             VStack {
-                
-                
-                //                    NavigationLink(destination: AddNewSensorView(bleManager: bleManager, rootIsActive: $rootIsActive), label: {
-                //                        Text("Add New Sensor")
-                //                            .foregroundColor(Color("Skyblue"))
-                //                            .frame(minWidth: 0, maxWidth: .infinity)
-                //                            .padding(15)
-                //                            .background(Color("DarkElevated"))
-                //                            .border(Color.gray.opacity(0.5))
-                //                    })
-                //                    .isDetailLink(false)
-                //                    .padding(.horizontal)
-                
-                //                    HStack {
-                //                        Image(systemName: "bicycle")
-                //                            .font(.title3)
-                //                        Text("Cycling".uppercased())
-                //                            .font(Font.custom("RBNo2.1a-Bold", size: 20))
-                //                        Spacer()
-                //                    }
-                //                    .padding(.vertical, 15)
-                //                    .padding(.leading)
-                //                    .background(Color("DarkElevated"))
-                //                    .padding(.top,10)
-                //
-                
-                
                 List {
                     Section {
                         ForEach(sensors) { sensor in
@@ -79,11 +52,6 @@ struct LinkedSensorsView: View {
                                         Image(systemName: "info.circle")
                                     }
                                     
-                                    
-//                                    NavigationLink(destination: SensorSettings(sensor: sensor), isActive: $isShowingSettings) {
-//                                        EmptyView()
-//                                    }.hidden()
-//                                        .frame(width: 0)
                                 }
                                 .onAppear(perform: getDeviceIDsFromCoreData)
                                 
@@ -138,7 +106,6 @@ struct LinkedSensorsView: View {
                     }
                 }
                 
-                //                NavigationLink(destination: )
             }
             .padding(.top)
             
