@@ -10,8 +10,9 @@ import SwiftUI
 struct SensorSettings: View {
     @Environment(\.managedObjectContext) private var viewContext
     @State var sensor: FetchedResults<SavedDevice>.Element
-    @Environment(\.presentationMode) var presentationMode
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @State private var isShowingConfirmation = false
+//    @Binding var isShowingSettings: Bool
     var body: some View {
         VStack {
             List {
@@ -25,11 +26,13 @@ struct SensorSettings: View {
                     
                     Button("Forget this device", role: .destructive) {
                         deleteObject()
+//                        isShowingSettings = false
                         presentationMode.wrappedValue.dismiss()
                     }
                     
                 }
             }
+            
             
         }
         .navigationTitle("\(sensor.deviceName ?? "No Name")")

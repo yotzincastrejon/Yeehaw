@@ -26,6 +26,7 @@ struct LinkedSensorsView: View {
     
     @State var isShowingSettings = false
     @State var sensorsArray = [String]()
+    @State var sensorData: FetchedResults<SavedDevice>.Element? = nil
     var body: some View {
         
         VStack {
@@ -62,25 +63,31 @@ struct LinkedSensorsView: View {
                     Section {
                         ForEach(sensors) { sensor in
                             
-                            HStack {
-                                Text("\(sensor.deviceName ?? "No Name")")
-                                Spacer()
-                                Text("Not Connected")
-                                    .foregroundColor(.secondary)
-                                Button(action: {
-                                    isShowingSettings = true
+                            ZStack {
+                                HStack {
+                                    Text("\(sensor.deviceName ?? "No Name")")
+                                    Spacer()
+                                    Text("Not Connected")
+                                        .foregroundColor(.secondary)
+                                    Button(action: {
+                                        sensorData = sensor
+                                        if sensorData != nil {
+                                        isShowingSettings = true
+                                        print("Sensor name \(sensor.deviceName)")
+                                        }
+                                    }) {
+                                        Image(systemName: "info.circle")
+                                    }
                                     
-                                }) {
-                                    Image(systemName: "info.circle")
+                                    
+//                                    NavigationLink(destination: SensorSettings(sensor: sensor), isActive: $isShowingSettings) {
+//                                        EmptyView()
+//                                    }.hidden()
+//                                        .frame(width: 0)
                                 }
+                                .onAppear(perform: getDeviceIDsFromCoreData)
                                 
-                                
-                                NavigationLink(destination: SensorSettings(sensor: sensor), isActive: $isShowingSettings) {
-                                    EmptyView()
-                                }.hidden()
-                                    .frame(width: 0)
                             }
-                            .onAppear(perform: getDeviceIDsFromCoreData)
                             
                             
                             
@@ -125,6 +132,13 @@ struct LinkedSensorsView: View {
                 .listStyle(InsetGroupedListStyle())
                 .onAppear(perform: bleManager.startScanning)
                 .onDisappear(perform: bleManager.stopScanning)
+                if sensorData != nil {
+                    NavigationLink(destination: SensorSettings(sensor: sensorData!), isActive: $isShowingSettings) {
+                        EmptyView()
+                    }
+                }
+                
+                //                NavigationLink(destination: )
             }
             .padding(.top)
             

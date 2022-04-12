@@ -101,7 +101,7 @@ class BLEManager: NSObject, ObservableObject, CBCentralManagerDelegate, CBPeriph
         
         let newPeripheral = Peripheral(name: peripheralName, rssi: RSSI.intValue, uid: peripheral.identifier)
         print("new Peripheral: \(newPeripheral)")
-        if !sensorsArrayDeviceID.contains(newPeripheral.uid.description) {
+        if !sensorsArrayDeviceID.contains(newPeripheral.uid.description){
         peripherals.append(newPeripheral)
         }
         
