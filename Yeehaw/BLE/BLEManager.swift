@@ -34,7 +34,8 @@ class BLEManager: NSObject, ObservableObject, CBCentralManagerDelegate, CBPeriph
     @Published var isConnected: Bool = false
     @Published var heartRateNumber = 0
     @Published var distanceRateinMeters = 0.0
-    var isScanning = false
+    @Published var isScanning = false
+    @Published var sensorsArrayDeviceID = [String]()
     var oldWheelRev = 0
     var newWheelRev = 0
     var oldWheelEvent = 0.0
@@ -87,9 +88,9 @@ class BLEManager: NSObject, ObservableObject, CBCentralManagerDelegate, CBPeriph
         devicePeripheral.delegate = self
         //part of original code
 //        centralManager.stopScan()
-        if devicesConnected == 2 {
-            centralManager.stopScan()
-        }
+//        if devicesConnected == 2 {
+//            centralManager.stopScan()
+//        }
         var peripheralName: String!
         
         if let name = advertisementData[CBAdvertisementDataLocalNameKey] as? String {
@@ -100,8 +101,9 @@ class BLEManager: NSObject, ObservableObject, CBCentralManagerDelegate, CBPeriph
         
         let newPeripheral = Peripheral(name: peripheralName, rssi: RSSI.intValue, uid: peripheral.identifier)
         print("new Peripheral: \(newPeripheral)")
-        
+        if !sensorsArrayDeviceID.contains(newPeripheral.uid.description) {
         peripherals.append(newPeripheral)
+        }
         
         //This bool is to create a layer between adding a sensor and connecting to said device. The reason why we are going to do this through here is because when you already have a homescreen with your given sensors, you will automatically connect. But I don't want automatically connect while doing the initial setup. Once we add the UUID's we want. We will automatically connect on the home screen. 
         //        if isScanning {

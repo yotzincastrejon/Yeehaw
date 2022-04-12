@@ -23,78 +23,111 @@ struct LinkedSensorsView: View {
         UINavigationBar.appearance().titleTextAttributes = [
             .font : UIFont(name: "RBNo2.1a-Bold", size: 30)!]
     }
-
+    
     @State var isShowingSettings = false
+    @State var sensorsArray = [String]()
     var body: some View {
         
         VStack {
             
-                VStack {
-                    
-                                
-                    NavigationLink(destination: AddNewSensorView(bleManager: bleManager, rootIsActive: $rootIsActive), label: {
-                        Text("Add New Sensor")
-                            .foregroundColor(Color("Skyblue"))
-                            .frame(minWidth: 0, maxWidth: .infinity)
-                            .padding(15)
-                            .background(Color("DarkElevated"))
-                            .border(Color.gray.opacity(0.5))
-                    })
-                    .isDetailLink(false)
-                    .padding(.horizontal)
-                    
-                    HStack {
-                        Image(systemName: "bicycle")
-                            .font(.title3)
-                        Text("Cycling".uppercased())
-                            .font(Font.custom("RBNo2.1a-Bold", size: 20))
-                        Spacer()
-                    }
-                    .padding(.vertical, 15)
-                    .padding(.leading)
-                    .background(Color("DarkElevated"))
-                    .padding(.top,10)
-                    
-                    List {
+            VStack {
+                
+                
+                //                    NavigationLink(destination: AddNewSensorView(bleManager: bleManager, rootIsActive: $rootIsActive), label: {
+                //                        Text("Add New Sensor")
+                //                            .foregroundColor(Color("Skyblue"))
+                //                            .frame(minWidth: 0, maxWidth: .infinity)
+                //                            .padding(15)
+                //                            .background(Color("DarkElevated"))
+                //                            .border(Color.gray.opacity(0.5))
+                //                    })
+                //                    .isDetailLink(false)
+                //                    .padding(.horizontal)
+                
+                //                    HStack {
+                //                        Image(systemName: "bicycle")
+                //                            .font(.title3)
+                //                        Text("Cycling".uppercased())
+                //                            .font(Font.custom("RBNo2.1a-Bold", size: 20))
+                //                        Spacer()
+                //                    }
+                //                    .padding(.vertical, 15)
+                //                    .padding(.leading)
+                //                    .background(Color("DarkElevated"))
+                //                    .padding(.top,10)
+                //
+                
+                
+                List {
+                    Section {
                         ForEach(sensors) { sensor in
-                           
-                                HStack {
-                                    Text("\(sensor.deviceName ?? "No Name")")
-                                    Spacer()
-                                    Text("Not Connected")
-                                        .foregroundColor(.secondary)
-                                    Button(action: {
-                                        isShowingSettings = true
-                                        
-                                    }) {
-                                        Image(systemName: "info.circle")
-                                    }
+                            
+                            HStack {
+                                Text("\(sensor.deviceName ?? "No Name")")
+                                Spacer()
+                                Text("Not Connected")
+                                    .foregroundColor(.secondary)
+                                Button(action: {
+                                    isShowingSettings = true
                                     
-                                    NavigationLink(destination: SensorSettings(sensor: sensor), isActive: $isShowingSettings) {
-                                        EmptyView()
-                                    }.hidden()
-                                    .frame(width: 0)
-                                    .opacity(0)
-                                    
+                                }) {
+                                    Image(systemName: "info.circle")
                                 }
                                 
+                                
+                                NavigationLink(destination: SensorSettings(sensor: sensor), isActive: $isShowingSettings) {
+                                    EmptyView()
+                                }.hidden()
+                                    .frame(width: 0)
+                            }
+                            .onAppear(perform: getDeviceIDsFromCoreData)
+                            
                             
                             
                         }
                         .onDelete(perform: deleteItems)
                         .buttonStyle(BorderlessButtonStyle())
-                        
-                    }.background(Color("DarkElevated"))
-                        .listStyle(InsetGroupedListStyle())
+                    } header: {
+                        Text("My Devices")
+                    }
                     
-                    
+                    Section {
+                        ForEach(bleManager.peripherals) { device in
+                            HStack {
+                                Text(device.name)
+                                Spacer()
+                                RSSISignalStrength(rssiSignal: device.rssi)
+                            }
+                            .onTapGesture {
+                                withAnimation {
+                                    addSensorToCoreData(name: device.name, id: device.uid)
+                                    getDeviceIDsFromCoreData()
+                                    for i in 0..<bleManager.peripherals.count {
+                                        if bleManager.sensorsArrayDeviceID.contains(bleManager.peripherals[i].uid.description) {
+                                            bleManager.peripherals.remove(at: i)
+                                            print(bleManager.peripherals)
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    } header: {
+                        HStack {
+                            Text("Other Devices")
+                            if bleManager.isScanning {
+                                ProgressView()
+                                    .padding(.leading, 4)
+                            }
+                        }
+                    }
                     
                 }
-                .padding(.top)
-                
-//            NavigationLink(destination: SensorSettings(sensor: sensorData, sensorName: sensorName ?? "No Name"), isActive: $isShowingSettings) {
-//                EmptyView()
-//            }
+                .listStyle(InsetGroupedListStyle())
+                .onAppear(perform: bleManager.startScanning)
+                .onDisappear(perform: bleManager.stopScanning)
+            }
+            .padding(.top)
+            
         }
         .navigationBarTitle("LINKED SENSORS")
         .navigationBarTitleDisplayMode(.inline)
@@ -114,14 +147,36 @@ struct LinkedSensorsView: View {
             }
         }
     }
+    
+    func getDeviceIDsFromCoreData() {
+        bleManager.sensorsArrayDeviceID.removeAll()
+        for i in 0..<sensors.count {
+            bleManager.sensorsArrayDeviceID.append(sensors[i].deviceID ?? "")
+        }
+    }
+    
+    private func addSensorToCoreData(name: String, id: UUID) {
+        withAnimation {
+            let newItem = SavedDevice(context: viewContext)
+            newItem.deviceName = name
+            newItem.deviceID = id.uuidString
+            newItem.timestamp = Date()
+            do {
+                try viewContext.save()
+            } catch {
+                let nsError = error as NSError
+                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+            }
+        }
+    }
 }
 
 struct LinkedSensorsView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-        LinkedSensorsView(bleManager: BLEManager(), rootIsActive: .constant(true))
+            LinkedSensorsView(bleManager: BLEManager(), rootIsActive: .constant(true))
                 .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
-            .preferredColorScheme(.dark)
+                .preferredColorScheme(.dark)
         }
     }
 }

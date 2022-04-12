@@ -9,12 +9,12 @@ import SwiftUI
 
 struct RSSISignalStrength: View {
     @State var rssiSignal: Int
-    let width: CGFloat = 6
-    let height: CGFloat = 40
+    let width: CGFloat = 4
+    let height: CGFloat = 20
     let primaryColor: Color = .green
     @State var fillArray = [false, false, false, false, false]
     var body: some View {
-        HStack(alignment: .bottom, spacing: 4) {
+        HStack(alignment: .bottom, spacing: 2) {
             Capsule()
                 .fill(fillArray[0] ? primaryColor : .gray)
                 .frame(width: width, height: height * 0.2)
