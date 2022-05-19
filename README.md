@@ -7,3 +7,5 @@ This computer includes
 - Heart Rate Zones
 
 and Much much more to come in the future! 
+
+Currently as of 5/18/2022 I'm redoing the UI and functionality. 
