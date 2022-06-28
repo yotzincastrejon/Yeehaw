@@ -24,6 +24,7 @@
 		FA4CF79C286AA2A700AC071C /* ColorHex.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4CF79B286AA2A700AC071C /* ColorHex.swift */; };
 		FA4CF79E286AB91200AC071C /* SensorGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4CF79D286AB91200AC071C /* SensorGrid.swift */; };
 		FA5B89A428049D9200229829 /* SensorSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA5B89A328049D9200229829 /* SensorSettings.swift */; };
+		FA6BE0EF286B9C9500B37C29 /* StartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA6BE0EE286B9C9500B37C29 /* StartView.swift */; };
 		FA6F989D261BAF9E00A1B905 /* StopWatchManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA6F989C261BAF9E00A1B905 /* StopWatchManager.swift */; };
 		FA735C192620FC130057A951 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA735C182620FC130057A951 /* MainView.swift */; };
 		FA735C1C2620FDD20057A951 /* History.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA735C1B2620FDD20057A951 /* History.swift */; };
@@ -66,6 +67,7 @@
 		FA4CF79B286AA2A700AC071C /* ColorHex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorHex.swift; sourceTree = "<group>"; };
 		FA4CF79D286AB91200AC071C /* SensorGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensorGrid.swift; sourceTree = "<group>"; };
 		FA5B89A328049D9200229829 /* SensorSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensorSettings.swift; sourceTree = "<group>"; };
+		FA6BE0EE286B9C9500B37C29 /* StartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartView.swift; sourceTree = "<group>"; };
 		FA6F989C261BAF9E00A1B905 /* StopWatchManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StopWatchManager.swift; sourceTree = "<group>"; };
 		FA735C182620FC130057A951 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		FA735C1B2620FDD20057A951 /* History.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = History.swift; sourceTree = "<group>"; };
@@ -142,6 +144,7 @@
 				FA735C182620FC130057A951 /* MainView.swift */,
 				FA22D8C22602586900D3849C /* ContentView.swift */,
 				FA4CF799286A9DD800AC071C /* SensorView.swift */,
+				FA6BE0EE286B9C9500B37C29 /* StartView.swift */,
 				FA4CF79D286AB91200AC071C /* SensorGrid.swift */,
 				FA4CF79B286AA2A700AC071C /* ColorHex.swift */,
 				FA22278227FF5D230024067C /* DefaultSensors.swift */,
@@ -323,6 +326,7 @@
 				FA5B89A428049D9200229829 /* SensorSettings.swift in Sources */,
 				FAD19E312603CA01001C5620 /* WorkoutView.swift in Sources */,
 				FA22D8DF26027CE500D3849C /* MapView.swift in Sources */,
+				FA6BE0EF286B9C9500B37C29 /* StartView.swift in Sources */,
 				FA22D8D126025AEA00D3849C /* StartWorkoutButton.swift in Sources */,
 				FA22D8DC260276D200D3849C /* BluetoothSensorView.swift in Sources */,
 				FA735C1F2620FE3C0057A951 /* Profile.swift in Sources */,

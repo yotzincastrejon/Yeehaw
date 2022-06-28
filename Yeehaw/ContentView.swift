@@ -21,42 +21,48 @@ struct ContentView: View {
     
                     FullScreenMap()
                         .ignoresSafeArea(.all)
-                    ScrollView {
-                        HStack {
-                            Image(systemName: "bicycle")
-                                .font(.title2)
-                            Text("Cycling".uppercased())
-                                .font(Font.custom("RBNo2.1a-Bold", size: 25))
-                            Spacer()
-                        }
-                        .padding(.vertical, 10)
-                        .padding(.leading)
-                        Divider()
-                        StartWorkoutButton(workoutStart: $workoutInProgress)
-                            .padding(.vertical,5)
-                        Divider()
-                        HStack {
-                            Text("Linked Sensors".uppercased())
-                                .font(.footnote)
-                                .fontWeight(.semibold)
-                            Spacer()
-                            NavigationLink(
-                                destination: LinkedSensorsView(bleManager: bleManager, rootIsActive: $isActive), isActive: self.$isActive
-                                
-                            ) {
-                                Text("Edit")
-                                    .accentColor(Color("Skyblue"))
-                            }
-                            .isDetailLink(false)
-                        }
-                        .padding()
+                    SensorGrid()
+                    StartView()
+                        .padding([.horizontal], 20)
                         
-                        DefaultSensors(bleManager: bleManager)
-    //                    .padding(.bottom)
-                    }
+                        
+                    
+//                    ScrollView {
+//                        HStack {
+//                            Image(systemName: "bicycle")
+//                                .font(.title2)
+//                            Text("Cycling".uppercased())
+//                                .font(Font.custom("RBNo2.1a-Bold", size: 25))
+//                            Spacer()
+//                        }
+//                        .padding(.vertical, 10)
+//                        .padding(.leading)
+//                        Divider()
+//                        StartWorkoutButton(workoutStart: $workoutInProgress)
+//                            .padding(.vertical,5)
+//                        Divider()
+//                        HStack {
+//                            Text("Linked Sensors".uppercased())
+//                                .font(.footnote)
+//                                .fontWeight(.semibold)
+//                            Spacer()
+//                            NavigationLink(
+//                                destination: LinkedSensorsView(bleManager: bleManager, rootIsActive: $isActive), isActive: self.$isActive
+//
+//                            ) {
+//                                Text("Edit")
+//                                    .accentColor(Color("Skyblue"))
+//                            }
+//                            .isDetailLink(false)
+//                        }
+//                        .padding()
+//
+//                        DefaultSensors(bleManager: bleManager)
+//    //                    .padding(.bottom)
+//                    }
                 }
-                .background(Color("Background"))
-                .ignoresSafeArea(.all)
+                .background(Color(uiColor: .systemBackground))
+               
             }
             .navigationViewStyle(StackNavigationViewStyle())
             

@@ -45,7 +45,8 @@ struct SensorView: View {
                             Image(systemName: sensorSystemImageName)
                                 .resizable()
                                 .scaledToFit()
-                                .frame(width: 50, height: 50)
+                                .frame(width: g.size.width * 50/180, height: g.size.height * 50/100)
+                                .foregroundColor(.white)
                         }
                         .frame(width: g.size.width, height: g.size.height)
                     }

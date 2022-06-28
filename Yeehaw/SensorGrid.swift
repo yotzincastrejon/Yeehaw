@@ -12,9 +12,10 @@ struct SensorGrid: View {
     var body: some View {
             LazyVGrid(columns: columns, spacing: 20) {
                 SensorView(sensorSystemImageName: "heart.fill", baseColor: .red)
+                SensorViewSpeedandCadence()
                 SensorView(sensorSystemImageName: "bolt.fill", baseColor: .yellow)
                 SensorView(sensorSystemImageName: "location.fill", baseColor: .blue)
-                SensorViewSpeedandCadence()
+                
             }
             .padding(20)
     }
