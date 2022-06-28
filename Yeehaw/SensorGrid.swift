@@ -8,12 +8,17 @@
 import SwiftUI
 
 struct SensorGrid: View {
+    let columns = [GridItem(.adaptive(minimum: 180), spacing: 20)]
     var body: some View {
         VStack {
-            SensorView(sensorSystemImageName: "heart.fill", baseColor: .red)
-            SensorView(sensorSystemImageName: "bolt.fill", baseColor: .yellow)
-            SensorView(sensorSystemImageName: "location.fill", baseColor: .blue)
-            
+            LazyVGrid(columns: columns, spacing: 20) {
+                SensorView(sensorSystemImageName: "heart.fill", baseColor: .red)
+                SensorView(sensorSystemImageName: "bolt.fill", baseColor: .yellow)
+                SensorView(sensorSystemImageName: "location.fill", baseColor: .blue)
+                SensorViewSpeedandCadence()
+                   
+            }
+            .padding(20)
         }
     }
 }
