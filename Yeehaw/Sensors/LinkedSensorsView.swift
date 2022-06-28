@@ -56,7 +56,10 @@ struct LinkedSensorsView: View {
                                 .onAppear(perform: getDeviceIDsFromCoreData)
                                 
                             }
-                            
+                            .onTapGesture {
+                                // Do something that will connect the current sensor.
+                                
+                            }
                             
                             
                         }

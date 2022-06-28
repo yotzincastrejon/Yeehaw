@@ -98,7 +98,6 @@ class BLEManager: NSObject, ObservableObject, CBCentralManagerDelegate, CBPeriph
         } else {
             peripheralName = "Unknown"
         }
-        
         let newPeripheral = Peripheral(name: peripheralName, rssi: RSSI.intValue, uid: peripheral.identifier)
         print("new Peripheral: \(newPeripheral)")
         if !sensorsArrayDeviceID.contains(newPeripheral.uid.description){
