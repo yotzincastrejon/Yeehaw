@@ -12,9 +12,8 @@ struct SensorView: View {
     let sensorSystemImageName: String
     let baseColor: Color
     var body: some View {
-        VStack {
-            VStack {
-                GeometryReader { g in
+       
+            GeometryReader { g in
                     if isConnected {
                         ZStack {
                             Rectangle()
@@ -24,11 +23,11 @@ struct SensorView: View {
                                 .fill(LinearGradient(colors: [baseColor,.clear], startPoint: .bottom, endPoint: .center))
                                 .frame(width: g.size.width * 0.65)
                                 .blendMode(.screen)
-                                
+                            
                             Image(systemName: sensorSystemImageName)
                                 .resizable()
                                 .scaledToFit()
-                                .frame(width: 50, height: 50)
+                                .frame(width: g.size.width * 50/180, height: g.size.height * 50/100)
                                 .foregroundColor(baseColor)
                                 .shadow(color: .black.opacity(0.25), radius: 4, x: 0, y: 4)
                                 .frame(width: g.size.width, height: g.size.height)
@@ -49,31 +48,38 @@ struct SensorView: View {
                                 .frame(width: 50, height: 50)
                         }
                         .frame(width: g.size.width, height: g.size.height)
-                        .onTapGesture {
-                            isConnected.toggle()
-                        }
                     }
-                }
             }
-            .frame(width: 180, height: 100)
+            .frame(width: UIScreen.main.bounds.width * 180/428, height: UIScreen.main.bounds.height * 100/926)
         .cornerRadius(20)
-            
+           
+        
+        
+        
+    }
+}
+
+struct SensorView_Previews: PreviewProvider {
+    static var previews: some View {
+        //        SensorView(sensorSystemImageName: "heart.fill", baseColor: .red)
+        //            .preferredColorScheme(.dark)
+        //        SensorViewSpeedandCadence()
+        //            .preferredColorScheme(.dark)
+        Group {
+            SensorGrid()
+                .preferredColorScheme(.dark)
+            SensorGrid()
+                .previewDevice("iPhone 8")
+                .preferredColorScheme(.dark)
         }
     }
 }
 
-//struct SensorView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        SensorView(sensorSystemImageName: "heart.fill", baseColor: .red)
-//            .preferredColorScheme(.dark)
-//    }
-//}
-
 struct SensorViewSpeedandCadence: View {
     @State var isConnected = true
     var body: some View {
-        VStack {
-            VStack {
+       
+           
                 GeometryReader { g in
                     if isConnected {
                         ZStack {
@@ -87,23 +93,25 @@ struct SensorViewSpeedandCadence: View {
                             Rectangle()
                                 .fill(.clear)
                                 .background(.bar)
-                                
+                            
                             HStack {
                                 Image(systemName: "speedometer")
                                     .resizable()
                                     .scaledToFit()
-                                    .frame(height: 40)
+                                    .frame(height: g.size.height * 40/100)
                                     .foregroundColor(.green)
-                                .shadow(color: .black.opacity(0.25), radius: 4, x: 0, y: 4)
-                              
+                                    .shadow(color: .black.opacity(0.25), radius: 4, x: 0, y: 4)
+                                
                                 
                                 Image("Crank")
+                                    .resizable()
+                                    .renderingMode(.template)
+                                    .foregroundColor(.green)
                                     .scaledToFit()
-                                    .offset(x: 0, y: 4)
-                                    .frame(height: 40)
+                                    .frame(height: g.size.height * 40/100)
                                     .shadow(color: .black.opacity(0.25), radius: 4, x: 0, y: 4)
-                               
-                                    
+                                
+                                
                             }
                         }
                         .frame(width: g.size.width, height: g.size.height)
@@ -124,11 +132,10 @@ struct SensorViewSpeedandCadence: View {
                         }
                     }
                 }
-            }
-            .frame(width: 180, height: 100)
-        .cornerRadius(20)
+                .frame(width: UIScreen.main.bounds.width * 180/428, height: UIScreen.main.bounds.height * 100/926)
+            .cornerRadius(20)
             
-        }
+        
     }
 }
 
