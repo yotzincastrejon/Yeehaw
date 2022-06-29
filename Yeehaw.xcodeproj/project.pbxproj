@@ -25,6 +25,8 @@
 		FA4CF79E286AB91200AC071C /* SensorGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4CF79D286AB91200AC071C /* SensorGrid.swift */; };
 		FA5B89A428049D9200229829 /* SensorSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA5B89A328049D9200229829 /* SensorSettings.swift */; };
 		FA6BE0EF286B9C9500B37C29 /* StartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA6BE0EE286B9C9500B37C29 /* StartView.swift */; };
+		FA6BE0F1286BC6FE00B37C29 /* TransitionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA6BE0F0286BC6FE00B37C29 /* TransitionView.swift */; };
+		FA6BE0F3286BC9EB00B37C29 /* ActiveWorkoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA6BE0F2286BC9EB00B37C29 /* ActiveWorkoutView.swift */; };
 		FA6F989D261BAF9E00A1B905 /* StopWatchManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA6F989C261BAF9E00A1B905 /* StopWatchManager.swift */; };
 		FA735C192620FC130057A951 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA735C182620FC130057A951 /* MainView.swift */; };
 		FA735C1C2620FDD20057A951 /* History.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA735C1B2620FDD20057A951 /* History.swift */; };
@@ -68,6 +70,8 @@
 		FA4CF79D286AB91200AC071C /* SensorGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensorGrid.swift; sourceTree = "<group>"; };
 		FA5B89A328049D9200229829 /* SensorSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensorSettings.swift; sourceTree = "<group>"; };
 		FA6BE0EE286B9C9500B37C29 /* StartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartView.swift; sourceTree = "<group>"; };
+		FA6BE0F0286BC6FE00B37C29 /* TransitionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransitionView.swift; sourceTree = "<group>"; };
+		FA6BE0F2286BC9EB00B37C29 /* ActiveWorkoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveWorkoutView.swift; sourceTree = "<group>"; };
 		FA6F989C261BAF9E00A1B905 /* StopWatchManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StopWatchManager.swift; sourceTree = "<group>"; };
 		FA735C182620FC130057A951 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		FA735C1B2620FDD20057A951 /* History.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = History.swift; sourceTree = "<group>"; };
@@ -143,8 +147,10 @@
 				FAD19E2E2603C6ED001C5620 /* Buttons */,
 				FA735C182620FC130057A951 /* MainView.swift */,
 				FA22D8C22602586900D3849C /* ContentView.swift */,
+				FA6BE0F0286BC6FE00B37C29 /* TransitionView.swift */,
 				FA4CF799286A9DD800AC071C /* SensorView.swift */,
 				FA6BE0EE286B9C9500B37C29 /* StartView.swift */,
+				FA6BE0F2286BC9EB00B37C29 /* ActiveWorkoutView.swift */,
 				FA4CF79D286AB91200AC071C /* SensorGrid.swift */,
 				FA4CF79B286AA2A700AC071C /* ColorHex.swift */,
 				FA22278227FF5D230024067C /* DefaultSensors.swift */,
@@ -311,6 +317,7 @@
 				FA22D8C12602586900D3849C /* YeehawApp.swift in Sources */,
 				FA3AFE9B2613AE0300B2755E /* NewSensorListView.swift in Sources */,
 				FA3AFE9F2613B03B00B2755E /* BLEManager.swift in Sources */,
+				FA6BE0F3286BC9EB00B37C29 /* ActiveWorkoutView.swift in Sources */,
 				FAD998A82800E07400CC1AB5 /* Persistence.swift in Sources */,
 				FA4CF79A286A9DD800AC071C /* SensorView.swift in Sources */,
 				FAAF11C4261691B4003FA489 /* SaveSensorView.swift in Sources */,
@@ -324,6 +331,7 @@
 				FA6F989D261BAF9E00A1B905 /* StopWatchManager.swift in Sources */,
 				FA735C192620FC130057A951 /* MainView.swift in Sources */,
 				FA5B89A428049D9200229829 /* SensorSettings.swift in Sources */,
+				FA6BE0F1286BC6FE00B37C29 /* TransitionView.swift in Sources */,
 				FAD19E312603CA01001C5620 /* WorkoutView.swift in Sources */,
 				FA22D8DF26027CE500D3849C /* MapView.swift in Sources */,
 				FA6BE0EF286B9C9500B37C29 /* StartView.swift in Sources */,

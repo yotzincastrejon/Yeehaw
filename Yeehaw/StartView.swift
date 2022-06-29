@@ -52,22 +52,26 @@ struct GoButton: View {
         Button(action:  {
             // Do Something
         }) {
-            ZStack {
-                Circle()
-                    .fill(LinearGradient(colors: [Color(hex: "FF5400"), Color(hex: "FF6D00")], startPoint: .bottom, endPoint: .top))
-                    .scaleEffect(isAnimating ? 1.05 : 1)
-                
-                VStack(spacing: 0) {
-                    Image("Bike")
-                    Text("GO")
-                        .font(.largeTitle).bold()
-                        .foregroundColor(.white)
+            GeometryReader { g in
+                ZStack {
+                    Circle()
+                        .fill(LinearGradient(colors: [Color(hex: "FF5400"), Color(hex: "FF6D00")], startPoint: .bottom, endPoint: .top))
+    //                    .scaleEffect(isAnimating ? 1.05 : 1)
+    //                    .onAppear {
+    //                        withAnimation(.linear(duration: 2).repeatForever(autoreverses: true)) {
+    //                            isAnimating = true
+    //                        }
+    //                    }
+                    
+                    VStack(spacing: 0) {
+                        Image("Bike")
+                        Text("GO")
+                            .font(.system(size: g.size.height * 34/100, weight: .bold))
+                            .foregroundColor(.white)
+                    }
                 }
             }
-            .animation(.linear(duration: 2).repeatForever(autoreverses: true), value: isAnimating)
-            .onAppear {
-                isAnimating = true
-            }
+            
         }
     }
 }

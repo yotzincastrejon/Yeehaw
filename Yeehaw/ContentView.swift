@@ -15,7 +15,6 @@ struct ContentView: View {
     var columns: [GridItem] = Array(repeating: .init(.flexible()), count: 2)
     @Binding var workoutInProgress: Bool
     var body: some View {
-        GeometryReader { geometry in
             NavigationView {
                 VStack {
     
@@ -66,7 +65,7 @@ struct ContentView: View {
             }
             .navigationViewStyle(StackNavigationViewStyle())
             
-        }
+        
         //end of navigation view
     }
     

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SensorView: View {
-    @State var isConnected = true
+    @State var isConnected = false
     let sensorSystemImageName: String
     let baseColor: Color
     var body: some View {
@@ -40,7 +40,6 @@ struct SensorView: View {
                         ZStack {
                             Rectangle()
                                 .frame(width: g.size.width, height: g.size.height)
-                                .cornerRadius(20)
                                 .foregroundColor(Color(uiColor: .secondarySystemGroupedBackground))
                             Image(systemName: sensorSystemImageName)
                                 .resizable()
@@ -49,6 +48,9 @@ struct SensorView: View {
                                 .foregroundColor(.white)
                         }
                         .frame(width: g.size.width, height: g.size.height)
+                        .onTapGesture {
+                            isConnected.toggle()
+                        }
                     }
             }
             .frame(width: UIScreen.main.bounds.width * 180/428, height: UIScreen.main.bounds.height * 100/926)
@@ -77,7 +79,7 @@ struct SensorView_Previews: PreviewProvider {
 }
 
 struct SensorViewSpeedandCadence: View {
-    @State var isConnected = true
+    @State var isConnected = false
     var body: some View {
        
            
@@ -120,12 +122,26 @@ struct SensorViewSpeedandCadence: View {
                         ZStack {
                             Rectangle()
                                 .frame(width: g.size.width, height: g.size.height)
-                                .cornerRadius(20)
                                 .foregroundColor(Color(uiColor: .secondarySystemGroupedBackground))
-                            Image(systemName: "speedometer")
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 50, height: 40)
+                            
+                            HStack {
+                                Image(systemName: "speedometer")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(height: g.size.height * 40/100)
+                                    .foregroundColor(.white)
+                                
+                                
+                                Image("Crank")
+                                    .resizable()
+                                    .renderingMode(.template)
+                                    .foregroundColor(.white)
+                                    .scaledToFit()
+                                    .frame(height: g.size.height * 40/100)
+                                    
+                                
+                                
+                            }
                         }
                         .frame(width: g.size.width, height: g.size.height)
                         .onTapGesture {
