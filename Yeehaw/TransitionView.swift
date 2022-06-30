@@ -45,6 +45,14 @@ struct TransitionView: View {
                 Text("Press")
             }
 
+            Button {
+                // Do Seomthing
+                
+                isPressed.toggle()
+                
+            } label: {
+                Text("Press")
+            }
         }
     }
 }

@@ -9,6 +9,9 @@ import SwiftUI
 import HealthKit
 
 struct ActiveWorkoutView: View {
+    @Binding var isActive: Bool
+    let mainView: Namespace.ID
+
     var body: some View {
         
             VStack {
@@ -17,7 +20,7 @@ struct ActiveWorkoutView: View {
                 HeartRateBlock()
                 DistanceBlock()
                 PowerBlock()
-                PauseButton()
+                PauseButton(isActive: $isActive, mainView: mainView)
                     .frame(width: UIScreen.main.bounds.width * 100/428, height:UIScreen.main.bounds.height * 100/926)
             }
             .padding(.horizontal)
@@ -26,11 +29,13 @@ struct ActiveWorkoutView: View {
 }
 
 struct ActiveWorkoutView_Previews: PreviewProvider {
+    @Namespace static var namespace
+
     static var previews: some View {
         Group {
-            ActiveWorkoutView()
+            ActiveWorkoutView(isActive: .constant(true), mainView: namespace)
                 .preferredColorScheme(.dark)
-            ActiveWorkoutView()
+            ActiveWorkoutView(isActive: .constant(true), mainView: namespace)
                 .previewDevice("iPhone 8")
                 .preferredColorScheme(.dark)
         }
@@ -240,20 +245,28 @@ struct StatisticsView: View {
 }
 
 struct PauseButton: View {
+    @Binding var isActive: Bool
+    let mainView: Namespace.ID
     var body: some View {
         Button(action: {
             // Do something
+            withAnimation(.spring()) {
+            isActive.toggle()
+            }
         }) {
             GeometryReader { g in
                 ZStack {
                     Circle()
                         .fill(LinearGradient(colors: [Color(hex: "FF5400"), Color(hex: "FF6D00")], startPoint: .bottom, endPoint: .top))
+                        
                     Image(systemName: "pause")
                         .font(.system(size: g.size.height * 50/100, weight: .bold))
                         .frame(height: 40)
                         .foregroundColor(.white)
                 }
             }
+            .matchedGeometryEffect(id: "Start", in: mainView)
+            .transition(.opacity)
         }
     }
 }

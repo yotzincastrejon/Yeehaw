@@ -6,22 +6,27 @@
 //
 
 import SwiftUI
-import MapKit
 
 
 struct ContentView: View {
     @ObservedObject var bleManager: BLEManager
-    @State var isActive: Bool = false
+    
     var columns: [GridItem] = Array(repeating: .init(.flexible()), count: 2)
     @Binding var workoutInProgress: Bool
+    @Namespace var mainView
+    @State var isActive: Bool = false
     var body: some View {
-            NavigationView {
+        VStack {
+        if isActive {
+            ActiveWorkoutView(isActive: $isActive, mainView: mainView)
+            
+        } else {
+        
                 VStack {
-    
                     FullScreenMap()
                         .ignoresSafeArea(.all)
                     SensorGrid()
-                    StartView()
+                    StartView(isActive: $isActive, mainView: mainView)
                         .padding([.horizontal], 20)
                         
                         
@@ -61,11 +66,8 @@ struct ContentView: View {
 //                    }
                 }
                 .background(Color(uiColor: .systemBackground))
-               
-            }
-            .navigationViewStyle(StackNavigationViewStyle())
-            
-        
+        }
+        }
         //end of navigation view
     }
     

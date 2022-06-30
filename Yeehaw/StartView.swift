@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct StartView: View {
+    @Binding var isActive: Bool
+    let mainView: Namespace.ID
     var body: some View {
         GeometryReader { g in
             ZStack {
@@ -23,7 +25,7 @@ struct StartView: View {
                     AccessoryButton(image: Image("medal"), height: 33)
                         .frame(width: 52, height: 52)
                     Spacer()
-                    GoButton()
+                    GoButton(isActive: $isActive, mainView: mainView)
                         .frame(width: 100, height: 100)
                     Spacer()
                     AccessoryButton(image: Image(systemName: "gearshape"), height: 27)
@@ -39,23 +41,29 @@ struct StartView: View {
 }
 
 struct StartView_Previews: PreviewProvider {
+    @Namespace static var namespace
     static var previews: some View {
-        StartView()
+        StartView(isActive: .constant(true), mainView: namespace)
             .preferredColorScheme(.dark)
     }
 }
 
 
 struct GoButton: View {
-    @State var isAnimating = false
+    @Binding var isActive: Bool
+    let mainView: Namespace.ID
     var body: some View {
         Button(action:  {
             // Do Something
+            withAnimation(.spring()) {
+            isActive.toggle()
+            }
         }) {
             GeometryReader { g in
                 ZStack {
                     Circle()
                         .fill(LinearGradient(colors: [Color(hex: "FF5400"), Color(hex: "FF6D00")], startPoint: .bottom, endPoint: .top))
+                        
     //                    .scaleEffect(isAnimating ? 1.05 : 1)
     //                    .onAppear {
     //                        withAnimation(.linear(duration: 2).repeatForever(autoreverses: true)) {
@@ -71,7 +79,8 @@ struct GoButton: View {
                     }
                 }
             }
-            
+            .matchedGeometryEffect(id: "Start", in: mainView, isSource: !isActive)
+            .transition(.opacity)
         }
     }
 }
