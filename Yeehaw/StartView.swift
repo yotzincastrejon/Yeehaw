@@ -9,7 +9,6 @@ import SwiftUI
 
 struct StartView: View {
     @Binding var isActive: Bool
-    let mainView: Namespace.ID
     var body: some View {
         GeometryReader { g in
             ZStack {
@@ -25,7 +24,7 @@ struct StartView: View {
                     AccessoryButton(image: Image("medal"), height: 33)
                         .frame(width: 52, height: 52)
                     Spacer()
-                    GoButton(isActive: $isActive, mainView: mainView)
+                    GoButton(isActive: $isActive)
                         .frame(width: 100, height: 100)
                     Spacer()
                     AccessoryButton(image: Image(systemName: "gearshape"), height: 27)
@@ -43,7 +42,7 @@ struct StartView: View {
 struct StartView_Previews: PreviewProvider {
     @Namespace static var namespace
     static var previews: some View {
-        StartView(isActive: .constant(true), mainView: namespace)
+        StartView(isActive: .constant(true))
             .preferredColorScheme(.dark)
     }
 }
@@ -51,7 +50,6 @@ struct StartView_Previews: PreviewProvider {
 
 struct GoButton: View {
     @Binding var isActive: Bool
-    let mainView: Namespace.ID
     var body: some View {
         Button(action:  {
             // Do Something
@@ -79,8 +77,6 @@ struct GoButton: View {
                     }
                 }
             }
-            .matchedGeometryEffect(id: "Start", in: mainView, isSource: !isActive)
-            .transition(.opacity)
         }
     }
 }

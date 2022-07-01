@@ -8,7 +8,8 @@
 import SwiftUI
 
 struct SensorView: View {
-    @State var isConnected = false
+    @Binding var isActive: Bool
+    @State var isConnected: Bool = false
     let sensorSystemImageName: String
     let baseColor: Color
     var body: some View {
@@ -63,15 +64,16 @@ struct SensorView: View {
 }
 
 struct SensorView_Previews: PreviewProvider {
+    @Namespace static var namespace
     static var previews: some View {
         //        SensorView(sensorSystemImageName: "heart.fill", baseColor: .red)
         //            .preferredColorScheme(.dark)
         //        SensorViewSpeedandCadence()
         //            .preferredColorScheme(.dark)
         Group {
-            SensorGrid()
+            SensorGrid(isActive: .constant(true))
                 .preferredColorScheme(.dark)
-            SensorGrid()
+            SensorGrid(isActive: .constant(true))
                 .previewDevice("iPhone 8")
                 .preferredColorScheme(.dark)
         }

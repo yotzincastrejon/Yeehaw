@@ -10,7 +10,6 @@ import HealthKit
 
 struct ActiveWorkoutView: View {
     @Binding var isActive: Bool
-    let mainView: Namespace.ID
 
     var body: some View {
         
@@ -18,9 +17,10 @@ struct ActiveWorkoutView: View {
                 TimeBlock()
                 SpeedAndCadenceBlock()
                 HeartRateBlock()
+//                    .matchedGeometryEffect(id: "Heart Rate", in: mainView)
                 DistanceBlock()
                 PowerBlock()
-                PauseButton(isActive: $isActive, mainView: mainView)
+                PauseButton(isActive: $isActive)
                     .frame(width: UIScreen.main.bounds.width * 100/428, height:UIScreen.main.bounds.height * 100/926)
             }
             .padding(.horizontal)
@@ -33,9 +33,9 @@ struct ActiveWorkoutView_Previews: PreviewProvider {
 
     static var previews: some View {
         Group {
-            ActiveWorkoutView(isActive: .constant(true), mainView: namespace)
+            ActiveWorkoutView(isActive: .constant(true))
                 .preferredColorScheme(.dark)
-            ActiveWorkoutView(isActive: .constant(true), mainView: namespace)
+            ActiveWorkoutView(isActive: .constant(true))
                 .previewDevice("iPhone 8")
                 .preferredColorScheme(.dark)
         }
@@ -246,7 +246,6 @@ struct StatisticsView: View {
 
 struct PauseButton: View {
     @Binding var isActive: Bool
-    let mainView: Namespace.ID
     var body: some View {
         Button(action: {
             // Do something
@@ -265,8 +264,6 @@ struct PauseButton: View {
                         .foregroundColor(.white)
                 }
             }
-            .matchedGeometryEffect(id: "Start", in: mainView)
-            .transition(.opacity)
         }
     }
 }

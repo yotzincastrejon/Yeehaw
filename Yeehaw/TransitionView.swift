@@ -9,50 +9,33 @@ import SwiftUI
 
 struct TransitionView: View {
     @State var isPressed = false
-    @Namespace var namespace
     var body: some View {
         VStack {
-            if isPressed {
+            ZStack {
+                //View that is shown after the button is pressed.
                 Rectangle()
-                    .fill(.black)
-                    .matchedGeometryEffect(id: "Card1", in: namespace)
-                    .frame(width: 200, height: 100)
-                Rectangle()
-                    .fill(.red)
-                    .matchedGeometryEffect(id: "Card", in: namespace)
-                    .frame(width: 200, height: 100)
-                
-                Spacer()
-            } else {
-                Spacer()
-            Rectangle()
-                    .fill(.red)
-                    .matchedGeometryEffect(id: "Card", in: namespace, isSource: !isPressed)
-                    .frame(width: 50, height: 100)
-                    .transition(.opacity)
-                Rectangle()
-                    .fill(.black)
-                    .matchedGeometryEffect(id: "Card1", in: namespace)
-                    .frame(width: 100, height: 100)
-            }
-            Spacer()
-            Button {
-                // Do Seomthing
-                withAnimation(.spring()) {
-                isPressed.toggle()
-                }
-            } label: {
-                Text("Press")
-            }
+                    .frame(width: 50, height: 50)
+                    .offset(x: isPressed ? 0 : 300, y: 0)
+                    .opacity(isPressed ? 1 : 0)
+                    .animation(.spring().delay(isPressed ? 1 : 0), value: isPressed)
 
-            Button {
-                // Do Seomthing
-                
-                isPressed.toggle()
-                
-            } label: {
+                // Default View is Shown
+                Rectangle()
+                    .fill(.red)
+                     .frame(width: 50, height: 50)
+                     .opacity(isPressed ? 0 : 1)
+                     .offset(x: isPressed ? -100 : 0, y: 0)
+                     .animation(.spring().delay(isPressed ? 0 : 1), value: isPressed)
+                     
+            }
+            Button(action: {
+                withAnimation {
+                    isPressed.toggle()
+                }
+            }) {
                 Text("Press")
             }
+         
         }
     }
 }
@@ -60,5 +43,40 @@ struct TransitionView: View {
 struct TransitionView_Previews: PreviewProvider {
     static var previews: some View {
         TransitionView()
+        ShowOne()
+    }
+}
+
+struct ShowOne: View {
+    @State var showOne = true
+    var body: some View {
+        VStack {
+                    if showOne {
+                        HStack {
+                            Spacer()
+                            Text("One")
+                            Spacer()
+                        }
+                        .background(Color.red)
+                        .id("one")
+                        .animation(Animation.default)
+                        .transition(.slide)
+                    } else {
+                        HStack {
+                            Spacer()
+                            Text("Two")
+                            Spacer()
+                        }
+                        .background(Color.blue)
+                        .id("two")
+                        .animation(Animation.default.delay(2))
+                        .transition(.slide)
+                    }
+                    Button("Toggle") {
+                        withAnimation {
+                            self.showOne.toggle()
+                        }
+                    }
+                }
     }
 }

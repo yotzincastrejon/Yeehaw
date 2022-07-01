@@ -13,20 +13,18 @@ struct ContentView: View {
     
     var columns: [GridItem] = Array(repeating: .init(.flexible()), count: 2)
     @Binding var workoutInProgress: Bool
-    @Namespace var mainView
     @State var isActive: Bool = false
     var body: some View {
-        VStack {
-        if isActive {
-            ActiveWorkoutView(isActive: $isActive, mainView: mainView)
+        ZStack {
+            Color.black
             
-        } else {
-        
+            ActiveWorkoutView(isActive: $isActive)
+       
                 VStack {
                     FullScreenMap()
                         .ignoresSafeArea(.all)
-                    SensorGrid()
-                    StartView(isActive: $isActive, mainView: mainView)
+                    SensorGrid(isActive: $isActive)
+                    StartView(isActive: $isActive)
                         .padding([.horizontal], 20)
                         
                         
@@ -66,11 +64,9 @@ struct ContentView: View {
 //                    }
                 }
                 .background(Color(uiColor: .systemBackground))
+        
         }
-        }
-        //end of navigation view
     }
-    
 }
 
 struct ContentView_Previews: PreviewProvider {
