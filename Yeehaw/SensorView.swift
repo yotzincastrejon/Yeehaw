@@ -20,9 +20,9 @@ struct SensorView: View {
                     ZStack {
                         Rectangle()
                             .fill(LinearGradient(colors: [baseColor,baseColor,Color(hex: "D9D9D9").opacity(0)], startPoint: .bottom, endPoint: .top))
-                            .frame(width: g.size.width * 0.7)
+                            .frame(width: g.size.width)
                     }
-                    .blur(radius: 40)
+                    .blur(radius: 45)
                     Rectangle()
                         .fill(Color(hex: "1C1C1E").opacity(0.2))
                     
@@ -85,9 +85,9 @@ struct SensorViewSpeedandCadence: View {
                         Rectangle()
                             .fill(LinearGradient(colors: [Color.green, Color.green, Color(hex: "D9D9D9").opacity(0)], startPoint: .bottom, endPoint: .top)
                             )
-                            .frame(width: g.size.width * 0.7)
+                            .frame(width: g.size.width)
                     }
-                    .blur(radius: 40)
+                    .blur(radius: 45)
                     
                     Rectangle()
                         .fill(Color(hex: "1C1C1E").opacity(0.2))

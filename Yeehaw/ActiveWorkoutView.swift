@@ -17,14 +17,12 @@ struct ActiveWorkoutView: View {
                 TimeBlock()
                 SpeedAndCadenceBlock()
                 HeartRateBlock()
-//                    .matchedGeometryEffect(id: "Heart Rate", in: mainView)
                 DistanceBlock()
                 PowerBlock()
                 PauseButton(isActive: $isActive)
                     .frame(width: UIScreen.main.bounds.width * 100/428, height:UIScreen.main.bounds.height * 100/926)
             }
             .padding(.horizontal)
-        
     }
 }
 
@@ -57,7 +55,6 @@ struct SpeedAndCadenceBlock: View {
 
             
         }
-//        .frame(height: UIScreen.main.bounds.height * 150/926)
     }
 }
 
@@ -73,8 +70,6 @@ struct TimeBlock: View {
                     .foregroundColor(.white)
             }
         }
-//        .frame(height: UIScreen.main.bounds.height * 150/926)
-        
     }
 }
 
@@ -106,7 +101,6 @@ struct HeartRateBlock: View {
             }
             .frame(width: g.size.width, height: g.size.height)
         }
-//        .frame(height: UIScreen.main.bounds.height * 150/926)
     }
 }
 
@@ -161,8 +155,6 @@ struct DistanceBlock: View {
             }
             .frame(width: g.size.width, height: g.size.height)
         }
-//        .frame(height: UIScreen.main.bounds.height * 150/926)
-
     }
 }
 
@@ -183,27 +175,15 @@ struct WorkoutStatsBlockBackground: View {
     var body: some View {
         GeometryReader { g in
             ZStack {
-                Rectangle()
-                    .fill(LinearGradient(colors: [baseColor,baseColor.opacity(0.5),Color(hex: "D9D9D9").opacity(0)], startPoint: .bottom, endPoint: .top))
-                    .frame(width: g.size.width * 0.9)
-                Rectangle()
-                    .fill(LinearGradient(colors: [baseColor,.clear], startPoint: .bottom, endPoint: .center))
-                    .frame(width: g.size.width * 0.9)
-                    .blendMode(.screen)
+                ZStack {
+                    Rectangle()
+                        .fill(LinearGradient(colors: [baseColor,baseColor,Color(hex: "D9D9D9").opacity(0)], startPoint: .bottom, endPoint: .top))
+                    .frame(width: g.size.width)
+                }
+                .blur(radius: 60)
                 
                 Rectangle()
-                    .fill(.clear)
-                    .background(.bar)
-//                Image(systemName: sensorSystemImageName)
-//                    .resizable()
-//                    .scaledToFit()
-//                    .frame(width: g.size.width * 50/180, height: g.size.height * 50/100)
-//                    .foregroundColor(baseColor)
-//                    .shadow(color: .black.opacity(0.25), radius: 4, x: 0, y: 4)
-//                    .frame(width: g.size.width, height: g.size.height)
-//                    .background(
-//                        .bar
-//                    )
+                    .fill(Color(hex: "1C1C1E").opacity(0.2))
             }
             .frame(width: g.size.width, height: g.size.height)
         }
