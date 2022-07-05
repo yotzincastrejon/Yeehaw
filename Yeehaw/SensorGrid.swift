@@ -16,7 +16,6 @@ struct SensorGrid: View {
                     .opacity(isActive ? 0 : 1)
                     .offset(x: 0, y: isActive ? -100 : 0)
                     .animation(.easeOut.delay(isActive ? 0 : 1), value: isActive)
-//                    .matchedGeometryEffect(id: "Heart Rate", in: mainView, isSource: !isActive)
                 SensorViewSpeedandCadence(isActive: $isActive)
                     .opacity(isActive ? 0 : 1)
                     .offset(x: 0, y: isActive ? -100 : 0)
