@@ -10,15 +10,15 @@ import HealthKit
 
 struct ActiveWorkoutView: View {
     @Binding var isActive: Bool
-
+    @State var isLowPowerMode: Bool = true
     var body: some View {
         
             VStack {
                 TimeBlock()
-                SpeedAndCadenceBlock()
-                HeartRateBlock()
-                DistanceBlock()
-                PowerBlock()
+                SpeedAndCadenceBlock(isLowPowerMode: $isLowPowerMode)
+                HeartRateBlock(isLowPowerMode: $isLowPowerMode)
+                DistanceBlock(isLowPowerMode: $isLowPowerMode)
+                PowerBlock(isLowPowerMode: $isLowPowerMode)
                 PauseButton(isActive: $isActive)
                     .frame(width: UIScreen.main.bounds.width * 100/428, height:UIScreen.main.bounds.height * 100/926)
             }
@@ -41,9 +41,15 @@ struct ActiveWorkoutView_Previews: PreviewProvider {
 }
 
 struct SpeedAndCadenceBlock: View {
+    @Binding var isLowPowerMode: Bool
     var body: some View {
         ZStack {
+            if isLowPowerMode {
+                RoundedRectangle(cornerRadius: 20, style: .circular)
+                    .stroke(Color.green)
+            } else {
             WorkoutStatsBlockBackground(baseColor: .green)
+            }
             HStack(spacing: 0) {
                 
                 StatisticsView(image: Image(systemName: "speedometer"), imageColor: .green, stat: "16", unit: "mph")
@@ -74,10 +80,16 @@ struct TimeBlock: View {
 }
 
 struct HeartRateBlock: View {
+    @Binding var isLowPowerMode: Bool
     var body: some View {
         GeometryReader { g in
             ZStack {
+                if isLowPowerMode {
+                    RoundedRectangle(cornerRadius: 20, style: .circular)
+                        .stroke(Color.red)
+                } else {
                 WorkoutStatsBlockBackground(baseColor: .red)
+                }
                 HStack {
                     StatisticsView(image: Image(systemName: "heart.fill"), imageColor: .red, stat: "120", unit: "bpm")
                     
@@ -105,10 +117,16 @@ struct HeartRateBlock: View {
 }
 
 struct DistanceBlock: View {
+    @Binding var isLowPowerMode: Bool
     var body: some View {
         GeometryReader { g in
             ZStack {
+                if isLowPowerMode {
+                    RoundedRectangle(cornerRadius: 20, style: .circular)
+                        .stroke(Color.blue)
+                } else {
                 WorkoutStatsBlockBackground(baseColor: .blue)
+                }
                 HStack {
                     StatisticsView(image: Image(systemName: "location.fill"), imageColor: .blue, stat: "12.9", unit: "miles")
                     VStack {
@@ -159,9 +177,15 @@ struct DistanceBlock: View {
 }
 
 struct PowerBlock: View {
+    @Binding var isLowPowerMode: Bool
     var body: some View {
         ZStack {
+            if isLowPowerMode {
+                RoundedRectangle(cornerRadius: 20, style: .circular)
+                    .stroke(Color.yellow)
+            } else {
             WorkoutStatsBlockBackground(baseColor: .yellow)
+            }
             HStack {
                 StatisticsView(image: Image(systemName: "bolt.fill"), imageColor: .yellow, stat: "150", unit: "watts")
             }
