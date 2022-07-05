@@ -17,13 +17,18 @@ struct SensorView: View {
             GeometryReader { g in
                     if isConnected {
                         ZStack {
+                            ZStack {
+                                Rectangle()
+                                    .fill(LinearGradient(colors: [baseColor,baseColor,Color(hex: "D9D9D9").opacity(0)], startPoint: .bottom, endPoint: .top))
+                                .frame(width: g.size.width * 0.7)
+                            }
+                            .blur(radius: 40)
                             Rectangle()
-                                .fill(LinearGradient(colors: [baseColor,baseColor.opacity(0.5),Color(hex: "D9D9D9").opacity(0)], startPoint: .bottom, endPoint: .top))
-                                .frame(width: g.size.width * 0.65)
-                            Rectangle()
-                                .fill(LinearGradient(colors: [baseColor,.clear], startPoint: .bottom, endPoint: .center))
-                                .frame(width: g.size.width * 0.65)
-                                .blendMode(.screen)
+                                .fill(Color(hex: "1C1C1E").opacity(0.2))
+//                            Rectangle()
+//                                .fill(LinearGradient(colors: [baseColor,.clear], startPoint: .bottom, endPoint: .center))
+//                                .frame(width: g.size.width * 0.65)
+//                                .blendMode(.screen)
                             
                             Image(systemName: sensorSystemImageName)
                                 .resizable()
@@ -32,9 +37,7 @@ struct SensorView: View {
                                 .foregroundColor(baseColor)
                                 .shadow(color: .black.opacity(0.25), radius: 4, x: 0, y: 4)
                                 .frame(width: g.size.width, height: g.size.height)
-                                .background(
-                                    .bar
-                                )
+                                
                         }
                         .frame(width: g.size.width, height: g.size.height)
                     } else {
@@ -71,9 +74,9 @@ struct SensorView_Previews: PreviewProvider {
         //        SensorViewSpeedandCadence()
         //            .preferredColorScheme(.dark)
         Group {
-            SensorGrid(isActive: .constant(true))
+            SensorGrid(isActive: .constant(false))
                 .preferredColorScheme(.dark)
-            SensorGrid(isActive: .constant(true))
+            SensorGrid(isActive: .constant(false))
                 .previewDevice("iPhone 8")
                 .preferredColorScheme(.dark)
         }
@@ -81,6 +84,7 @@ struct SensorView_Previews: PreviewProvider {
 }
 
 struct SensorViewSpeedandCadence: View {
+    @Binding var isActive: Bool
     @State var isConnected = false
     var body: some View {
        
@@ -88,16 +92,33 @@ struct SensorViewSpeedandCadence: View {
                 GeometryReader { g in
                     if isConnected {
                         ZStack {
+//                            ZStack {
+//                            Rectangle()
+//                                .fill(LinearGradient(colors: [.green,.green.opacity(0.5),Color(hex: "D9D9D9").opacity(0)], startPoint: .bottom, endPoint: .top))
+//                                .frame(width: g.size.width * 0.65)
+//                            Rectangle()
+//                                .fill(LinearGradient(colors: [.green,.clear], startPoint: .bottom, endPoint: .center))
+//                                .frame(width: g.size.width * 0.65)
+//                                .blendMode(.screen)
+//                            }
+//                            .opacity(isActive ? 0 : 1)
+//                            .blur(radius: isActive ? 35 : 0)
+                            ZStack {
+                                Rectangle()
+                                    .fill(LinearGradient(colors: [Color.green, Color.green, Color(hex: "D9D9D9").opacity(0)], startPoint: .bottom, endPoint: .top)
+                                        )
+                                    .frame(width: g.size.width * 0.7)
+                            }
+                            .blur(radius: 40)
+                            
                             Rectangle()
-                                .fill(LinearGradient(colors: [.green,.green.opacity(0.5),Color(hex: "D9D9D9").opacity(0)], startPoint: .bottom, endPoint: .top))
-                                .frame(width: g.size.width * 0.65)
-                            Rectangle()
-                                .fill(LinearGradient(colors: [.green,.clear], startPoint: .bottom, endPoint: .center))
-                                .frame(width: g.size.width * 0.65)
-                                .blendMode(.screen)
-                            Rectangle()
-                                .fill(.clear)
-                                .background(.bar)
+                                .fill(Color(hex: "1C1C1E").opacity(0.2))
+                            
+//                            Rectangle()
+//                                .fill(.clear)
+//                                .background(.bar)
+//                                .opacity(isActive ? 0 : 1)
+
                             
                             HStack {
                                 Image(systemName: "speedometer")
@@ -118,6 +139,9 @@ struct SensorViewSpeedandCadence: View {
                                 
                                 
                             }
+//                            .opacity(isActive ? 0 : 1)
+                          
+                            
                         }
                         .frame(width: g.size.width, height: g.size.height)
                     } else {

@@ -23,10 +23,13 @@ struct ContentView: View {
                 VStack {
                     FullScreenMap()
                         .ignoresSafeArea(.all)
+                        .offset(x: 0, y: isActive ? -200 : 0)
+                        .opacity(isActive ? 0 : 1)
                     SensorGrid(isActive: $isActive)
                     StartView(isActive: $isActive)
                         .padding([.horizontal], 20)
-                        
+                        .offset(x: 0, y: isActive ? 200 : 0)
+                        .opacity(isActive ? 0 : 1)
                         
                     
 //                    ScrollView {
