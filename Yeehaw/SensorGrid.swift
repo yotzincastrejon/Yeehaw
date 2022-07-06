@@ -8,40 +8,79 @@
 import SwiftUI
 
 struct SensorGrid: View {
+    @ObservedObject var bleManager: BLEManager
     @Binding var isActive: Bool
     let columns = [GridItem(.flexible(), spacing: 20),GridItem(.flexible(), spacing: 20)]
     @State var showSheet = false
+    @State var sensorType: SensorType? = nil
+    @State var powerIsConnected = false
+    @State var speedIsConnected = false
+    @State var heartRateIsConnected = false
+    @State var locationIsConnected = false
     var body: some View {
             LazyVGrid(columns: columns, spacing: 20) {
-                SensorView(isActive: $isActive, sensorSystemImageName: "heart.fill", baseColor: .red)
+                SensorView(isActive: $isActive, isConnected: $heartRateIsConnected, sensorSystemImageName: "heart.fill", baseColor: .red)
                     .opacity(isActive ? 0 : 1)
                     .offset(x: 0, y: isActive ? -50 : 0)
                     .animation(.easeOut.delay(isActive ? 0 : 1), value: isActive)
-                SensorViewSpeedandCadence(isActive: $isActive, showSheet: $showSheet)
+                    .onTapGesture {
+                        sensorType = .heartRate
+                        heartRateIsConnected.toggle()
+                        showSheet = true
+                    }
+                SensorViewSpeedandCadence(isActive: $isActive, isConnected: $speedIsConnected)
                     .opacity(isActive ? 0 : 1)
                     .offset(x: 0, y: isActive ? -50 : 0)
                     .animation(.easeOut.delay(isActive ? 0 : 1), value: isActive)
-                    .sheet(isPresented: $showSheet) {
-                        Text("Hello World")
+                    .onTapGesture {
+                        sensorType = .speedAndCadence
+                        speedIsConnected.toggle()
+                        showSheet = true
                     }
                     
-                SensorView(isActive: $isActive, sensorSystemImageName: "bolt.fill", baseColor: .yellow)
+                    
+                SensorView(isActive: $isActive, isConnected: $powerIsConnected,sensorSystemImageName: "bolt.fill", baseColor: .yellow)
                     .opacity(isActive ? 0 : 1)
                     .offset(x:isActive ? -50 : 0, y: 0)
                     .animation(.easeOut.delay(isActive ? 0 : 1), value: isActive)
-                SensorView(isActive: $isActive, sensorSystemImageName: "location.fill", baseColor: .blue)
+                    .onTapGesture {
+                        sensorType = .power
+                        powerIsConnected.toggle()
+                        showSheet = true
+                    }
+                SensorView(isActive: $isActive, isConnected: $locationIsConnected, sensorSystemImageName: "location.fill", baseColor: .blue)
                     .opacity(isActive ? 0 : 1)
                     .offset(x: isActive ? 50 : 0, y: 0)
                     .animation(.easeOut.delay(isActive ? 0 : 1), value: isActive)
+                    .onTapGesture {
+                        locationIsConnected.toggle()
+                    }
             }
             .padding(20)
+            .sheet(isPresented: $showSheet) {
+                SensorDeviceConnectionView(bleManager: bleManager, sensorType: $sensorType, showSheet: $showSheet)
+            }
     }
 }
 
 struct SensorGrid_Previews: PreviewProvider {
     @Namespace static var namespace
     static var previews: some View {
-        SensorGrid(isActive: .constant(false))
+        SensorGrid(bleManager: BLEManager(), isActive: .constant(false))
             .preferredColorScheme(.dark)
+    }
+}
+
+enum SensorType: CustomStringConvertible, CaseIterable {
+    case heartRate
+    case speedAndCadence
+    case power
+    
+    var description: String {
+        switch self {
+            case .heartRate: return "Heart Rate"
+            case .speedAndCadence: return "Speed and Cadence"
+            case .power: return "Power"
+        }
     }
 }

@@ -27,7 +27,7 @@ struct ContentView: View {
                         .opacity(isActive ? 0 : 1)
                         .animation(.easeOut.delay(isActive ? 0 : 1), value: isActive)
 
-                    SensorGrid(isActive: $isActive)
+                    SensorGrid(bleManager: bleManager, isActive: $isActive)
                     StartView(isActive: $isActive)
                         .padding([.horizontal], 20)
                         .offset(x: 0, y: isActive ? 50 : 0)

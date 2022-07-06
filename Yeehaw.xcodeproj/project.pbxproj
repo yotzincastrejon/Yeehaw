@@ -23,6 +23,7 @@
 		FA4CF79A286A9DD800AC071C /* SensorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4CF799286A9DD800AC071C /* SensorView.swift */; };
 		FA4CF79C286AA2A700AC071C /* ColorHex.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4CF79B286AA2A700AC071C /* ColorHex.swift */; };
 		FA4CF79E286AB91200AC071C /* SensorGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4CF79D286AB91200AC071C /* SensorGrid.swift */; };
+		FA5B2AD528760092007F7809 /* SensorDeviceConnectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA5B2AD428760092007F7809 /* SensorDeviceConnectionView.swift */; };
 		FA5B89A428049D9200229829 /* SensorSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA5B89A328049D9200229829 /* SensorSettings.swift */; };
 		FA6BE0EF286B9C9500B37C29 /* StartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA6BE0EE286B9C9500B37C29 /* StartView.swift */; };
 		FA6BE0F1286BC6FE00B37C29 /* TransitionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA6BE0F0286BC6FE00B37C29 /* TransitionView.swift */; };
@@ -68,6 +69,7 @@
 		FA4CF799286A9DD800AC071C /* SensorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensorView.swift; sourceTree = "<group>"; };
 		FA4CF79B286AA2A700AC071C /* ColorHex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorHex.swift; sourceTree = "<group>"; };
 		FA4CF79D286AB91200AC071C /* SensorGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensorGrid.swift; sourceTree = "<group>"; };
+		FA5B2AD428760092007F7809 /* SensorDeviceConnectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensorDeviceConnectionView.swift; sourceTree = "<group>"; };
 		FA5B89A328049D9200229829 /* SensorSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensorSettings.swift; sourceTree = "<group>"; };
 		FA6BE0EE286B9C9500B37C29 /* StartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartView.swift; sourceTree = "<group>"; };
 		FA6BE0F0286BC6FE00B37C29 /* TransitionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransitionView.swift; sourceTree = "<group>"; };
@@ -152,6 +154,7 @@
 				FA6BE0EE286B9C9500B37C29 /* StartView.swift */,
 				FA6BE0F2286BC9EB00B37C29 /* ActiveWorkoutView.swift */,
 				FA4CF79D286AB91200AC071C /* SensorGrid.swift */,
+				FA5B2AD428760092007F7809 /* SensorDeviceConnectionView.swift */,
 				FA4CF79B286AA2A700AC071C /* ColorHex.swift */,
 				FA22278227FF5D230024067C /* DefaultSensors.swift */,
 				FA5B89A228049B8100229829 /* Sensors */,
@@ -325,6 +328,7 @@
 				FA22278327FF5D230024067C /* DefaultSensors.swift in Sources */,
 				FA771077261E7C690028EAF3 /* LocationHelper.swift in Sources */,
 				FA735C1C2620FDD20057A951 /* History.swift in Sources */,
+				FA5B2AD528760092007F7809 /* SensorDeviceConnectionView.swift in Sources */,
 				FA77107A261E7D080028EAF3 /* HealthKitManager.swift in Sources */,
 				FA3AFEA22613CA5F00B2755E /* AddNewSensorView.swift in Sources */,
 				FAAF11C12616781D003FA489 /* AddNewSensorAnimation.swift in Sources */,

@@ -88,7 +88,7 @@ struct DefaultSensorSmallCards: View {
                         .font(.subheadline)
                         .fontWeight(.semibold)
                         .opacity(isAnimating ? 0.25 : 1)
-                        .animation(Animation.linear(duration: 0.5).repeatForever(autoreverses: true))
+//                        .animation(Animation.linear(duration: 0.5).repeatForever(autoreverses: true))
                 }
             }
             

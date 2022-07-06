@@ -74,8 +74,8 @@ class BLEManager: NSObject, ObservableObject, CBCentralManagerDelegate, CBPeriph
                 print("central.state is .poweredOff")
             case .poweredOn:
                 print("central.state is .poweredOn")
-            //part of original code
-            //        centralManager.scanForPeripherals(withServices: [heartRateServiceCBUUID])
+        @unknown default:
+            print("It went to unknown default")
         }
     }
     

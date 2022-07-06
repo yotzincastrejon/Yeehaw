@@ -59,7 +59,7 @@ struct ShowOne: View {
                         }
                         .background(Color.red)
                         .id("one")
-                        .animation(Animation.default)
+//                        .animation(Animation.default)
                         .transition(.slide)
                     } else {
                         HStack {
@@ -69,7 +69,7 @@ struct ShowOne: View {
                         }
                         .background(Color.blue)
                         .id("two")
-                        .animation(Animation.default.delay(2))
+//                        .animation(Animation.default.delay(2))
                         .transition(.slide)
                     }
                     Button("Toggle") {

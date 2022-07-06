@@ -46,7 +46,7 @@ struct LinkedSensorsView: View {
                                         sensorData = sensor
                                         if sensorData != nil {
                                         isShowingSettings = true
-                                        print("Sensor name \(sensor.deviceName)")
+//                                        print("Sensor name \(sensor.deviceName)")
                                         }
                                     }) {
                                         Image(systemName: "info.circle")

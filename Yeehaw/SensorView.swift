@@ -9,7 +9,7 @@ import SwiftUI
 
 struct SensorView: View {
     @Binding var isActive: Bool
-    @State var isConnected: Bool = false
+    @Binding var isConnected: Bool
     let sensorSystemImageName: String
     let baseColor: Color
     var body: some View {
@@ -48,9 +48,9 @@ struct SensorView: View {
                         .foregroundColor(.white)
                 }
                 .frame(width: g.size.width, height: g.size.height)
-                .onTapGesture {
-                    isConnected.toggle()
-                }
+//                .onTapGesture {
+//                    isConnected.toggle()
+//                }
             }
         }
         .frame(width: UIScreen.main.bounds.width * 180/428, height: UIScreen.main.bounds.height * 100/926)
@@ -65,9 +65,9 @@ struct SensorView: View {
 struct SensorView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            SensorGrid(isActive: .constant(false))
+            SensorGrid(bleManager: BLEManager(), isActive: .constant(false))
                 .preferredColorScheme(.dark)
-            SensorGrid(isActive: .constant(false))
+            SensorGrid(bleManager: BLEManager(), isActive: .constant(false))
                 .previewDevice("iPhone 8")
                 .preferredColorScheme(.dark)
         }
@@ -76,8 +76,7 @@ struct SensorView_Previews: PreviewProvider {
 
 struct SensorViewSpeedandCadence: View {
     @Binding var isActive: Bool
-    @Binding var showSheet: Bool
-    @State var isConnected = false
+    @Binding var isConnected: Bool
     var body: some View {
         GeometryReader { g in
             if isConnected {
@@ -137,10 +136,9 @@ struct SensorViewSpeedandCadence: View {
                     }
                 }
                 .frame(width: g.size.width, height: g.size.height)
-                .onTapGesture {
-                    isConnected.toggle()
-                    showSheet.toggle()
-                }
+//                .onTapGesture {
+//                    isConnected.toggle()
+//                }
             }
         }
         .frame(width: UIScreen.main.bounds.width * 180/428, height: UIScreen.main.bounds.height * 100/926)
