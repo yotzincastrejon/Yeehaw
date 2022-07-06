@@ -10,23 +10,28 @@ import SwiftUI
 struct SensorGrid: View {
     @Binding var isActive: Bool
     let columns = [GridItem(.flexible(), spacing: 20),GridItem(.flexible(), spacing: 20)]
+    @State var showSheet = false
     var body: some View {
             LazyVGrid(columns: columns, spacing: 20) {
                 SensorView(isActive: $isActive, sensorSystemImageName: "heart.fill", baseColor: .red)
                     .opacity(isActive ? 0 : 1)
-                    .offset(x: 0, y: isActive ? -100 : 0)
+                    .offset(x: 0, y: isActive ? -50 : 0)
                     .animation(.easeOut.delay(isActive ? 0 : 1), value: isActive)
-                SensorViewSpeedandCadence(isActive: $isActive)
+                SensorViewSpeedandCadence(isActive: $isActive, showSheet: $showSheet)
                     .opacity(isActive ? 0 : 1)
-                    .offset(x: 0, y: isActive ? -100 : 0)
+                    .offset(x: 0, y: isActive ? -50 : 0)
                     .animation(.easeOut.delay(isActive ? 0 : 1), value: isActive)
+                    .sheet(isPresented: $showSheet) {
+                        Text("Hello World")
+                    }
+                    
                 SensorView(isActive: $isActive, sensorSystemImageName: "bolt.fill", baseColor: .yellow)
                     .opacity(isActive ? 0 : 1)
-                    .offset(x:isActive ? -100 : 0, y: 0)
+                    .offset(x:isActive ? -50 : 0, y: 0)
                     .animation(.easeOut.delay(isActive ? 0 : 1), value: isActive)
                 SensorView(isActive: $isActive, sensorSystemImageName: "location.fill", baseColor: .blue)
                     .opacity(isActive ? 0 : 1)
-                    .offset(x: isActive ? 100 : 0, y: 0)
+                    .offset(x: isActive ? 50 : 0, y: 0)
                     .animation(.easeOut.delay(isActive ? 0 : 1), value: isActive)
             }
             .padding(20)

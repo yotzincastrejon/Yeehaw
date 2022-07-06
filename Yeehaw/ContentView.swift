@@ -23,15 +23,22 @@ struct ContentView: View {
                 VStack {
                     FullScreenMap()
                         .ignoresSafeArea(.all)
-                        .offset(x: 0, y: isActive ? -200 : 0)
+                        .offset(x: 0, y: isActive ? -50 : 0)
                         .opacity(isActive ? 0 : 1)
+                        .animation(.easeOut.delay(isActive ? 0 : 1), value: isActive)
+
                     SensorGrid(isActive: $isActive)
                     StartView(isActive: $isActive)
                         .padding([.horizontal], 20)
-                        .offset(x: 0, y: isActive ? 200 : 0)
+                        .offset(x: 0, y: isActive ? 50 : 0)
                         .opacity(isActive ? 0 : 1)
+                        .animation(.easeOut.delay(isActive ? 0 : 1), value: isActive)
+
                 }
                 .background(Color(uiColor: .systemBackground))
+                .opacity(isActive ? 0 : 1)
+                .animation(.easeOut.delay(isActive ? 0 : 1), value: isActive)
+
         }
     }
 }
@@ -39,15 +46,9 @@ struct ContentView: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            //            ContentView()
-            //                .preferredColorScheme(.light)
             ContentView(bleManager: BLEManager(), workoutInProgress: .constant(true))
                 .preferredColorScheme(.dark)
         }
-        
-        
-        
-        
     }
 }
 

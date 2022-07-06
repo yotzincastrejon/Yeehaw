@@ -14,7 +14,7 @@ struct StartView: View {
             ZStack {
                 Rectangle()
                     .fill(LinearGradient(colors: [Color(hex: "FF5400"), Color(hex: "00B4D8")], startPoint: .topLeading, endPoint: .bottomTrailing))
-                    .frame(height: g.size.height * 0.9)
+                    .frame(height: g.size.height)
                 Rectangle()
                     .fill(Color(hex: "201D23").opacity(0.30))
                     .background(.ultraThinMaterial)

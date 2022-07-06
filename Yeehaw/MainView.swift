@@ -13,25 +13,6 @@ struct MainView: View {
     var body: some View {
         GeometryReader { geometry in
             ContentView(bleManager: bleManager, workoutInProgress: $workoutInProgress)
-//            TabView {
-//                ContentView(bleManager: bleManager, workoutInProgress: $workoutInProgress)
-//                    .tabItem { Label("Workout", systemImage: "bicycle") }
-//                History()
-//                    .tabItem { Label("History", systemImage: "clock.arrow.circlepath") }
-//                Profile()
-//                    .tabItem { Label("Profile", systemImage: "person.crop.circle.fill") }
-//                Settings()
-//                    .tabItem { Label("Settings", systemImage: "gearshape.fill") }
-//            }
-//            .accentColor(Color("Skyblue"))
-//            .preferredColorScheme(.dark)
-//            .opacity(workoutInProgress ? 0 : 1)
-//            .overlay(
-//                WorkoutView(bleManager: bleManager, workoutProgress: $workoutInProgress)
-//                    .offset(CGSize(width: 0, height: workoutInProgress ? 0 : geometry.size.height + 100))
-//                    .animation(.easeInOut(duration: 0.1))
-//                    .ignoresSafeArea(.all)
-//            )
         }
     }
 }
@@ -39,7 +20,7 @@ struct MainView: View {
 struct MainView_Previews: PreviewProvider {
     static var previews: some View {
         MainView()
-            
+            .preferredColorScheme(.dark)
         
     }
 }

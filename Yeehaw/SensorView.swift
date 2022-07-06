@@ -76,6 +76,7 @@ struct SensorView_Previews: PreviewProvider {
 
 struct SensorViewSpeedandCadence: View {
     @Binding var isActive: Bool
+    @Binding var showSheet: Bool
     @State var isConnected = false
     var body: some View {
         GeometryReader { g in
@@ -138,6 +139,7 @@ struct SensorViewSpeedandCadence: View {
                 .frame(width: g.size.width, height: g.size.height)
                 .onTapGesture {
                     isConnected.toggle()
+                    showSheet.toggle()
                 }
             }
         }

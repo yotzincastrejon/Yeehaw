@@ -10,15 +10,30 @@ import HealthKit
 
 struct ActiveWorkoutView: View {
     @Binding var isActive: Bool
-    @State var isLowPowerMode: Bool = true
+    @State var isLowPowerMode: Bool = false
     var body: some View {
         
             VStack {
                 TimeBlock()
+                    .opacity(isActive ? 1 : 0)
+                    .offset(x:isActive ? 0 : 200, y: 0)
+                    .animation(.easeOut.delay(isActive ? 0.5 : 0.4), value: isActive)
                 SpeedAndCadenceBlock(isLowPowerMode: $isLowPowerMode)
+                    .opacity(isActive ? 1 : 0)
+                    .offset(x:isActive ? 0 : 200, y: 0)
+                    .animation(.easeOut.delay(isActive ? 0.6 : 0.3), value: isActive)
                 HeartRateBlock(isLowPowerMode: $isLowPowerMode)
+                    .opacity(isActive ? 1 : 0)
+                    .offset(x:isActive ? 0 : 200, y: 0)
+                    .animation(.easeOut.delay(isActive ? 0.7 : 0.2), value: isActive)
                 DistanceBlock(isLowPowerMode: $isLowPowerMode)
+                    .opacity(isActive ? 1 : 0)
+                    .offset(x:isActive ? 0 : 200, y: 0)
+                    .animation(.easeOut.delay(isActive ? 0.8 : 0.1), value: isActive)
                 PowerBlock(isLowPowerMode: $isLowPowerMode)
+                    .opacity(isActive ? 1 : 0)
+                    .offset(x:isActive ? 0 : 200, y: 0)
+                    .animation(.easeOut.delay(isActive ? 0.9 : 0), value: isActive)
                 PauseButton(isActive: $isActive)
                     .frame(width: UIScreen.main.bounds.width * 100/428, height:UIScreen.main.bounds.height * 100/926)
             }
