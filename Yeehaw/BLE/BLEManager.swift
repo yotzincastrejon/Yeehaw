@@ -321,8 +321,16 @@ class BLEManager: NSObject, ObservableObject, CBCentralManagerDelegate, CBPeriph
     }
     
     func heartRateScan() {
-        print("started to scan for heart rate")
+        print("Scanning for Heart Rate Monitors")
         centralManager.scanForPeripherals(withServices: [heartRateServiceCBUUID])
+    }
+    
+    func speedAndCadenceScan() {
+        print("Scanning for speed and cadence sensors")
+    }
+    
+    func powerMeterScan() {
+        print("Scanning for power meters")
     }
     
     func stopScanning() {

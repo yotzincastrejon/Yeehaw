@@ -42,6 +42,7 @@ struct SensorDeviceConnectionView: View {
                             }
                             .onTapGesture {
                                 // Do Something change the default to this
+                                
                             }
                         }
                     } header: {
@@ -70,7 +71,28 @@ struct SensorDeviceConnectionView: View {
 
                 }
             }
+            .task {
+                scanForSensor()
+            }
+            .onDisappear {
+                bleManager.stopScanning()
+            }
         }
+    }
+    
+    func scanForSensor() {
+        switch sensorType {
+        case .heartRate:
+            bleManager.heartRateScan()
+        case .speedAndCadence:
+            bleManager.speedAndCadenceScan()
+        case .power:
+            bleManager.powerMeterScan()
+        default:
+            bleManager.startScanning()
+        }
+            
+        
     }
 }
 
