@@ -11,6 +11,7 @@ struct SensorDeviceConnectionView: View {
     @ObservedObject var bleManager: BLEManager
     @Binding var sensorType: SensorType?
     @Binding var showSheet: Bool
+    @State var peripheral: Peripheral?
     var body: some View {
         NavigationView {
             VStack {
@@ -20,7 +21,7 @@ struct SensorDeviceConnectionView: View {
                         Rectangle()
                             .fill(Color(uiColor: .secondarySystemGroupedBackground))
                         HStack {
-                            Text("Name")
+                            Text(peripheral?.name ?? "No Default Device")
                             Spacer()
                             Text("Not Connected")
                                 .foregroundColor(.secondary)
@@ -42,7 +43,8 @@ struct SensorDeviceConnectionView: View {
                             }
                             .onTapGesture {
                                 // Do Something change the default to this
-                                
+                                saveSensorToDefaults(device: device)
+                                retrieveDefaultDevice()
                             }
                         }
                     } header: {
@@ -73,6 +75,7 @@ struct SensorDeviceConnectionView: View {
             }
             .task {
                 scanForSensor()
+                retrieveDefaultDevice()
             }
             .onDisappear {
                 bleManager.stopScanning()
@@ -91,8 +94,33 @@ struct SensorDeviceConnectionView: View {
         default:
             bleManager.startScanning()
         }
-            
-        
+    }
+    
+    func saveSensorToDefaults(device: Peripheral) {
+        switch sensorType {
+        case .heartRate:
+            UserDefaults.standard.set(device.name, forKey: "Heart Rate Sensor Name")
+            UserDefaults.standard.set(device.uid.uuidString, forKey: "Heart Rate Sensor UUID")
+            bleManager.heartRateSensor = device
+        case .speedAndCadence:
+            UserDefaults.standard.set(Peripheral(name: device.name, rssi: device.rssi, uid: device.uid), forKey: "Speed and Cadence Sensor")
+        case .power:
+            UserDefaults.standard.set(Peripheral(name: device.name, rssi: device.rssi, uid: device.uid), forKey: "Power Meter")
+        default: break
+        }
+    }
+    
+    func retrieveDefaultDevice() {
+        switch sensorType {
+        case .heartRate:
+            peripheral = bleManager.heartRateSensor
+            print("Retrieved Default Device")
+        case .speedAndCadence:
+            peripheral = bleManager.speedAndCadenceSensor
+        case .power:
+            peripheral = bleManager.powerMeter
+        default: break
+        }
     }
 }
 

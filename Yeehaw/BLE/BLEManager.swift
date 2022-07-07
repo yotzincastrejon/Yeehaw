@@ -52,12 +52,20 @@ class BLEManager: NSObject, ObservableObject, CBCentralManagerDelegate, CBPeriph
     var distanceTraveled = 0.0
     var devicesConnected = 0
     var passes = 0
+    @Published var heartRateSensor = Peripheral(name: "", rssi: 0, uid: UUID())
+    @Published var speedAndCadenceSensor = Peripheral(name: "", rssi: 0, uid: UUID())
+    @Published var powerMeter = Peripheral(name: "", rssi: 0, uid: UUID())
 //    var distanceinRaw = 0
     override init() {
         super.init()
         
         centralManager = CBCentralManager(delegate: self, queue: nil)
         centralManager.delegate = self
+        if let heartSensorName = UserDefaults.standard.string(forKey: "Heart Rate Sensor Name") {
+            if let heartSensorUUID = UserDefaults.standard.string(forKey: "Heart Rate Sensor UUID") {
+                heartRateSensor = Peripheral(name: heartSensorName, rssi: 0, uid: UUID(uuidString: heartSensorUUID)!)
+            }
+        }
     }
     
     func centralManagerDidUpdateState(_ central: CBCentralManager) {
