@@ -12,6 +12,7 @@ struct SensorDeviceConnectionView: View {
     @Binding var sensorType: SensorType?
     @Binding var showSheet: Bool
     @State var peripheral: Peripheral?
+    @Binding var isSensorConnected: Bool
     var body: some View {
         NavigationView {
             VStack {
@@ -23,7 +24,7 @@ struct SensorDeviceConnectionView: View {
                         HStack {
                             Text(peripheral?.name ?? "No Default Device")
                             Spacer()
-                            Text("Not Connected")
+                            Text(isSensorConnected ? "Connected" : "Not Connected")
                                 .foregroundColor(.secondary)
                         }
                     }
@@ -126,7 +127,7 @@ struct SensorDeviceConnectionView: View {
 
 struct SensorDeviceConnectionView_Previews: PreviewProvider {
     static var previews: some View {
-        SensorDeviceConnectionView(bleManager: BLEManager(), sensorType: .constant(.heartRate), showSheet: .constant(true))
+        SensorDeviceConnectionView(bleManager: BLEManager(), sensorType: .constant(.heartRate), showSheet: .constant(true), isSensorConnected: .constant(true))
             .preferredColorScheme(.dark)
     }
 }

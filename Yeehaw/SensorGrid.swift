@@ -19,7 +19,7 @@ struct SensorGrid: View {
     @State var locationIsConnected = false
     var body: some View {
             LazyVGrid(columns: columns, spacing: 20) {
-                SensorView(isActive: $isActive, isConnected: $heartRateIsConnected, sensorSystemImageName: "heart.fill", baseColor: .red)
+                SensorView(isActive: $isActive, isConnected: $bleManager.heartRateSensorState, sensorSystemImageName: "heart.fill", baseColor: .red)
                     .opacity(isActive ? 0 : 1)
                     .offset(x: 0, y: isActive ? -50 : 0)
                     .animation(.easeOut.delay(isActive ? 0 : 1), value: isActive)
@@ -58,8 +58,13 @@ struct SensorGrid: View {
             }
             .padding(20)
             .sheet(isPresented: $showSheet) {
-                SensorDeviceConnectionView(bleManager: bleManager, sensorType: $sensorType, showSheet: $showSheet)
+                SensorDeviceConnectionView(bleManager: bleManager, sensorType: $sensorType, showSheet: $showSheet, isSensorConnected: isSheetSensorConnected())
             }
+    }
+    
+    func isSheetSensorConnected() -> Binding<Bool> {
+        //Make a switch statement based on sensorType we should pass a sensor state for a given sensor. 
+        return $bleManager.heartRateSensorState
     }
 }
 

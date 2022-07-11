@@ -53,6 +53,7 @@ class BLEManager: NSObject, ObservableObject, CBCentralManagerDelegate, CBPeriph
     var devicesConnected = 0
     var passes = 0
     @Published var heartRateSensor = Peripheral(name: "", rssi: 0, uid: UUID())
+    @Published var heartRateSensorState: Bool = false
     @Published var speedAndCadenceSensor = Peripheral(name: "", rssi: 0, uid: UUID())
     @Published var powerMeter = Peripheral(name: "", rssi: 0, uid: UUID())
 //    var distanceinRaw = 0
@@ -89,9 +90,14 @@ class BLEManager: NSObject, ObservableObject, CBCentralManagerDelegate, CBPeriph
     
     func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral,
                         advertisementData: [String : Any], rssi RSSI: NSNumber) {
+        if passes == 0 {
+            sensorsArrayDeviceID.removeAll()
+        }
         passes += 1
         print("Passes: \(passes)")
         print("Raw Peripheral: \(peripheral)")
+//        print("Peripheral Name: \(peripheral.name)")
+        print("Peripheral State: \(peripheral.state)")
         devicePeripheral = peripheral
         devicePeripheral.delegate = self
         //part of original code
@@ -110,6 +116,13 @@ class BLEManager: NSObject, ObservableObject, CBCentralManagerDelegate, CBPeriph
         print("new Peripheral: \(newPeripheral)")
         if !sensorsArrayDeviceID.contains(newPeripheral.uid.description){
         peripherals.append(newPeripheral)
+        }
+        
+        
+        // We need to go through each peripheral and match it to our default. 
+        if peripheral.identifier == heartRateSensor.uid {
+            centralManager.stopScan()
+            centralManager.connect(peripheral)
         }
         
         //This bool is to create a layer between adding a sensor and connecting to said device. The reason why we are going to do this through here is because when you already have a homescreen with your given sensors, you will automatically connect. But I don't want automatically connect while doing the initial setup. Once we add the UUID's we want. We will automatically connect on the home screen. 
@@ -140,7 +153,7 @@ class BLEManager: NSObject, ObservableObject, CBCentralManagerDelegate, CBPeriph
 //        }
         
         
-        //        centralManager.connect(heartRatePeripheral)
+//                centralManager.connect(heartRatePeripheral)
     }
     
     
