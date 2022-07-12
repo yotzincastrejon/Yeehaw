@@ -57,6 +57,7 @@ struct SensorGrid: View {
                     .onTapGesture {
                         locationIsConnected.toggle()
                     }
+                    
             }
             .padding(20)
             .sheet(isPresented: $showSheet) {

@@ -58,6 +58,7 @@ class BLEManager: NSObject, ObservableObject, CBCentralManagerDelegate, CBPeriph
     @Published var speedAndCadenceSensorState: Bool = false
     @Published var powerMeter = Peripheral(name: "", rssi: 0, uid: UUID())
     @Published var powerMeterState: Bool = false
+    @Published var readyToBeScanned = false
     //    var distanceinRaw = 0
     override init() {
         super.init()
@@ -85,6 +86,7 @@ class BLEManager: NSObject, ObservableObject, CBCentralManagerDelegate, CBPeriph
             print("central.state is .poweredOff")
         case .poweredOn:
             print("central.state is .poweredOn")
+            readyToBeScanned.toggle()
         @unknown default:
             print("It went to unknown default")
         }
@@ -362,6 +364,7 @@ class BLEManager: NSObject, ObservableObject, CBCentralManagerDelegate, CBPeriph
     
     func speedAndCadenceScan() {
         print("Scanning for speed and cadence sensors")
+        centralManager.scanForPeripherals(withServices: [speedCadenceServiceCBUUID])
     }
     
     func powerMeterScan() {

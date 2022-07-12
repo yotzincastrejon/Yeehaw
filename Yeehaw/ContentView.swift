@@ -38,7 +38,11 @@ struct ContentView: View {
                 .background(Color(uiColor: .systemBackground))
                 .opacity(isActive ? 0 : 1)
                 .animation(.easeOut.delay(isActive ? 0 : 1), value: isActive)
-
+                .onChange(of: bleManager.readyToBeScanned) { boolValue in
+                    if boolValue {
+                    bleManager.startScanning()
+                    }
+                }
         }
     }
 }

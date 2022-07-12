@@ -12,7 +12,6 @@ struct FullScreenMap: View {
     
     @ObservedObject var mapData: MapViewModel
     // Location Manager....
-    @State var locationManager = CLLocationManager()
     @State var manager = CLLocationManager()
     @State var alert = false
     var body: some View {
