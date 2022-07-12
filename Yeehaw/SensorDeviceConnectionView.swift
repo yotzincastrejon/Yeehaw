@@ -17,23 +17,25 @@ struct SensorDeviceConnectionView: View {
         NavigationView {
             VStack {
                 List {
-                    Section {
-                        ZStack {
-                        Rectangle()
-                            .fill(Color(uiColor: .secondarySystemGroupedBackground))
-                        HStack {
-                            Text(peripheral?.name ?? "No Default Device")
-                            Spacer()
-                            Text(isSensorConnected ? "Connected" : "Not Connected")
-                                .foregroundColor(.secondary)
+                    if peripheral?.name != "" {
+                        Section {
+                            ZStack {
+                            Rectangle()
+                                .fill(Color(uiColor: .secondarySystemGroupedBackground))
+                            HStack {
+                                Text(peripheral?.name ?? "No Default Device")
+                                Spacer()
+                                Text(isSensorConnected ? "Connected" : "Not Connected")
+                                    .foregroundColor(.secondary)
+                            }
                         }
+                        .cornerRadius(20)
+                    .padding(.horizontal)
+                        }
+                    header: {
+                       Text("My Devices")
+                }
                     }
-                    .cornerRadius(20)
-                .padding(.horizontal)
-                    }
-                header: {
-                   Text("My Devices")
-               }
                     
                     Section {
                         ForEach(bleManager.peripherals) { device in
@@ -104,9 +106,13 @@ struct SensorDeviceConnectionView: View {
             UserDefaults.standard.set(device.uid.uuidString, forKey: "Heart Rate Sensor UUID")
             bleManager.heartRateSensor = device
         case .speedAndCadence:
-            UserDefaults.standard.set(Peripheral(name: device.name, rssi: device.rssi, uid: device.uid), forKey: "Speed and Cadence Sensor")
+            UserDefaults.standard.set(device.name, forKey: "Speed and Cadence Sensor Name")
+            UserDefaults.standard.set(device.uid.uuidString, forKey: "Speed and Cadence Sensor UUID")
+            bleManager.speedAndCadenceSensor = device
         case .power:
-            UserDefaults.standard.set(Peripheral(name: device.name, rssi: device.rssi, uid: device.uid), forKey: "Power Meter")
+            UserDefaults.standard.set(device.name, forKey: "Power Meter Name")
+            UserDefaults.standard.set(device.uid.uuidString, forKey: "Power Meter UUID")
+            bleManager.powerMeter = device
         default: break
         }
     }
@@ -115,11 +121,13 @@ struct SensorDeviceConnectionView: View {
         switch sensorType {
         case .heartRate:
             peripheral = bleManager.heartRateSensor
-            print("Retrieved Default Device")
+            print("Retrieved Default Heart Rate Monitor Device")
         case .speedAndCadence:
             peripheral = bleManager.speedAndCadenceSensor
+            print("Retrieved Default Speed and Cadence Sensor Device")
         case .power:
             peripheral = bleManager.powerMeter
+            print("Retrieved Default Power Meter Device")
         default: break
         }
     }

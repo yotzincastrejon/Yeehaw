@@ -58,13 +58,20 @@ struct SensorGrid: View {
             }
             .padding(20)
             .sheet(isPresented: $showSheet) {
-                SensorDeviceConnectionView(bleManager: bleManager, sensorType: $sensorType, showSheet: $showSheet, isSensorConnected: isSheetSensorConnected())
+                SensorDeviceConnectionView(bleManager: bleManager, sensorType: $sensorType, showSheet: $showSheet, isSensorConnected: isSheetSensorConnected(sensorType: sensorType ?? .heartRate))
             }
     }
     
-    func isSheetSensorConnected() -> Binding<Bool> {
-        //Make a switch statement based on sensorType we should pass a sensor state for a given sensor. 
-        return $bleManager.heartRateSensorState
+    func isSheetSensorConnected(sensorType: SensorType) -> Binding<Bool> {
+        //Make a switch statement based on sensorType we should pass a sensor state for a given sensor.
+        switch sensorType {
+        case .heartRate:
+           return $bleManager.heartRateSensorState
+        case .speedAndCadence:
+            return $bleManager.speedAndCadenceSensorState
+        case .power:
+            return $bleManager.powerMeterState
+        }
     }
 }
 

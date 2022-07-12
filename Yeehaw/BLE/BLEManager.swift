@@ -55,8 +55,10 @@ class BLEManager: NSObject, ObservableObject, CBCentralManagerDelegate, CBPeriph
     @Published var heartRateSensor = Peripheral(name: "", rssi: 0, uid: UUID())
     @Published var heartRateSensorState: Bool = false
     @Published var speedAndCadenceSensor = Peripheral(name: "", rssi: 0, uid: UUID())
+    @Published var speedAndCadenceSensorState: Bool = false
     @Published var powerMeter = Peripheral(name: "", rssi: 0, uid: UUID())
-//    var distanceinRaw = 0
+    @Published var powerMeterState: Bool = false
+    //    var distanceinRaw = 0
     override init() {
         super.init()
         
@@ -71,18 +73,18 @@ class BLEManager: NSObject, ObservableObject, CBCentralManagerDelegate, CBPeriph
     
     func centralManagerDidUpdateState(_ central: CBCentralManager) {
         switch central.state {
-            case .unknown:
-                print("central.state is .unknown")
-            case .resetting:
-                print("central.state is .resetting")
-            case .unsupported:
-                print("central.state is .unsupported")
-            case .unauthorized:
-                print("central.state is .unauthorized")
-            case .poweredOff:
-                print("central.state is .poweredOff")
-            case .poweredOn:
-                print("central.state is .poweredOn")
+        case .unknown:
+            print("central.state is .unknown")
+        case .resetting:
+            print("central.state is .resetting")
+        case .unsupported:
+            print("central.state is .unsupported")
+        case .unauthorized:
+            print("central.state is .unauthorized")
+        case .poweredOff:
+            print("central.state is .poweredOff")
+        case .poweredOn:
+            print("central.state is .poweredOn")
         @unknown default:
             print("It went to unknown default")
         }
@@ -96,36 +98,39 @@ class BLEManager: NSObject, ObservableObject, CBCentralManagerDelegate, CBPeriph
         passes += 1
         print("Passes: \(passes)")
         print("Raw Peripheral: \(peripheral)")
-//        print("Peripheral Name: \(peripheral.name)")
+        //        print("Peripheral Name: \(peripheral.name)")
         print("Peripheral State: \(peripheral.state)")
         devicePeripheral = peripheral
         devicePeripheral.delegate = self
         //part of original code
-//        centralManager.stopScan()
-//        if devicesConnected == 2 {
-//            centralManager.stopScan()
-//        }
-        var peripheralName: String!
+        //        centralManager.stopScan()
+        //        if devicesConnected == 2 {
+        //            centralManager.stopScan()
+        //        }
         
-        if let name = advertisementData[CBAdvertisementDataLocalNameKey] as? String {
-            peripheralName = name
-        } else {
-            peripheralName = "Unknown"
-        }
-        let newPeripheral = Peripheral(name: peripheralName, rssi: RSSI.intValue, uid: peripheral.identifier)
-        print("new Peripheral: \(newPeripheral)")
-        if !sensorsArrayDeviceID.contains(newPeripheral.uid.description){
-        peripherals.append(newPeripheral)
-        }
-        
-        
-        // We need to go through each peripheral and match it to our default. 
-        if peripheral.identifier == heartRateSensor.uid {
+        // We need to go through each peripheral and match it to our default.
+        if peripheral.identifier == heartRateSensor.uid || peripheral.identifier == speedAndCadenceSensor.uid || peripheral.identifier == powerMeter.uid{
             centralManager.stopScan()
             centralManager.connect(peripheral)
+        } else {
+            var peripheralName: String!
+            
+            if let name = advertisementData[CBAdvertisementDataLocalNameKey] as? String {
+                peripheralName = name
+            } else {
+                peripheralName = "Unknown"
+            }
+            let newPeripheral = Peripheral(name: peripheralName, rssi: RSSI.intValue, uid: peripheral.identifier)
+            print("new Peripheral: \(newPeripheral)")
+            if !sensorsArrayDeviceID.contains(newPeripheral.uid.description){
+                
+                peripherals.append(newPeripheral)
+            }
         }
         
-        //This bool is to create a layer between adding a sensor and connecting to said device. The reason why we are going to do this through here is because when you already have a homescreen with your given sensors, you will automatically connect. But I don't want automatically connect while doing the initial setup. Once we add the UUID's we want. We will automatically connect on the home screen. 
+        
+        
+        //This bool is to create a layer between adding a sensor and connecting to said device. The reason why we are going to do this through here is because when you already have a homescreen with your given sensors, you will automatically connect. But I don't want automatically connect while doing the initial setup. Once we add the UUID's we want. We will automatically connect on the home screen.
         //        if isScanning {
         //            //do nothing
         //        } else {
@@ -134,26 +139,26 @@ class BLEManager: NSObject, ObservableObject, CBCentralManagerDelegate, CBPeriph
         // part of original code
         //        centralManager.scanForPeripherals(withServices: [heartRateServiceCBUUID,speedCadenceServiceCBUUID])
         
-//        if !saved.isEmpty {
-//        //heart rate array place
-//        if peripheral.identifier == saved[0].id {
-//            centralManager.connect(devicePeripheral)
-//            heartRateIsConnected = true
-//            devicesConnected = devicesConnected + 1
-//        }
-//        }
-//        
-//        if saved.count > 1 {
-//        //speed sensor default place
-//        if peripheral.identifier == saved[1].id {
-//            centralManager.connect(devicePeripheral)
-//            speedSensorIsConnected = true
-//            devicesConnected = devicesConnected + 1
-//        }
-//        }
+        //        if !saved.isEmpty {
+        //        //heart rate array place
+        //        if peripheral.identifier == saved[0].id {
+        //            centralManager.connect(devicePeripheral)
+        //            heartRateIsConnected = true
+        //            devicesConnected = devicesConnected + 1
+        //        }
+        //        }
+        //
+        //        if saved.count > 1 {
+        //        //speed sensor default place
+        //        if peripheral.identifier == saved[1].id {
+        //            centralManager.connect(devicePeripheral)
+        //            speedSensorIsConnected = true
+        //            devicesConnected = devicesConnected + 1
+        //        }
+        //        }
         
         
-//                centralManager.connect(heartRatePeripheral)
+        //                centralManager.connect(heartRatePeripheral)
     }
     
     
@@ -163,22 +168,31 @@ class BLEManager: NSObject, ObservableObject, CBCentralManagerDelegate, CBPeriph
         //Once connected there needs to be a function here that will show that the peripheral is connected
         devicePeripheral.discoverServices([heartRateServiceCBUUID, speedCadenceServiceCBUUID])
         
+        if peripheral.identifier == heartRateSensor.uid {
+            heartRateSensorState = true
+        }
+        if peripheral.identifier == speedAndCadenceSensor.uid {
+            speedAndCadenceSensorState = true
+        }
+        if peripheral.identifier == powerMeter.uid {
+            powerMeterState = true
+        }
         //if you connected to heart rate, then scan for speed cadence
-//        if peripheral.identifier == saved[0].id {
-//            heartRateIsConnected = true
-//            if !speedSensorIsConnected {
-//                centralManager.scanForPeripherals(withServices: [speedCadenceServiceCBUUID])
-//            }
-//        }
+        //        if peripheral.identifier == saved[0].id {
+        //            heartRateIsConnected = true
+        //            if !speedSensorIsConnected {
+        //                centralManager.scanForPeripherals(withServices: [speedCadenceServiceCBUUID])
+        //            }
+        //        }
         
         
         // if you found your speed sensor great! But check just incase you found speed sensor first before heart rate. If heart rate wasn't found try to scan for it again.
-//        if peripheral.identifier == saved[1].id {
-//            speedSensorIsConnected = true
-//            if !heartRateIsConnected {
-//                centralManager.scanForPeripherals(withServices: [heartRateServiceCBUUID])
-//            }
-//        }
+        //        if peripheral.identifier == saved[1].id {
+        //            speedSensorIsConnected = true
+        //            if !heartRateIsConnected {
+        //                centralManager.scanForPeripherals(withServices: [heartRateServiceCBUUID])
+        //            }
+        //        }
     }
     
     // MARK: - Peripheral Manager
@@ -209,18 +223,18 @@ class BLEManager: NSObject, ObservableObject, CBCentralManagerDelegate, CBPeriph
     
     func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
         switch characteristic.uuid {
-            case bodySensorLocationCharacteristicCBUUID:
-                let bodySensorLocation = bodyLocation(from: characteristic)
-                bodySensorLocationLabel = bodySensorLocation
-            case heartRateMeasurementCharacteristicCBUUID:
-                let bpm = heartRate(from: characteristic)
-                onHeartRateReceived(bpm)
-            case speedCadenceCSCFeatureCBUUID:
-                print(characteristic)
-            case speedCadenceCSCMeasurementCBUUID:
-                speedRate(characteristic: characteristic)
-            default:
-                print("Unhandled Characteristic UUID: \(characteristic.uuid)")
+        case bodySensorLocationCharacteristicCBUUID:
+            let bodySensorLocation = bodyLocation(from: characteristic)
+            bodySensorLocationLabel = bodySensorLocation
+        case heartRateMeasurementCharacteristicCBUUID:
+            let bpm = heartRate(from: characteristic)
+            onHeartRateReceived(bpm)
+        case speedCadenceCSCFeatureCBUUID:
+            print(characteristic)
+        case speedCadenceCSCMeasurementCBUUID:
+            speedRate(characteristic: characteristic)
+        default:
+            print("Unhandled Characteristic UUID: \(characteristic.uuid)")
         }
     }
     
@@ -235,15 +249,15 @@ class BLEManager: NSObject, ObservableObject, CBCentralManagerDelegate, CBPeriph
               let byte = characteristicData.first else { return "Error" }
         
         switch byte {
-            case 0: return "Other"
-            case 1: return "Chest"
-            case 2: return "Wrist"
-            case 3: return "Finger"
-            case 4: return "Hand"
-            case 5: return "Ear Lobe"
-            case 6: return "Foot"
-            default:
-                return "Reserved for future use"
+        case 0: return "Other"
+        case 1: return "Chest"
+        case 2: return "Wrist"
+        case 3: return "Finger"
+        case 4: return "Hand"
+        case 5: return "Ear Lobe"
+        case 6: return "Foot"
+        default:
+            return "Reserved for future use"
         }
     }
     
@@ -268,8 +282,8 @@ class BLEManager: NSObject, ObservableObject, CBCentralManagerDelegate, CBPeriph
         let result = CSCData(data: value!)
         
         
-//                print("crank revolutions:\(result?.crankRevolutions)")
-         /// - Tag: Crank Cadence Calulation
+        //                print("crank revolutions:\(result?.crankRevolutions)")
+        /// - Tag: Crank Cadence Calulation
         oldCrankRev = newCrankRev
         newCrankRev = (result?.crankRevolutions!.revolutions)!
         oldCrankEvent = newCrankEvent
@@ -282,7 +296,7 @@ class BLEManager: NSObject, ObservableObject, CBCentralManagerDelegate, CBPeriph
         let crankRevLet = Double(differenceCrankRev) / differenceCrankEvent
         let crankRpm = crankRevLet * 60
         if oldCrankEvent == newCrankEvent && oldCrankRev == newCrankRev {
-//            print("Crank hasn't moved")
+            //            print("Crank hasn't moved")
             crankStopped = crankStopped + 1
             if crankStopped >= 4 {
                 cadenceLabel = "0"
@@ -290,14 +304,14 @@ class BLEManager: NSObject, ObservableObject, CBCentralManagerDelegate, CBPeriph
             crankupdated = crankupdated + 1
         } else {
             if crankupdated > 4 {
-            cadenceLabel = "\(String(format: "%.0f", crankRpm))"
+                cadenceLabel = "\(String(format: "%.0f", crankRpm))"
             }
             crankStopped = 0
             crankupdated = crankupdated + 1
         }
         
-//        print("wheel revolutions:\(result?.wheelRevolutions)")
-         /// - Tag: Speed Calculation from Wheel
+        //        print("wheel revolutions:\(result?.wheelRevolutions)")
+        /// - Tag: Speed Calculation from Wheel
         oldWheelRev = newWheelRev
         newWheelRev = (result?.wheelRevolutions!.revolutions)!
         oldWheelEvent = newWheelEvent
@@ -314,18 +328,18 @@ class BLEManager: NSObject, ObservableObject, CBCentralManagerDelegate, CBPeriph
         let milesPerHour = metersPerHour * (1/1609.344)
         let distance = revLet * wheelCircumference
         //we're going to pass raw distance on so we can use it in other places.
-//        print("raw distance from BLEManageR: \(distance)")
+        //        print("raw distance from BLEManageR: \(distance)")
         distanceRateinMeters = distance
         //if the wheel stopped moving count the number of times you are stopped as to update the speed label to 0
         if newWheelEvent == oldWheelEvent && newWheelRev == oldWheelRev {
-//            print("nothing has changed")
+            //            print("nothing has changed")
             areStopped = areStopped + 1
             if areStopped >= 4 {
                 speedLabel = "0"
             }
             wheelupdated = wheelupdated + 1
         } else {
-           speedLabel = String(format: "%.2f", milesPerHour)
+            speedLabel = String(format: "%.2f", milesPerHour)
             areStopped = 0
             wheelupdated = wheelupdated + 1
             
