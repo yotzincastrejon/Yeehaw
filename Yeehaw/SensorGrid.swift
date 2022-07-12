@@ -6,6 +6,8 @@
 //
 
 import SwiftUI
+import CoreLocation
+
 
 struct SensorGrid: View {
     @ObservedObject var bleManager: BLEManager
@@ -28,7 +30,7 @@ struct SensorGrid: View {
                         heartRateIsConnected.toggle()
                         showSheet = true
                     }
-                SensorViewSpeedandCadence(isActive: $isActive, isConnected: $speedIsConnected)
+                SensorViewSpeedandCadence(isActive: $isActive, isConnected: $bleManager.speedAndCadenceSensorState)
                     .opacity(isActive ? 0 : 1)
                     .offset(x: 0, y: isActive ? -50 : 0)
                     .animation(.easeOut.delay(isActive ? 0 : 1), value: isActive)
@@ -39,7 +41,7 @@ struct SensorGrid: View {
                     }
                     
                     
-                SensorView(isActive: $isActive, isConnected: $powerIsConnected,sensorSystemImageName: "bolt.fill", baseColor: .yellow)
+                SensorView(isActive: $isActive, isConnected: $bleManager.powerMeterState ,sensorSystemImageName: "bolt.fill", baseColor: .yellow)
                     .opacity(isActive ? 0 : 1)
                     .offset(x:isActive ? -50 : 0, y: 0)
                     .animation(.easeOut.delay(isActive ? 0 : 1), value: isActive)
@@ -48,7 +50,7 @@ struct SensorGrid: View {
                         powerIsConnected.toggle()
                         showSheet = true
                     }
-                SensorView(isActive: $isActive, isConnected: $locationIsConnected, sensorSystemImageName: "location.fill", baseColor: .blue)
+                SensorView(isActive: $isActive, isConnected: locationAccuracy(), sensorSystemImageName: "location.fill", baseColor: .blue)
                     .opacity(isActive ? 0 : 1)
                     .offset(x: isActive ? 50 : 0, y: 0)
                     .animation(.easeOut.delay(isActive ? 0 : 1), value: isActive)
@@ -72,6 +74,18 @@ struct SensorGrid: View {
         case .power:
             return $bleManager.powerMeterState
         }
+    }
+    
+    func locationAccuracy() -> Binding<Bool> {
+        let locationManager = CLLocationManager()
+        var isThereSignal = false
+        
+        if locationManager.location?.horizontalAccuracy ?? -1 < 0 {
+            isThereSignal = false
+        } else {
+            isThereSignal = true
+        }
+        return Binding.constant(isThereSignal)
     }
 }
 

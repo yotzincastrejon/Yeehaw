@@ -13,9 +13,7 @@ class LocationHelper: NSObject, ObservableObject {
     
     private var askPermissionCallback: ((CLAuthorizationStatus) -> Void)?
     private var locationReceivedCallback: ((CLLocation) -> Void)?
-    
     var trackedLocations = [CLLocation]()
-    
     override init() {
         super.init()
         

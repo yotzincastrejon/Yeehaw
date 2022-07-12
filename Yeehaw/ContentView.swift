@@ -10,7 +10,7 @@ import SwiftUI
 
 struct ContentView: View {
     @ObservedObject var bleManager: BLEManager
-    
+    @ObservedObject var mapViewModel: MapViewModel
     var columns: [GridItem] = Array(repeating: .init(.flexible()), count: 2)
     @Binding var workoutInProgress: Bool
     @State var isActive: Bool = false
@@ -21,7 +21,7 @@ struct ContentView: View {
             ActiveWorkoutView(isActive: $isActive)
        
                 VStack {
-                    FullScreenMap()
+                    FullScreenMap(mapData: mapViewModel)
                         .ignoresSafeArea(.all)
                         .offset(x: 0, y: isActive ? -50 : 0)
                         .opacity(isActive ? 0 : 1)
@@ -46,7 +46,7 @@ struct ContentView: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            ContentView(bleManager: BLEManager(), workoutInProgress: .constant(true))
+            ContentView(bleManager: BLEManager(), mapViewModel: MapViewModel(), workoutInProgress: .constant(true))
                 .preferredColorScheme(.dark)
         }
     }

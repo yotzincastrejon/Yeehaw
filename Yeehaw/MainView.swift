@@ -10,10 +10,10 @@ import SwiftUI
 struct MainView: View {
     @State var workoutInProgress = false
     @StateObject var bleManager = BLEManager()
+    @StateObject var mapViewModel = MapViewModel()
+//    @StateObject var locationManager = CLLocationManager()
     var body: some View {
-        GeometryReader { geometry in
-            ContentView(bleManager: bleManager, workoutInProgress: $workoutInProgress)
-        }
+            ContentView(bleManager: bleManager, mapViewModel: mapViewModel, workoutInProgress: $workoutInProgress)
     }
 }
 

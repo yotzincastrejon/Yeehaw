@@ -5,7 +5,6 @@
 //  Created by Yotzin Castrejon on 3/17/21.
 //
 
-import SwiftUI
 import MapKit
 import CoreLocation
 
@@ -24,7 +23,7 @@ class MapViewModel: NSObject,ObservableObject,CLLocationManagerDelegate{
     
     // Map Type...
     @Published var mapType : MKMapType = .standard
-    
+    @Published var mapAuthorization = false
     
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
         

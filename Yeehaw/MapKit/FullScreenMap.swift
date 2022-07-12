@@ -10,7 +10,7 @@ import CoreLocation
 
 struct FullScreenMap: View {
     
-    @StateObject var mapData = MapViewModel()
+    @ObservedObject var mapData: MapViewModel
     // Location Manager....
     @State var locationManager = CLLocationManager()
     @State var manager = CLLocationManager()
@@ -34,6 +34,6 @@ struct FullScreenMap: View {
 
 struct Home_Previews: PreviewProvider {
     static var previews: some View {
-        FullScreenMap()
+        FullScreenMap(mapData: MapViewModel())
     }
 }
