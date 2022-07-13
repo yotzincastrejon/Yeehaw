@@ -70,6 +70,11 @@ class BLEManager: NSObject, ObservableObject, CBCentralManagerDelegate, CBPeriph
                 heartRateSensor = Peripheral(name: heartSensorName, rssi: 0, uid: UUID(uuidString: heartSensorUUID)!)
             }
         }
+        if let speedSensorName = UserDefaults.standard.string(forKey: "Speed and Cadence Sensor Name") {
+            if let speedSensorUUID = UserDefaults.standard.string(forKey: "Speed and Cadence Sensor UUID") {
+                speedAndCadenceSensor = Peripheral(name: speedSensorName, rssi: 0, uid: UUID(uuidString: speedSensorUUID)!)
+            }
+        }
     }
     
     func centralManagerDidUpdateState(_ central: CBCentralManager) {
@@ -112,7 +117,7 @@ class BLEManager: NSObject, ObservableObject, CBCentralManagerDelegate, CBPeriph
         
         // We need to go through each peripheral and match it to our default.
         if peripheral.identifier == heartRateSensor.uid || peripheral.identifier == speedAndCadenceSensor.uid || peripheral.identifier == powerMeter.uid{
-            centralManager.stopScan()
+//            centralManager.stopScan()
             centralManager.connect(peripheral)
         } else {
             var peripheralName: String!
@@ -179,22 +184,6 @@ class BLEManager: NSObject, ObservableObject, CBCentralManagerDelegate, CBPeriph
         if peripheral.identifier == powerMeter.uid {
             powerMeterState = true
         }
-        //if you connected to heart rate, then scan for speed cadence
-        //        if peripheral.identifier == saved[0].id {
-        //            heartRateIsConnected = true
-        //            if !speedSensorIsConnected {
-        //                centralManager.scanForPeripherals(withServices: [speedCadenceServiceCBUUID])
-        //            }
-        //        }
-        
-        
-        // if you found your speed sensor great! But check just incase you found speed sensor first before heart rate. If heart rate wasn't found try to scan for it again.
-        //        if peripheral.identifier == saved[1].id {
-        //            speedSensorIsConnected = true
-        //            if !heartRateIsConnected {
-        //                centralManager.scanForPeripherals(withServices: [heartRateServiceCBUUID])
-        //            }
-        //        }
     }
     
     // MARK: - Peripheral Manager

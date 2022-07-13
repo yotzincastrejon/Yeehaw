@@ -12,6 +12,7 @@ struct SensorView: View {
     @Binding var isConnected: Bool
     let sensorSystemImageName: String
     let baseColor: Color
+    @Namespace var namespace
     var body: some View {
         
         GeometryReader { g in
@@ -26,21 +27,32 @@ struct SensorView: View {
                     Rectangle()
                         .fill(Color(hex: "1C1C1E").opacity(0.2))
                     
-                    Image(systemName: sensorSystemImageName)
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: g.size.width * 50/180, height: g.size.height * 50/100)
-                        .foregroundColor(baseColor)
-                        .shadow(color: .black.opacity(0.25), radius: 4, x: 0, y: 4)
-                        .frame(width: g.size.width, height: g.size.height)
+                    VStack(spacing: 0) {
+                        Image(systemName: sensorSystemImageName)
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: g.size.width * 20/180, height: g.size.height * 20/100)
+                            .foregroundColor(baseColor)
+                            .shadow(color: .black.opacity(0.25), radius: 4, x: 0, y: 4)
+                            .animation(.linear, value: isConnected)
+                        
+                            Text("150")
+                                .font(.largeTitle)
+                            .fontWeight(.bold)
+                            Text("bpm")
+                            .font(.callout)
+                            .fontWeight(.bold)
+                            .foregroundColor(.white.opacity(0.8))
+                    }
+                    
                     
                 }
                 .frame(width: g.size.width, height: g.size.height)
             } else {
                 ZStack {
                     Rectangle()
+                        .fill(isConnected ? Color(LinearGradient(colors: [baseColor,baseColor,Color(hex: "D9D9D9").opacity(0)], startPoint: .bottom, endPoint: .top) as! CGColor) : Color(uiColor: .secondarySystemGroupedBackground))
                         .frame(width: g.size.width, height: g.size.height)
-                        .foregroundColor(Color(uiColor: .secondarySystemGroupedBackground))
                     Image(systemName: sensorSystemImageName)
                         .resizable()
                         .scaledToFit()
@@ -65,6 +77,8 @@ struct SensorView: View {
 struct SensorView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
+            SensorView(isActive: .constant(false), isConnected: .constant(true), sensorSystemImageName: "heart.fill", baseColor: .red)
+                .preferredColorScheme(.dark)
             SensorGrid(bleManager: BLEManager(), isActive: .constant(false))
                 .preferredColorScheme(.dark)
             SensorGrid(bleManager: BLEManager(), isActive: .constant(false))
