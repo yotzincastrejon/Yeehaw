@@ -13,39 +13,6 @@ struct TransitionView: View {
     var body: some View {
         VStack {
             GeometryReader { g in
-                
-                //                    ZStack {
-                //                        ZStack {
-                //                            Rectangle()
-                //                                .fill(LinearGradient(colors: [.red,.red,Color(hex: "D9D9D9").opacity(0)], startPoint: .bottom, endPoint: .top))
-                //                                .frame(width: g.size.width)
-                //                        }
-                //                        .blur(radius: 45)
-                //                        Rectangle()
-                //                            .fill(Color(hex: "1C1C1E").opacity(0.2))
-                //
-                //                        VStack(spacing: 0) {
-                //                            Image(systemName: "heart.fill")
-                //                                .resizable()
-                //                                .scaledToFit()
-                //                                .frame(width: g.size.width * 20/180, height: g.size.height * 20/100)
-                //                                .foregroundColor(.red)
-                //                                .shadow(color: .black.opacity(0.25), radius: 4, x: 0, y: 4)
-                //                                .animation(.linear, value: isPressed)
-                //
-                //                                Text("150")
-                //                                    .font(.largeTitle)
-                //                                .fontWeight(.bold)
-                //                                Text("bpm")
-                //                                .font(.callout)
-                //                                .fontWeight(.bold)
-                //                                .foregroundColor(.white.opacity(0.8))
-                //                        }
-                //
-                //
-                //                    }
-                //                    .frame(width: g.size.width, height: g.size.height)
-                
                 ZStack {
                     Rectangle()
                         .fill(isDelayed ? LinearGradient(colors: [.red,.red,Color(hex: "D9D9D9").opacity(0)], startPoint: .bottom, endPoint: .top) : LinearGradient(colors: [Color(uiColor: .secondarySystemGroupedBackground)], startPoint: .center, endPoint: .center))

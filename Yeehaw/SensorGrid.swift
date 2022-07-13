@@ -21,7 +21,7 @@ struct SensorGrid: View {
     @State var locationIsConnected = false
     var body: some View {
             LazyVGrid(columns: columns, spacing: 20) {
-                SensorView(isActive: $isActive, isConnected: $bleManager.heartRateSensorState, sensorSystemImageName: "heart.fill", baseColor: .red)
+                SensorView(isActive: $isActive, isConnected: $bleManager.heartRateSensorState,mainStat: $bleManager.heartRateNumber, statDescription: "bpm", sensorSystemImageName: "heart.fill", baseColor: .red)
                     .opacity(isActive ? 0 : 1)
                     .offset(x: 0, y: isActive ? -50 : 0)
                     .animation(.easeOut.delay(isActive ? 0 : 1), value: isActive)
@@ -41,7 +41,7 @@ struct SensorGrid: View {
                     }
                     
                     
-                SensorView(isActive: $isActive, isConnected: $bleManager.powerMeterState ,sensorSystemImageName: "bolt.fill", baseColor: .yellow)
+                DefaultSensorView(isActive: $isActive, isConnected: $bleManager.powerMeterState ,sensorSystemImageName: "bolt.fill", baseColor: .yellow)
                     .opacity(isActive ? 0 : 1)
                     .offset(x:isActive ? -50 : 0, y: 0)
                     .animation(.easeOut.delay(isActive ? 0 : 1), value: isActive)
@@ -50,7 +50,7 @@ struct SensorGrid: View {
                         powerIsConnected.toggle()
                         showSheet = true
                     }
-                SensorView(isActive: $isActive, isConnected: locationAccuracy(), sensorSystemImageName: "location.fill", baseColor: .blue)
+                DefaultSensorView(isActive: $isActive, isConnected: locationAccuracy(), sensorSystemImageName: "location.fill", baseColor: .blue)
                     .opacity(isActive ? 0 : 1)
                     .offset(x: isActive ? 50 : 0, y: 0)
                     .animation(.easeOut.delay(isActive ? 0 : 1), value: isActive)
