@@ -50,12 +50,15 @@ struct SensorGrid: View {
                         powerIsConnected.toggle()
                         showSheet = true
                     }
-                DefaultSensorView(isActive: $isActive, isConnected: locationAccuracy(), sensorSystemImageName: "location.fill", baseColor: .blue)
+                LocationSensorView(isActive: $isActive, isConnected: $locationIsConnected, sensorSystemImageName: "location.fill", baseColor: .blue)
                     .opacity(isActive ? 0 : 1)
                     .offset(x: isActive ? 50 : 0, y: 0)
                     .animation(.easeOut.delay(isActive ? 0 : 1), value: isActive)
                     .onTapGesture {
                         locationIsConnected.toggle()
+                    }
+                    .task {
+                         locationAccuracy(location: &locationIsConnected)
                     }
                     
             }
@@ -77,16 +80,14 @@ struct SensorGrid: View {
         }
     }
     
-    func locationAccuracy() -> Binding<Bool> {
+    func locationAccuracy(location: inout Bool) {
         let locationManager = CLLocationManager()
-        var isThereSignal = false
         
         if locationManager.location?.horizontalAccuracy ?? -1 < 0 {
-            isThereSignal = false
+            location = false
         } else {
-            isThereSignal = true
+            location = true
         }
-        return Binding.constant(isThereSignal)
     }
 }
 
