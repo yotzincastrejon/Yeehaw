@@ -30,7 +30,7 @@ struct SensorGrid: View {
                         heartRateIsConnected.toggle()
                         showSheet = true
                     }
-                SensorViewSpeedandCadence(isActive: $isActive, isConnected: $bleManager.speedAndCadenceSensorState)
+                SensorViewSpeedandCadence(bleManager: bleManager, isActive: $isActive, isConnected: $bleManager.speedAndCadenceSensorState, baseColor: .green)
                     .opacity(isActive ? 0 : 1)
                     .offset(x: 0, y: isActive ? -50 : 0)
                     .animation(.easeOut.delay(isActive ? 0 : 1), value: isActive)
@@ -41,7 +41,7 @@ struct SensorGrid: View {
                     }
                     
                     
-                DefaultSensorView(isActive: $isActive, isConnected: $bleManager.powerMeterState ,sensorSystemImageName: "bolt.fill", baseColor: .yellow)
+                SensorView(isActive: $isActive, isConnected: $bleManager.powerMeterState ,mainStat: Binding.constant(0),statDescription: "watts",sensorSystemImageName: "bolt.fill", baseColor: .yellow)
                     .opacity(isActive ? 0 : 1)
                     .offset(x:isActive ? -50 : 0, y: 0)
                     .animation(.easeOut.delay(isActive ? 0 : 1), value: isActive)
