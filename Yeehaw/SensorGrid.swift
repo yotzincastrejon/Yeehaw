@@ -11,6 +11,7 @@ import CoreLocation
 
 struct SensorGrid: View {
     @ObservedObject var bleManager: BLEManager
+    @ObservedObject var locationHelper: LocationHelper
     @Binding var isActive: Bool
     let columns = [GridItem(.flexible(), spacing: 20),GridItem(.flexible(), spacing: 20)]
     @State var showSheet = false
@@ -94,7 +95,7 @@ struct SensorGrid: View {
 struct SensorGrid_Previews: PreviewProvider {
     @Namespace static var namespace
     static var previews: some View {
-        SensorGrid(bleManager: BLEManager(), isActive: .constant(false))
+        SensorGrid(bleManager: BLEManager(), locationHelper: LocationHelper(), isActive: .constant(false))
             .preferredColorScheme(.dark)
     }
 }

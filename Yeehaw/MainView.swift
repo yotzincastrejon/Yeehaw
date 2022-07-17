@@ -11,9 +11,10 @@ struct MainView: View {
     @State var workoutInProgress = false
     @StateObject var bleManager = BLEManager()
     @StateObject var mapViewModel = MapViewModel()
+    @StateObject var locationHelper = LocationHelper()
 //    @StateObject var locationManager = CLLocationManager()
     var body: some View {
-            ContentView(bleManager: bleManager, mapViewModel: mapViewModel, workoutInProgress: $workoutInProgress)
+        ContentView(bleManager: bleManager, mapViewModel: mapViewModel, locationHelper: locationHelper, workoutInProgress: $workoutInProgress)
     }
 }
 

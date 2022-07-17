@@ -92,9 +92,9 @@ struct SensorView_Previews: PreviewProvider {
             //            SensorView(isActive: .constant(false), isConnected: .constant(true), sensorSystemImageName: "heart.fill", baseColor: .red)
             SensorViewSpeedandCadence(bleManager: BLEManager(), isActive: .constant(false), isConnected: Binding.constant(true), isDelayed: true, baseColor: .green)
                 .preferredColorScheme(.dark)
-            SensorGrid(bleManager: BLEManager(), isActive: .constant(false))
+            SensorGrid(bleManager: BLEManager(), locationHelper: LocationHelper(), isActive: .constant(false))
                 .preferredColorScheme(.dark)
-            SensorGrid(bleManager: BLEManager(), isActive: .constant(false))
+            SensorGrid(bleManager: BLEManager(), locationHelper: LocationHelper(), isActive: .constant(false))
                 .previewDevice("iPhone 8")
                 .preferredColorScheme(.dark)
         }

@@ -10,6 +10,7 @@ import HealthKit
 
 struct ActiveWorkoutView: View {
     @ObservedObject var bleManager: BLEManager
+    @ObservedObject var locationHelper: LocationHelper
     @Binding var isActive: Bool
     @State var isLowPowerMode: Bool = false
     var body: some View {
@@ -47,9 +48,9 @@ struct ActiveWorkoutView_Previews: PreviewProvider {
 
     static var previews: some View {
         Group {
-            ActiveWorkoutView(bleManager: BLEManager(), isActive: .constant(true))
+            ActiveWorkoutView(bleManager: BLEManager(), locationHelper: LocationHelper(), isActive: .constant(true), isLowPowerMode: true)
                 .preferredColorScheme(.dark)
-            ActiveWorkoutView(bleManager: BLEManager(), isActive: .constant(true))
+            ActiveWorkoutView(bleManager: BLEManager(), locationHelper: LocationHelper(), isActive: .constant(true))
                 .previewDevice("iPhone 8")
                 .preferredColorScheme(.dark)
         }
