@@ -21,13 +21,13 @@ struct StartView: View {
                     .frame(height: g.size.height)
                 HStack {
                     Spacer()
-                    AccessoryButton(image: Image("medal"), height: 33)
+                    GoalsButton(image: Image("medal"), height: 33)
                         .frame(width: 52, height: 52)
                     Spacer()
                     GoButton(isActive: $isActive)
                         .frame(width: 100, height: 100)
                     Spacer()
-                    AccessoryButton(image: Image(systemName: "gearshape"), height: 27)
+                    SettingsButton(image: Image(systemName: "gearshape"), height: 27)
                         .frame(width: 52, height: 52)
                     Spacer()
                 }
@@ -82,12 +82,14 @@ struct GoButton: View {
 }
 
 
-struct AccessoryButton: View {
+struct SettingsButton: View {
     let image: Image
     let height: CGFloat
+    @State var isShowing = false
     var body: some View {
         Button(action: {
             // Do Something
+            isShowing.toggle()
         }) {
             ZStack {
                 Circle()
@@ -98,6 +100,34 @@ struct AccessoryButton: View {
                     .foregroundColor(Color(hex: "FF5400"))
                     .frame(height: height)
             }
+        }
+        .sheet(isPresented: $isShowing) {
+            EmptyView()
+        }
+    }
+}
+
+struct GoalsButton: View {
+    let image: Image
+    let height: CGFloat
+    @State var isShowing = false
+    var body: some View {
+        Button(action: {
+            // Do Something
+            isShowing.toggle()
+        }) {
+            ZStack {
+                Circle()
+                    .fill(Color(hex: "FFE7BF"))
+                image
+                    .resizable()
+                    .scaledToFit()
+                    .foregroundColor(Color(hex: "FF5400"))
+                    .frame(height: height)
+            }
+        }
+        .sheet(isPresented: $isShowing) {
+            EmptyView()
         }
     }
 }

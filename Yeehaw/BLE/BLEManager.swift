@@ -330,7 +330,7 @@ class BLEManager: NSObject, ObservableObject, CBCentralManagerDelegate, CBPeriph
             }
             wheelupdated = wheelupdated + 1
         } else {
-            speedLabel = String(format: "%.2f", milesPerHour)
+            speedLabel = String(format: "%.1f", milesPerHour)
             areStopped = 0
             wheelupdated = wheelupdated + 1
             

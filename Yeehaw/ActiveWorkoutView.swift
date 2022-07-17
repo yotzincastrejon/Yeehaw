@@ -9,6 +9,7 @@ import SwiftUI
 import HealthKit
 
 struct ActiveWorkoutView: View {
+    @ObservedObject var bleManager: BLEManager
     @Binding var isActive: Bool
     @State var isLowPowerMode: Bool = false
     var body: some View {
@@ -18,11 +19,11 @@ struct ActiveWorkoutView: View {
                     .opacity(isActive ? 1 : 0)
                     .offset(x:isActive ? 0 : 200, y: 0)
                     .animation(.easeOut.delay(isActive ? 0.5 : 0.4), value: isActive)
-                SpeedAndCadenceBlock(isLowPowerMode: $isLowPowerMode)
+                SpeedAndCadenceBlock(bleManager: bleManager, isLowPowerMode: $isLowPowerMode)
                     .opacity(isActive ? 1 : 0)
                     .offset(x:isActive ? 0 : 200, y: 0)
                     .animation(.easeOut.delay(isActive ? 0.6 : 0.3), value: isActive)
-                HeartRateBlock(isLowPowerMode: $isLowPowerMode)
+                HeartRateBlock(bleManager: bleManager,isLowPowerMode: $isLowPowerMode)
                     .opacity(isActive ? 1 : 0)
                     .offset(x:isActive ? 0 : 200, y: 0)
                     .animation(.easeOut.delay(isActive ? 0.7 : 0.2), value: isActive)
@@ -46,9 +47,9 @@ struct ActiveWorkoutView_Previews: PreviewProvider {
 
     static var previews: some View {
         Group {
-            ActiveWorkoutView(isActive: .constant(true))
+            ActiveWorkoutView(bleManager: BLEManager(), isActive: .constant(true))
                 .preferredColorScheme(.dark)
-            ActiveWorkoutView(isActive: .constant(true))
+            ActiveWorkoutView(bleManager: BLEManager(), isActive: .constant(true))
                 .previewDevice("iPhone 8")
                 .preferredColorScheme(.dark)
         }
@@ -56,6 +57,7 @@ struct ActiveWorkoutView_Previews: PreviewProvider {
 }
 
 struct SpeedAndCadenceBlock: View {
+    @ObservedObject var bleManager: BLEManager
     @Binding var isLowPowerMode: Bool
     var body: some View {
         ZStack {
@@ -64,13 +66,15 @@ struct SpeedAndCadenceBlock: View {
                     .stroke(Color.green)
             } else {
             WorkoutStatsBlockBackground(baseColor: .green)
+                RoundedRectangle(cornerRadius: 20, style: .circular)
+                    .stroke(Color.green)
             }
             HStack(spacing: 0) {
                 
-                StatisticsView(image: Image(systemName: "speedometer"), imageColor: .green, stat: "16", unit: "mph")
+                StatisticsView(image: Image(systemName: "speedometer"), imageColor: .green, stat: $bleManager.speedLabel, unit: "mph")
                    
                 
-                StatisticsView(image: Image("Crank"), imageColor: .green, stat: "72", unit: "rpm")
+                StatisticsView(image: Image("Crank"), imageColor: .green, stat: $bleManager.cadenceLabel, unit: "rpm")
                 
             }
 
@@ -95,6 +99,7 @@ struct TimeBlock: View {
 }
 
 struct HeartRateBlock: View {
+    @ObservedObject var bleManager: BLEManager
     @Binding var isLowPowerMode: Bool
     var body: some View {
         GeometryReader { g in
@@ -104,9 +109,11 @@ struct HeartRateBlock: View {
                         .stroke(Color.red)
                 } else {
                 WorkoutStatsBlockBackground(baseColor: .red)
+                    RoundedRectangle(cornerRadius: 20, style: .circular)
+                        .stroke(Color.red)
                 }
                 HStack {
-                    StatisticsView(image: Image(systemName: "heart.fill"), imageColor: .red, stat: "120", unit: "bpm")
+                    StatisticsView(image: Image(systemName: "heart.fill"), imageColor: .red, stat: $bleManager.heartRateLabel, unit: "bpm")
                     
                     VStack {
                         Text("Zone")
@@ -141,9 +148,11 @@ struct DistanceBlock: View {
                         .stroke(Color.blue)
                 } else {
                 WorkoutStatsBlockBackground(baseColor: .blue)
+                    RoundedRectangle(cornerRadius: 20, style: .circular)
+                        .stroke(Color.blue)
                 }
                 HStack {
-                    StatisticsView(image: Image(systemName: "location.fill"), imageColor: .blue, stat: "12.9", unit: "miles")
+                    StatisticsView(image: Image(systemName: "location.fill"), imageColor: .blue, stat: Binding.constant("12.9"), unit: "miles")
                     VStack {
                         VStack(alignment: .leading) {
                             HStack {
@@ -200,9 +209,11 @@ struct PowerBlock: View {
                     .stroke(Color.yellow)
             } else {
             WorkoutStatsBlockBackground(baseColor: .yellow)
+                RoundedRectangle(cornerRadius: 20, style: .circular)
+                    .stroke(Color.yellow)
             }
             HStack {
-                StatisticsView(image: Image(systemName: "bolt.fill"), imageColor: .yellow, stat: "150", unit: "watts")
+                StatisticsView(image: Image(systemName: "bolt.fill"), imageColor: .yellow, stat: Binding.constant("150"), unit: "watts")
             }
         }
 //        .frame(height: UIScreen.main.bounds.height * 150/926)
@@ -234,7 +245,7 @@ struct WorkoutStatsBlockBackground: View {
 struct StatisticsView: View {
     let image: Image
     let imageColor: Color
-    @State var stat: String
+    @Binding var stat: String
     let unit: String
     var body: some View {
         GeometryReader { g in

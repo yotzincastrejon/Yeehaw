@@ -18,7 +18,7 @@ struct ContentView: View {
         ZStack {
             Color.black
             
-            ActiveWorkoutView(isActive: $isActive)
+            ActiveWorkoutView(bleManager: bleManager, isActive: $isActive)
        
                 VStack {
                     FullScreenMap(mapData: mapViewModel)

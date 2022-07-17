@@ -111,67 +111,6 @@ struct SensorViewSpeedandCadence: View {
     let baseColor: Color
     var body: some View {
         GeometryReader { g in
-            //            if isConnected {
-            //                ZStack {
-            //                    ZStack {
-            //                        Rectangle()
-            //                            .fill(LinearGradient(colors: [Color.green, Color.green, Color(hex: "D9D9D9").opacity(0)], startPoint: .bottom, endPoint: .top)
-            //                            )
-            //                            .frame(width: g.size.width)
-            //                    }
-            //                    .blur(radius: 45)
-            //
-            //                    Rectangle()
-            //                        .fill(Color(hex: "1C1C1E").opacity(0.2))
-            //
-            //                    HStack {
-            //                        Image(systemName: "speedometer")
-            //                            .resizable()
-            //                            .scaledToFit()
-            //                            .frame(height: g.size.height * 40/100)
-            //                            .foregroundColor(.green)
-            //                            .shadow(color: .black.opacity(0.25), radius: 4, x: 0, y: 4)
-            //
-            //
-            //                        Image("Crank")
-            //                            .resizable()
-            //                            .renderingMode(.template)
-            //                            .foregroundColor(.green)
-            //                            .scaledToFit()
-            //                            .frame(height: g.size.height * 40/100)
-            //                            .shadow(color: .black.opacity(0.25), radius: 4, x: 0, y: 4)
-            //
-            //
-            //                    }
-            //                }
-            //                .frame(width: g.size.width, height: g.size.height)
-            //            } else {
-            //                ZStack {
-            //                    Rectangle()
-            //                        .frame(width: g.size.width, height: g.size.height)
-            //                        .foregroundColor(Color(uiColor: .secondarySystemGroupedBackground))
-            //
-            //                    HStack {
-            //                        Image(systemName: "speedometer")
-            //                            .resizable()
-            //                            .scaledToFit()
-            //                            .frame(height: g.size.height * 40/100)
-            //                            .foregroundColor(.white)
-            //
-            //
-            //                        Image("Crank")
-            //                            .resizable()
-            //                            .renderingMode(.template)
-            //                            .foregroundColor(.white)
-            //                            .scaledToFit()
-            //                            .frame(height: g.size.height * 40/100)
-            //                    }
-            //                }
-            //                .frame(width: g.size.width, height: g.size.height)
-            //                //                .onTapGesture {
-            //                //                    isConnected.toggle()
-            //                //                }
-            //            }
             ZStack {
                 Rectangle()
                     .fill(isDelayed ? LinearGradient(colors: [baseColor,baseColor,Color(hex: "D9D9D9").opacity(0)], startPoint: .bottom, endPoint: .top) : LinearGradient(colors: [Color(uiColor: .secondarySystemGroupedBackground)], startPoint: .center, endPoint: .center))
