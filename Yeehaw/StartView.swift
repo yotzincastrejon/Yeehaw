@@ -61,14 +61,6 @@ struct GoButton: View {
                 ZStack {
                     Circle()
                         .fill(LinearGradient(colors: [Color(hex: "FF5400"), Color(hex: "FF6D00")], startPoint: .bottom, endPoint: .top))
-                        
-    //                    .scaleEffect(isAnimating ? 1.05 : 1)
-    //                    .onAppear {
-    //                        withAnimation(.linear(duration: 2).repeatForever(autoreverses: true)) {
-    //                            isAnimating = true
-    //                        }
-    //                    }
-                    
                     VStack(spacing: 0) {
                         Image("Bike")
                         Text("GO")
