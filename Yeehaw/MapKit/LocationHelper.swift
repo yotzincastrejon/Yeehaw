@@ -18,7 +18,8 @@ class LocationHelper: NSObject, ObservableObject, CLLocationManagerDelegate {
     
     
     @Published var speed = "--"
-    @Published var traveledDistance = "--"
+    @Published var traveledDistanceString = "--"
+    var distanceTraveled: Double = 0
     var lastLocation: CLLocation?
     override init() {
         super.init()
@@ -71,6 +72,7 @@ class LocationHelper: NSObject, ObservableObject, CLLocationManagerDelegate {
     //    // 1 mile = 1609 meters
     func updateLocationStatistics(location: CLLocation) {
         updateSpeed(metersPerSecond: location.speed)
+        updateDistance(location: location)
         
         
     }
@@ -88,12 +90,30 @@ class LocationHelper: NSObject, ObservableObject, CLLocationManagerDelegate {
         }
     }
     
+    func updateDistance(location: CLLocation) {
+        if let last = lastLocation {
+            //returns distance in meters
+            distanceTraveled += last.distance(from: location)
+            let feet = distanceTraveled * 3.28083989501312
+            let miles = feet / 5280
+            traveledDistanceString = String(format: "%0.2f", miles)
+        }
+        lastLocation = location
+    }
+    
     func startTracking() {
         locationManager.startUpdatingLocation()
     }
     
     func stopTracking() {
         locationManager.stopUpdatingLocation()
+        resetVariables()
+    }
+    
+    func resetVariables() {
+        speed = "--"
+        distanceTraveled = 0
+        traveledDistanceString = "--"
     }
 }
 

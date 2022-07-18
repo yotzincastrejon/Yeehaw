@@ -28,7 +28,7 @@ struct ActiveWorkoutView: View {
                     .opacity(isActive ? 1 : 0)
                     .offset(x:isActive ? 0 : 200, y: 0)
                     .animation(.easeOut.delay(isActive ? 0.7 : 0.2), value: isActive)
-                DistanceBlock(isLowPowerMode: $isLowPowerMode)
+                DistanceBlock(bleManager: bleManager, locationHelper: locationHelper, isLowPowerMode: $isLowPowerMode)
                     .opacity(isActive ? 1 : 0)
                     .offset(x:isActive ? 0 : 200, y: 0)
                     .animation(.easeOut.delay(isActive ? 0.8 : 0.1), value: isActive)
@@ -143,6 +143,8 @@ struct HeartRateBlock: View {
 }
 
 struct DistanceBlock: View {
+    @ObservedObject var bleManager: BLEManager
+    @ObservedObject var locationHelper: LocationHelper
     @Binding var isLowPowerMode: Bool
     var body: some View {
         GeometryReader { g in
@@ -156,7 +158,11 @@ struct DistanceBlock: View {
                         .stroke(Color.blue)
                 }
                 HStack {
-                    StatisticsView(image: Image(systemName: "location.fill"), imageColor: .blue, stat: Binding.constant("12.9"), unit: "miles")
+                    if bleManager.speedSensorIsConnected {
+                    StatisticsView(image: Image(systemName: "location.fill"), imageColor: .blue, stat: $bleManager.distanceTraveledString, unit: "miles")
+                    } else {
+                        StatisticsView(image: Image(systemName: "location.fill"), imageColor: .blue, stat: $locationHelper.traveledDistanceString, unit: "miles")
+                    }
                     VStack {
                         VStack(alignment: .leading) {
                             HStack {

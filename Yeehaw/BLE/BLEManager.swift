@@ -34,6 +34,7 @@ class BLEManager: NSObject, ObservableObject, CBCentralManagerDelegate, CBPeriph
     @Published var isConnected: Bool = false
     @Published var heartRateNumber = 0
     @Published var distanceRateinMeters = 0.0
+    @Published var distanceTraveledString = "--"
     @Published var isScanning = false
     @Published var sensorsArrayDeviceID = [String]()
     var oldWheelRev = 0
@@ -49,7 +50,7 @@ class BLEManager: NSObject, ObservableObject, CBCentralManagerDelegate, CBPeriph
     var crankStopped = 0
     @Published var wheelupdated = 0
     var crankupdated = 0
-    var distanceTraveled = 0.0
+    var distanceTraveled: Double = 0.0
     var devicesConnected = 0
     var passes = 0
     @Published var heartRateSensor = Peripheral(name: "", rssi: 0, uid: UUID())
@@ -320,7 +321,8 @@ class BLEManager: NSObject, ObservableObject, CBCentralManagerDelegate, CBPeriph
         let distance = revLet * wheelCircumference
         //we're going to pass raw distance on so we can use it in other places.
         //        print("raw distance from BLEManageR: \(distance)")
-        distanceRateinMeters = distance
+//        distanceRateinMeters = distance
+        updateDistance(distance: distance)
         //if the wheel stopped moving count the number of times you are stopped as to update the speed label to 0
         if newWheelEvent == oldWheelEvent && newWheelRev == oldWheelRev {
             //            print("nothing has changed")
@@ -337,6 +339,14 @@ class BLEManager: NSObject, ObservableObject, CBCentralManagerDelegate, CBPeriph
         }
         
         print("wheel updated: \(wheelupdated)")
+    }
+    
+    func updateDistance(distance: Double) {
+        //distance is in meters
+        let feet = distance * 3.28083989501312
+        let miles = feet / 5280
+        distanceTraveled += miles
+        distanceTraveledString = String(format: "%0.1f", distanceTraveled)
     }
     
     // MARK: - Custom Functions
