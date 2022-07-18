@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct StartView: View {
+    @ObservedObject var locationHelper: LocationHelper
     @Binding var isActive: Bool
     var body: some View {
         GeometryReader { g in
@@ -24,7 +25,7 @@ struct StartView: View {
                     GoalsButton(image: Image("medal"), height: 33)
                         .frame(width: 52, height: 52)
                     Spacer()
-                    GoButton(isActive: $isActive)
+                    GoButton(locationHelper: locationHelper, isActive: $isActive)
                         .frame(width: 100, height: 100)
                     Spacer()
                     SettingsButton(image: Image(systemName: "gearshape"), height: 27)
@@ -42,17 +43,19 @@ struct StartView: View {
 struct StartView_Previews: PreviewProvider {
     @Namespace static var namespace
     static var previews: some View {
-        StartView(isActive: .constant(true))
+        StartView(locationHelper: LocationHelper(), isActive: .constant(true))
             .preferredColorScheme(.dark)
     }
 }
 
 
 struct GoButton: View {
+    @ObservedObject var locationHelper: LocationHelper
     @Binding var isActive: Bool
     var body: some View {
         Button(action:  {
             // Do Something
+            locationHelper.startTracking()
             withAnimation(.spring()) {
             isActive.toggle()
             }

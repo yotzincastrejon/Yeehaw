@@ -20,7 +20,7 @@ struct ActiveWorkoutView: View {
                     .opacity(isActive ? 1 : 0)
                     .offset(x:isActive ? 0 : 200, y: 0)
                     .animation(.easeOut.delay(isActive ? 0.5 : 0.4), value: isActive)
-                SpeedAndCadenceBlock(bleManager: bleManager, isLowPowerMode: $isLowPowerMode)
+                SpeedAndCadenceBlock(bleManager: bleManager, locationHelper: locationHelper, isLowPowerMode: $isLowPowerMode)
                     .opacity(isActive ? 1 : 0)
                     .offset(x:isActive ? 0 : 200, y: 0)
                     .animation(.easeOut.delay(isActive ? 0.6 : 0.3), value: isActive)
@@ -36,7 +36,7 @@ struct ActiveWorkoutView: View {
                     .opacity(isActive ? 1 : 0)
                     .offset(x:isActive ? 0 : 200, y: 0)
                     .animation(.easeOut.delay(isActive ? 0.9 : 0), value: isActive)
-                PauseButton(isActive: $isActive)
+                PauseButton(locationHelper: locationHelper, isActive: $isActive)
                     .frame(width: UIScreen.main.bounds.width * 100/428, height:UIScreen.main.bounds.height * 100/926)
             }
             .padding(.horizontal)
@@ -59,6 +59,7 @@ struct ActiveWorkoutView_Previews: PreviewProvider {
 
 struct SpeedAndCadenceBlock: View {
     @ObservedObject var bleManager: BLEManager
+    @ObservedObject var locationHelper: LocationHelper
     @Binding var isLowPowerMode: Bool
     var body: some View {
         ZStack {
@@ -71,9 +72,11 @@ struct SpeedAndCadenceBlock: View {
                     .stroke(Color.green)
             }
             HStack(spacing: 0) {
-                
+                if bleManager.speedSensorIsConnected {
                 StatisticsView(image: Image(systemName: "speedometer"), imageColor: .green, stat: $bleManager.speedLabel, unit: "mph")
-                   
+                } else {
+                    StatisticsView(image: Image(systemName: "speedometer"), imageColor: .green, stat: $locationHelper.speed, unit: "mph")
+                }
                 
                 StatisticsView(image: Image("Crank"), imageColor: .green, stat: $bleManager.cadenceLabel, unit: "rpm")
                 
@@ -259,7 +262,7 @@ struct StatisticsView: View {
                     .shadow(color: .black.opacity(0.25), radius: 4, x: 0, y: 4)
                     
                 Text(stat)
-                    .font(.system(size: g.size.height * 64/150, weight: .bold))
+                    .font(.system(size: g.size.height * 64/150, weight: .bold).monospacedDigit())
                     .foregroundColor(.white)
                     
                     
@@ -276,10 +279,12 @@ struct StatisticsView: View {
 }
 
 struct PauseButton: View {
+    @ObservedObject var locationHelper: LocationHelper
     @Binding var isActive: Bool
     var body: some View {
         Button(action: {
             // Do something
+            locationHelper.stopTracking()
             withAnimation(.spring()) {
             isActive.toggle()
             }
