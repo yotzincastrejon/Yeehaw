@@ -172,7 +172,7 @@ struct DistanceBlock: View {
                                     .frame(height: g.size.height * 25/150)
                                     .shadow(color: .black.opacity(0.25), radius: 4, x: 0, y: 4)
                                 HStack(alignment: .firstTextBaseline, spacing: 2) {
-                                Text("1096")
+                                    Text(locationHelper.elevationGainString)
                                     .font(.title2)
                                     .fontWeight(.bold)
                                     .foregroundColor(.white)
@@ -190,7 +190,7 @@ struct DistanceBlock: View {
                                     .frame(height: g.size.height * 25/150)
                                     .shadow(color: .black.opacity(0.25), radius: 4, x: 0, y: 4)
                                 HStack(alignment: .firstTextBaseline, spacing: 2) {
-                                Text("1")
+                                    Text(locationHelper.elevationSlope)
                                     .font(.title2)
                                     .fontWeight(.bold)
                                     .foregroundColor(.white)

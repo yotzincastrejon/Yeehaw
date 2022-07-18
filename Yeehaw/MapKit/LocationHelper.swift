@@ -19,7 +19,10 @@ class LocationHelper: NSObject, ObservableObject, CLLocationManagerDelegate {
     
     @Published var speed = "--"
     @Published var traveledDistanceString = "--"
+    @Published var elevationGainString = "--"
+    @Published var elevationSlope = "--"
     var distanceTraveled: Double = 0
+    var elevationGain: Double = 0
     var lastLocation: CLLocation?
     override init() {
         super.init()
@@ -73,7 +76,7 @@ class LocationHelper: NSObject, ObservableObject, CLLocationManagerDelegate {
     func updateLocationStatistics(location: CLLocation) {
         updateSpeed(metersPerSecond: location.speed)
         updateDistance(location: location)
-        
+        updateElevation(location: location)
         
     }
     
@@ -99,6 +102,24 @@ class LocationHelper: NSObject, ObservableObject, CLLocationManagerDelegate {
             traveledDistanceString = String(format: "%0.2f", miles)
         }
         lastLocation = location
+    }
+    
+    func updateElevation(location: CLLocation) {
+        if let last = lastLocation {
+            if distanceTraveled > 0 {
+            let rise = location.altitude - last.altitude
+            let run = distanceTraveled
+            let slope = rise / run
+            elevationSlope = String(format: "%0.1f", slope)
+            }
+            if location.altitude > last.altitude {
+                let meters = location.altitude - last.altitude
+                let feet = meters * 3.28083989501312
+                elevationGain += feet
+                elevationGainString = String(Int(elevationGain))
+                print(elevationGain)
+            }
+        }
     }
     
     func startTracking() {
