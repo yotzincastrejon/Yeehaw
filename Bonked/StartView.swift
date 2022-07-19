@@ -20,8 +20,8 @@ struct StartView: View {
 //                    .fill(Color(hex: "201D23").opacity(0.30))
 //                    .background(.ultraThinMaterial)
 //                    .frame(height: g.size.height)
-//                Rectangle()
-//                    .fill(Color(uiColor: .secondarySystemGroupedBackground))
+                Rectangle()
+                    .fill(Color(uiColor: .secondarySystemGroupedBackground))
                 
                 
                 HStack {
