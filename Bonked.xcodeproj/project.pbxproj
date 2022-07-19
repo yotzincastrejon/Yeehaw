@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		FA22278627FF90C80024067C /* RSSISignalStrength.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA22278527FF90C80024067C /* RSSISignalStrength.swift */; };
-		FA22D8C12602586900D3849C /* YeehawApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA22D8C02602586900D3849C /* YeehawApp.swift */; };
+		FA22D8C12602586900D3849C /* BonkedApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA22D8C02602586900D3849C /* BonkedApp.swift */; };
 		FA22D8C32602586900D3849C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA22D8C22602586900D3849C /* ContentView.swift */; };
 		FA22D8C52602586A00D3849C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FA22D8C42602586A00D3849C /* Assets.xcassets */; };
 		FA22D8C82602586A00D3849C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FA22D8C72602586A00D3849C /* Preview Assets.xcassets */; };
@@ -44,8 +44,8 @@
 
 /* Begin PBXFileReference section */
 		FA22278527FF90C80024067C /* RSSISignalStrength.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSSISignalStrength.swift; sourceTree = "<group>"; };
-		FA22D8BD2602586900D3849C /* Yeehaw.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Yeehaw.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		FA22D8C02602586900D3849C /* YeehawApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YeehawApp.swift; sourceTree = "<group>"; };
+		FA22D8BD2602586900D3849C /* Bonked.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Bonked.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		FA22D8C02602586900D3849C /* BonkedApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BonkedApp.swift; sourceTree = "<group>"; };
 		FA22D8C22602586900D3849C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		FA22D8C42602586A00D3849C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FA22D8C72602586A00D3849C /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -68,7 +68,7 @@
 		FA771076261E7C690028EAF3 /* LocationHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationHelper.swift; sourceTree = "<group>"; };
 		FA771079261E7D080028EAF3 /* HealthKitManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitManager.swift; sourceTree = "<group>"; };
 		FA771080261EB12F0028EAF3 /* LittleBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LittleBox.swift; sourceTree = "<group>"; };
-		FAB0131A261A75160048BC0C /* Yeehaw.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Yeehaw.entitlements; sourceTree = "<group>"; };
+		FAB0131A261A75160048BC0C /* Bonked.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Bonked.entitlements; sourceTree = "<group>"; };
 		FAB0131C261A75170048BC0C /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
 		FAB4962E2602C3B600EC6917 /* MapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
 		FAB496312602C49000EC6917 /* FullScreenMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullScreenMap.swift; sourceTree = "<group>"; };
@@ -109,7 +109,7 @@
 			isa = PBXGroup;
 			children = (
 				FA6F989B261BAF8400A1B905 /* Stopwatch */,
-				FA22D8BF2602586900D3849C /* Yeehaw */,
+				FA22D8BF2602586900D3849C /* Bonked */,
 				FA22D8BE2602586900D3849C /* Products */,
 				FAB0131B261A75170048BC0C /* Frameworks */,
 			);
@@ -118,16 +118,16 @@
 		FA22D8BE2602586900D3849C /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				FA22D8BD2602586900D3849C /* Yeehaw.app */,
+				FA22D8BD2602586900D3849C /* Bonked.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		FA22D8BF2602586900D3849C /* Yeehaw */ = {
+		FA22D8BF2602586900D3849C /* Bonked */ = {
 			isa = PBXGroup;
 			children = (
-				FAB0131A261A75160048BC0C /* Yeehaw.entitlements */,
-				FA22D8C02602586900D3849C /* YeehawApp.swift */,
+				FAB0131A261A75160048BC0C /* Bonked.entitlements */,
+				FA22D8C02602586900D3849C /* BonkedApp.swift */,
 				FA3AFE9D2613B02900B2755E /* BLE */,
 				FAD60D24261285D200C1C8DE /* Fonts */,
 				FA735C182620FC130057A951 /* MainView.swift */,
@@ -154,7 +154,7 @@
 				FA22D8C62602586A00D3849C /* Preview Content */,
 				FAD998A42800DCAD00CC1AB5 /* SavedDevices.xcdatamodeld */,
 			);
-			path = Yeehaw;
+			path = Bonked;
 			sourceTree = "<group>";
 		};
 		FA22D8C62602586A00D3849C /* Preview Content */ = {
@@ -211,9 +211,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		FA22D8BC2602586900D3849C /* Yeehaw */ = {
+		FA22D8BC2602586900D3849C /* Bonked */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = FA22D8CC2602586A00D3849C /* Build configuration list for PBXNativeTarget "Yeehaw" */;
+			buildConfigurationList = FA22D8CC2602586A00D3849C /* Build configuration list for PBXNativeTarget "Bonked" */;
 			buildPhases = (
 				FA22D8B92602586900D3849C /* Sources */,
 				FA22D8BA2602586900D3849C /* Frameworks */,
@@ -223,9 +223,9 @@
 			);
 			dependencies = (
 			);
-			name = Yeehaw;
+			name = Bonked;
 			productName = Yeehaw;
-			productReference = FA22D8BD2602586900D3849C /* Yeehaw.app */;
+			productReference = FA22D8BD2602586900D3849C /* Bonked.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -242,7 +242,7 @@
 					};
 				};
 			};
-			buildConfigurationList = FA22D8B82602586900D3849C /* Build configuration list for PBXProject "Yeehaw" */;
+			buildConfigurationList = FA22D8B82602586900D3849C /* Build configuration list for PBXProject "Bonked" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -255,7 +255,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				FA22D8BC2602586900D3849C /* Yeehaw */,
+				FA22D8BC2602586900D3849C /* Bonked */,
 			);
 		};
 /* End PBXProject section */
@@ -285,7 +285,7 @@
 				FA4CF79E286AB91200AC071C /* SensorGrid.swift in Sources */,
 				FA22278627FF90C80024067C /* RSSISignalStrength.swift in Sources */,
 				FA771081261EB12F0028EAF3 /* LittleBox.swift in Sources */,
-				FA22D8C12602586900D3849C /* YeehawApp.swift in Sources */,
+				FA22D8C12602586900D3849C /* BonkedApp.swift in Sources */,
 				FA3AFE9F2613B03B00B2755E /* BLEManager.swift in Sources */,
 				FA6BE0F3286BC9EB00B37C29 /* ActiveWorkoutView.swift in Sources */,
 				FAD998A82800E07400CC1AB5 /* Persistence.swift in Sources */,
@@ -433,19 +433,19 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = Yeehaw/Yeehaw.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Bonked/Bonked.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_ASSET_PATHS = "\"Yeehaw/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"Bonked/Preview Content\"";
 				DEVELOPMENT_TEAM = YVJLT6Y577;
 				ENABLE_PREVIEWS = YES;
-				INFOPLIST_FILE = Yeehaw/Info.plist;
+				INFOPLIST_FILE = Bonked/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 0.1;
-				PRODUCT_BUNDLE_IDENTIFIER = HRA.Yeehaw;
+				PRODUCT_BUNDLE_IDENTIFIER = com.yotzincastrejon.Bonked;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -457,19 +457,19 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = Yeehaw/Yeehaw.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Bonked/Bonked.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_ASSET_PATHS = "\"Yeehaw/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"Bonked/Preview Content\"";
 				DEVELOPMENT_TEAM = YVJLT6Y577;
 				ENABLE_PREVIEWS = YES;
-				INFOPLIST_FILE = Yeehaw/Info.plist;
+				INFOPLIST_FILE = Bonked/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 0.1;
-				PRODUCT_BUNDLE_IDENTIFIER = HRA.Yeehaw;
+				PRODUCT_BUNDLE_IDENTIFIER = com.yotzincastrejon.Bonked;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -479,7 +479,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		FA22D8B82602586900D3849C /* Build configuration list for PBXProject "Yeehaw" */ = {
+		FA22D8B82602586900D3849C /* Build configuration list for PBXProject "Bonked" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				FA22D8CA2602586A00D3849C /* Debug */,
@@ -488,7 +488,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		FA22D8CC2602586A00D3849C /* Build configuration list for PBXNativeTarget "Yeehaw" */ = {
+		FA22D8CC2602586A00D3849C /* Build configuration list for PBXNativeTarget "Bonked" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				FA22D8CD2602586A00D3849C /* Debug */,
