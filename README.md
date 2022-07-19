@@ -1,4 +1,4 @@
-# Yeehaw
+# Bonked
 A Cycling Computer. 
 This computer includes 
 - Bluetooth support to both heart rate sensors and speed and cadence sensor
