@@ -6,10 +6,9 @@
 //
 
 import SwiftUI
-import CoreData
 
 @main
-struct YeehawApp: App {
+struct BonkedApp: App {
     var body: some Scene {
         WindowGroup {
             MainView()
