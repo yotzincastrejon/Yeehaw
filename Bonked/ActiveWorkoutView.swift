@@ -204,6 +204,12 @@ struct DistanceBlock: View {
                         
                     }.frame(maxWidth: .infinity)
                 }
+                
+                VStack {
+                    Text(locationHelper.courseDegrees)
+                    Text("\(locationHelper.windSpeed)")
+                    Text("\(locationHelper.degrees)")
+                }
             }
             .frame(width: g.size.width, height: g.size.height)
         }

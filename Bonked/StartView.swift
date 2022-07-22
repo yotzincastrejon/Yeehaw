@@ -22,9 +22,6 @@ struct StartView: View {
 //                    .frame(height: g.size.height)
                 Rectangle()
                     .fill(Color(uiColor: .secondarySystemGroupedBackground))
-                
-                
-                
                 HStack {
                     Spacer()
                     GoalsButton(image: Image("medal"), height: 33)

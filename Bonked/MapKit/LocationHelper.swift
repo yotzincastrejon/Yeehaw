@@ -21,6 +21,9 @@ class LocationHelper: NSObject, ObservableObject, CLLocationManagerDelegate {
     @Published var traveledDistanceString = "--"
     @Published var elevationGainString = "--"
     @Published var elevationSlope = "--"
+    @Published var courseDegrees = "--"
+    @Published var windSpeed = 0.0
+    @Published var degrees = 0.0
     var distanceTraveled: Double = 0
     var elevationGain: Double = 0
     var lastLocation: CLLocation?
@@ -77,6 +80,8 @@ class LocationHelper: NSObject, ObservableObject, CLLocationManagerDelegate {
         updateSpeed(metersPerSecond: location.speed)
         updateDistance(location: location)
         updateElevation(location: location)
+        //expressed in degrees
+        courseDegrees = String(format: "%0.2f",location.course)
         
     }
     
@@ -124,6 +129,7 @@ class LocationHelper: NSObject, ObservableObject, CLLocationManagerDelegate {
     
     func startTracking() {
         locationManager.startUpdatingLocation()
+        windRequest()
     }
     
     func stopTracking() {
@@ -136,6 +142,58 @@ class LocationHelper: NSObject, ObservableObject, CLLocationManagerDelegate {
         distanceTraveled = 0
         traveledDistanceString = "--"
     }
+    
+    func getWindSpeed() {
+        windRequest()
+    }
+    
+    func windRequest() {
+        
+        if let location = locationManager.location {
+            let lat = location.coordinate.latitude.description
+            let lon = location.coordinate.longitude.description
+            print("lat \(lat)")
+            print("lon \(lon)")
+        
+        let apiKey = "04c7f638d81d7019d5057bf23c6586c9"
+        
+        let url = URL(string: "https://api.openweathermap.org/data/2.5/weather?lat=\(lat)&lon=\(lon)&appid=\(apiKey)")
+        
+        let task = URLSession.shared.dataTask(with: url!) { [self] data, response, error in
+            guard let safeData = data,
+                  let response = response as? HTTPURLResponse,
+                  error == nil else {                                              // check for fundamental networking error
+                      print("error", error ?? "Unknown error")
+
+                      return
+                  }
+
+            guard (200 ... 299) ~= response.statusCode else {                    // check for http errors
+                print("statusCode should be 2xx, but is \(response.statusCode)")
+                print("response = \(response)")
+                return
+            }
+            do {
+                let response = try JSONDecoder().decode(Weather.self, from: safeData)
+                
+                DispatchQueue.main.async { [self] in
+                    //m/s
+                    windSpeed = response.wind?.speed ?? 0
+                    //degress from 360
+                    degrees = response.wind?.deg ?? 0
+                }
+                print(response.dt)
+                
+            } catch {
+                print(error.localizedDescription)
+                print(String(describing: error))
+            }
+        }
+        task.resume()
+        }
+    }
+
+    
 }
 
 //extension LocationHelper: CLLocationManagerDelegate {
@@ -312,3 +370,75 @@ class LocationHelper: NSObject, ObservableObject, CLLocationManagerDelegate {
 //        locationManager.stopUpdatingLocation()
 //    }
 //}
+
+
+
+
+
+
+struct Weather: Codable {
+    let coord: Coord?
+    let weather: [WeatherElement]?
+    let base: String?
+    let main: Main?
+    let visibility: Double?
+    let wind: Wind?
+    let clouds: Clouds?
+    let dt: Double?
+    let sys: Sys?
+    let timezone, id: Double?
+    let name: String?
+    let cod: Double?
+}
+
+// MARK: - Clouds
+struct Clouds: Codable {
+    let all: Double?
+}
+
+// MARK: - Coord
+struct Coord: Codable {
+    let lon, lat: Double?
+}
+
+// MARK: - Main
+struct Main: Codable {
+    let temp, feelsLike, tempMin, tempMax: Double?
+    let pressure, humidity, seaLevel, grndLevel: Double?
+
+    enum CodingKeys: String, CodingKey {
+        case temp
+        case feelsLike = "feels_like"
+        case tempMin = "temp_min"
+        case tempMax = "temp_max"
+        case pressure, humidity
+        case seaLevel = "sea_level"
+        case grndLevel = "grnd_level"
+    }
+}
+
+// MARK: - Sys
+struct Sys: Codable {
+    let type, id: Double?
+    let country: String?
+    let sunrise, sunset: Double?
+}
+
+// MARK: - WeatherElement
+struct WeatherElement: Codable {
+    let id: Double?
+    let main, weatherDescription, icon: String?
+
+    enum CodingKeys: String, CodingKey {
+        case id, main
+        case weatherDescription = "description"
+        case icon
+    }
+}
+
+// MARK: - Wind
+struct Wind: Codable {
+    let speed: Double?
+    let deg: Double?
+    let gust: Double?
+}
